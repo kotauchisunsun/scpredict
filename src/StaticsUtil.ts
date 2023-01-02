@@ -22,6 +22,6 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
     return k.where(k.isNaN().logicalNot(), d0)
 }
 
-export function resampling(sourceData: tf.Tensor1D, samplingCount: number): tf.Tensor1D {
-    return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32"))
+export function resampling(sourceData: tf.Tensor1D, samplingCount: number, seed?: number): tf.Tensor1D {
+    return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32", seed))
 }

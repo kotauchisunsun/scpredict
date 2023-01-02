@@ -13,7 +13,7 @@ export class LineCountPredictor {
     ) {
     }
 
-    public static predict(lineCount: number, manHourSamplingCount: number, manHourResamplingCount: number, monthSamplingCount: number, monthResamplingCount: number): LineCountPredictor {
+    public static predict(lineCount: number, manHourSamplingCount: number, manHourResamplingCount: number, monthSamplingCount: number, monthResamplingCount: number, seed?: number): LineCountPredictor {
         const manHourSamples = lezlm(
             c.loc_man_hour.coefficient,
             c.loc_man_hour.intercept,
@@ -21,7 +21,9 @@ export class LineCountPredictor {
             tf.randomNormal(
                 [manHourSamplingCount],
                 c.loc_man_hour.mean,
-                c.loc_man_hour.std
+                c.loc_man_hour.std,
+                'float32',
+                seed
             )
         );
 
@@ -33,11 +35,13 @@ export class LineCountPredictor {
             tf.randomNormal(
                 [manHourResamplingCount * monthSamplingCount],
                 c.man_hour_month.mean,
-                c.man_hour_month.std
+                c.man_hour_month.std,
+                'float32',
+                seed
             )
         );
 
-        const monthResamples = resampling(monthSampling, monthResamplingCount);
+        const monthResamples = resampling(monthSampling, monthResamplingCount, seed);
 
         const manHourStatics = Statics.build(manHourSamples);
         const monthStatics = Statics.build(monthSampling);

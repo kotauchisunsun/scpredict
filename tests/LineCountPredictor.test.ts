@@ -29,7 +29,8 @@ test("predict LineCountStatics", () => {
         manHourSamplingCount,
         manHourResamplingCount,
         monthSamplingCount,
-        monthResamplingCount
+        monthResamplingCount,
+        0
     );
 
     console.log("man-hour:")
