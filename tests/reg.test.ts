@@ -181,7 +181,7 @@ describe('ノイズ項付き線形回帰が', (): void => {
         const x = tf.tensor1d([0.0, 1.0, 2.0]);
         const z = tf.tensor1d([3.0, 3.0]);
 
-        expect(() => { reg.zlm(a, b, x, z); }).toThrowError();
+        expect(() => { reg.zlm(a, b, x, z); }).toThrow();
     })
 })
 

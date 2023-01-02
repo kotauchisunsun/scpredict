@@ -24,7 +24,7 @@ export class Statics {
             p[3],
             p[0],
             p[4]
-        );
+        )
     }
 
     public print() {
@@ -33,6 +33,6 @@ export class Statics {
             `median: ${this.median}\n` +
             `50%:    ${this.p50Lower} - ${this.p50Upper}\n` +
             `95%:    ${this.p95Lower} - ${this.p95Upper}`
-        );
+        )
     }
 }

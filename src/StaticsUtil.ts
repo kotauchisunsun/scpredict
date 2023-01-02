@@ -14,7 +14,7 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
     const d0 = sorted.gather(floor)
     const d1 = sorted.gather(ceil)
     
-    const r = (p.sub(p0)).div(p1.sub(p0));
+    const r = (p.sub(p0)).div(p1.sub(p0))
     const s = d1.sub(d0)
 
     const k = d0.add(s.mul(r))
@@ -23,5 +23,5 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
 }
 
 export function resampling(sourceData: tf.Tensor1D, samplingCount: number): tf.Tensor1D {
-    return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32"));
+    return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32"))
 }
