@@ -20,6 +20,7 @@ const floatLogConstraint = {
 }
 
 describe("Property Based Testing", () => {
+    // eslint-disable-next-line jest/expect-expect
     test('a*x+b == a*x+b', () => fc.assert(
         fc.property(
             fc.float(floatConstraint),
@@ -36,6 +37,7 @@ describe("Property Based Testing", () => {
         )
     ))
 
+    // eslint-disable-next-line jest/expect-expect
     test('a*(x+k)+b == a*x+b+a*k', () => fc.assert(
         fc.property(
             fc.float(floatConstraint),
@@ -53,6 +55,7 @@ describe("Property Based Testing", () => {
         )
     ))
 
+    // eslint-disable-next-line jest/expect-expect
     test('a*[x]+b == a*[x]+b', () => fc.assert(
         fc.property(
             fc.integer({ min: 1, max: 1000 }),
@@ -79,6 +82,7 @@ describe("Property Based Testing", () => {
         )
     ))
 
+    // eslint-disable-next-line jest/expect-expect
     test('a*[x+k]+b == a*[x]+b+a*[k]', () => fc.assert(
         fc.property(
             fc.integer({ min: 1, max: 1000}),
@@ -107,6 +111,7 @@ describe("Property Based Testing", () => {
         )
     ))
 
+    // eslint-disable-next-line jest/expect-expect
     test('exp(a*log(exp(x))+b+z) == exp(a*x+b+z)', () => fc.assert(
         fc.property(
             fc.integer({min: 1 , max:1000}),

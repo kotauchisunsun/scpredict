@@ -15,6 +15,7 @@ function expectStatics(statics: Statics, expected: number[], errorRange = 0.1): 
     expectErrorRange(statics.p95Upper, expected[5], errorRange);
 }
 
+// eslint-disable-next-line jest/expect-expect
 test("predict LineCountStatics", () => {
     const lineCount = 4081;
 
@@ -132,6 +133,7 @@ test("predict LineCountStatics", () => {
     )
 })
 
+// eslint-disable-next-line jest/no-commented-out-tests
 /*
 test("Sample", () => {
     const lineCounts = [
