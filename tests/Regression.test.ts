@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 import * as fc from 'fast-check';
-import * as reg from "../src/reg";
+import * as reg from "../src/Regression";
 
 const ce = {
     noNaN: true,

@@ -3,7 +3,7 @@ import * as c from "./config.json";
 import { Statics } from "./Statics";
 import { DevelopStatics } from "./DevelopStatics";
 import { resampling } from "./StaticsUtil";
-import { lezlm } from "./reg";
+import { lezlm } from "./Regression";
 
 export class LineCountPredictor {
     public constructor(
