@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest",
+    "test": "npx jest --coverage",
     "lint": "npx eslint ."
   },
   "keywords": [],
