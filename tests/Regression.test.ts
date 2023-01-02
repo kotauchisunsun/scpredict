@@ -2,34 +2,35 @@ import * as tf from "@tensorflow/tfjs";
 import * as fc from 'fast-check';
 import * as reg from "../src/Regression";
 
-const ce = {
+const notErrorConstraint = {
     noNaN: true,
     noDefaultInfinity: true
 }
 
-const c = {
+const floatConstraint = {
     max:    1<<6,
     min: - (1 << 6),
-    ...ce
+    ...notErrorConstraint
 }
 
-const c2 = {
+const floatLogConstraint = {
     max:   8,
     min: - 8,
-    ...ce
+    ...notErrorConstraint
 }
 
 describe("Property Based Testing", () => {
     test('a*x+b == a*x+b', () => fc.assert(
         fc.property(
-            fc.float(c), fc.float(c), fc.float(c),
+            fc.float(floatConstraint),
+            fc.float(floatConstraint),
+            fc.float(floatConstraint),
             (a, x, b) => {
                 const c = a * x + b;
                 const d = reg.lm(a, b, tf.tensor1d([x])).arraySync()[0];
                 const eps1 = Math.abs(c - d);
                 const eps2 = Math.abs(d - c);
                 const threshold = 1e-3;
-                //console.log(a,x,b, c, d,eps1,eps2,eps1 < threshold, eps2 < threshold);
                 return eps1 < threshold || eps2 < threshold;
             }
         )
@@ -37,14 +38,16 @@ describe("Property Based Testing", () => {
 
     test('a*(x+k)+b == a*x+b+a*k', () => fc.assert(
         fc.property(
-            fc.float(c), fc.float(c), fc.float(c),fc.float(c),
+            fc.float(floatConstraint),
+            fc.float(floatConstraint),
+            fc.float(floatConstraint),
+            fc.float(floatConstraint),
             (a, x, b, k) => {
                 const c = a * x + b + a*k;
                 const d = reg.lm(a, b, tf.tensor1d([x+k])).arraySync()[0];
                 const eps1 = Math.abs(c - d);
                 const eps2 = Math.abs(d - c);
                 const threshold = 1e-3;
-                //console.log(a,x,b, c, d,eps1,eps2,eps1 < threshold, eps2 < threshold);
                 return eps1 < threshold || eps2 < threshold;
             }
         )
@@ -56,7 +59,9 @@ describe("Property Based Testing", () => {
             (l) => { 
                 fc.assert(
                     fc.property(
-                        fc.float(c), fc.float32Array({...c,minLength: l}), fc.float(c),
+                        fc.float(floatConstraint),
+                        fc.float32Array({ ...floatConstraint, minLength: l }),
+                        fc.float(floatConstraint),
                         (a, x, b) => {
                             const d = reg.lm(a, b, tf.tensor1d(x)).arraySync();
                             const threshold = 1e-3;
@@ -64,7 +69,6 @@ describe("Property Based Testing", () => {
                                 const c = a * x[i] + b;
                                 const eps1 = Math.abs(c - v);
                                 const eps2 = Math.abs(v - c);
-                                //console.log(a,b,x[i],c,v,eps1,eps2,eps1 < threshold, eps2< threshold)
                                 return eps1 < threshold || eps2 < threshold;
                             });
                         }
@@ -79,10 +83,13 @@ describe("Property Based Testing", () => {
         fc.property(
             fc.integer({ min: 1, max: 1000}),
             (l) => {
-                const ac = {minLength: l, maxLength: l}
+                const arrayConstraint = {minLength: l, maxLength: l}
                 fc.assert(
                     fc.property(
-                        fc.float(c), fc.float32Array({ ...c,...ac}), fc.float(c), fc.float32Array({ ...c,...ac}),
+                        fc.float(floatConstraint),
+                        fc.float32Array({ ...floatConstraint, ...arrayConstraint }),
+                        fc.float(floatConstraint),
+                        fc.float32Array({ ...floatConstraint, ...arrayConstraint }),
                         (a, x, b, k) => {
                             const d = reg.lm(a, b, tf.tensor1d(x).add(tf.tensor1d(k))).arraySync();
                             const threshold = 1e-3;
@@ -90,7 +97,6 @@ describe("Property Based Testing", () => {
                                 const c = a * x[i] + b + a * k[i];
                                 const eps1 = Math.abs(c - v);
                                 const eps2 = Math.abs(v - c);
-                                //console.log(a,b,x[i],c,v,eps1,eps2,eps1 < threshold, eps2< threshold)
                                 return eps1 < threshold || eps2 < threshold;
                             });
                         }
@@ -105,10 +111,13 @@ describe("Property Based Testing", () => {
         fc.property(
             fc.integer({min: 1 , max:1000}),
             (l) => {
-                const ac = { minLength: l, maxLength: l };
+                const arrayConstraint = { minLength: l, maxLength: l };
                 fc.assert(
                     fc.property(
-                        fc.float(c2), fc.float32Array({min:new Float32Array([1e-15])[0], max:c2.max,...ac,...ce}), fc.float(c2), fc.float32Array({...c2,...ac}),
+                        fc.float(floatLogConstraint),
+                        fc.float32Array({ min: new Float32Array([1e-15])[0], max: floatLogConstraint.max, ...arrayConstraint, ...notErrorConstraint }),
+                        fc.float(floatLogConstraint),
+                        fc.float32Array({ ...floatLogConstraint, ...arrayConstraint }),
                         (a, x, b, z) => {
                             const tx = tf.tensor1d(x);
                             const ex = tx.exp();
