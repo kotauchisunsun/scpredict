@@ -1,5 +1,5 @@
-import { LineCountPredictor } from "../src/LineCountPredictor";
-import { Statics } from "../src/Statics";
+import { LineCountPredictor } from "../LineCountPredictor";
+import { Statics } from "../Statics";
 
 function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 
     expect(actual).toBeGreaterThan(expected * (1 - errorRange))

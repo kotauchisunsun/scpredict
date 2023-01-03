@@ -1,5 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
-import * as q from "../src/StaticsUtil"
+import * as q from "../StaticsUtil"
 
 describe("quantileの計算", () => { 
     test("パターン1", () => { 
