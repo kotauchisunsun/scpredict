@@ -1,4 +1,4 @@
-import * as tf from "@tensorflow/tfjs-node";
+import * as tf from "@tensorflow/tfjs";
 import * as fc from 'fast-check';
 import * as reg from "../Regression";
 

@@ -1,6 +1,6 @@
 import { lezlm } from "./Regression";
 import { Statics } from "./Statics";
-import * as tf from "@tensorflow/tfjs-node";
+import * as tf from "@tensorflow/tfjs";
 import * as c from "./config.json";
 
 export const predictManHour = (lineCount: number, manHourSamplingCount: number, seed?: number): Statics => {

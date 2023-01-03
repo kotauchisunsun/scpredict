@@ -1,5 +1,5 @@
 import { Statics } from "./Statics";
-import * as tf from "@tensorflow/tfjs-node";
+import * as tf from "@tensorflow/tfjs";
 import { lezlm } from "./Regression";
 import * as c from "./config.json";
 
