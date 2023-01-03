@@ -3,24 +3,22 @@ import { LineCountPredictor } from '../core/LineCountPredictor';
 import { Statics } from '../core/Statics';
 import {useReducer} from 'react'
 
+const initalLineCount = 800;
+const manHourSamplingCount = 10000;
+const manHourResamplingCount = 100;
+const monthSamplingCount = 1000;
+const monthResamplingCount = 10000;
+
+const initialLineCountPredictor = LineCountPredictor.predict(
+  initalLineCount,
+  manHourSamplingCount,
+  manHourResamplingCount,
+  monthSamplingCount,
+  monthResamplingCount,
+  0
+);
+
 export const App = () => {
-
-  const initalLineCount = 800;
-
-  const manHourSamplingCount = 10000;
-  const manHourResamplingCount = 100;
-  const monthSamplingCount = 1000;
-  const monthResamplingCount = 10000;
-
-  const initialLineCountPredictor = LineCountPredictor.predict(
-    initalLineCount,
-    manHourSamplingCount,
-    manHourResamplingCount,
-    monthSamplingCount,
-    monthResamplingCount,
-    0
-  );
-
   const [lineCountPredictor, dispatch] = useReducer(
     (state: LineCountPredictor, action: number) => { 
       return LineCountPredictor.predict(
@@ -56,6 +54,7 @@ export const App = () => {
       <div>
         <h2>SLOC</h2>
         <input type="number"
+          min={10}
           defaultValue={initalLineCount}
           onChange={(e) => { dispatch(e.target.valueAsNumber) }}>  
         </input>
