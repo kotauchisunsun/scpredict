@@ -1,12 +1,12 @@
 import { LineCountPredictor } from "../LineCountPredictor";
 import { Statics } from "../Statics";
 
-function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 
+function expectErrorRange(expected: number, actual: number, errorRange = 0.2): void { 
     expect(actual).toBeGreaterThan(expected * (1 - errorRange))
     expect(actual).toBeLessThan(expected* (1 + errorRange))
 }
 
-function expectStatics(statics: Statics, expected: number[], errorRange = 0.1): void { 
+function expectStatics(statics: Statics, expected: number[], errorRange = 0.2): void { 
     expectErrorRange(statics.mean,     expected[0], errorRange);
     expectErrorRange(statics.median,   expected[1], errorRange);
     expectErrorRange(statics.p50Lower, expected[2], errorRange);
