@@ -1,1 +1,3 @@
 personal/*
+coverage/*
+vite.config.ts
