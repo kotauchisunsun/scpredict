@@ -1,17 +1,19 @@
 import './App.css'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 import { Statics } from '../core/Statics';
+import {useReducer} from 'react'
 
-function App() {
-  const lineCount = 4081;
+export const App = () => {
+
+  const initalLineCount = 800;
 
   const manHourSamplingCount = 10000;
   const manHourResamplingCount = 100;
   const monthSamplingCount = 1000;
   const monthResamplingCount = 10000;
 
-  const lineCountPredictor = LineCountPredictor.predict(
-    lineCount,
+  const initialLineCountPredictor = LineCountPredictor.predict(
+    initalLineCount,
     manHourSamplingCount,
     manHourResamplingCount,
     monthSamplingCount,
@@ -19,15 +21,32 @@ function App() {
     0
   );
 
+  const [lineCountPredictor, dispatch] = useReducer(
+    (state: LineCountPredictor, action: number) => { 
+      return LineCountPredictor.predict(
+        action,
+        manHourSamplingCount,
+        manHourResamplingCount,
+        monthSamplingCount,
+        monthResamplingCount,
+        0
+      );
+    },
+    initialLineCountPredictor
+  );
+
   const renderStatics = (header: string, s: Statics) => { 
-    return (<div>
-      <h2>{header}</h2>
-        <p>{s.mean}</p>
-        <p>{s.median}</p>
-        <p>{s.p50Lower}</p>
-        <p>{s.p50Upper}</p>
-        <p>{s.p95Lower}</p>
-        <p>{s.p95Upper}</p>
+    return (
+      <div>
+        <h2>{header}</h2>
+        <div>
+          <p>{s.mean}</p>
+          <p>{s.median}</p>
+          <p>{s.p50Lower}</p>
+          <p>{s.p50Upper}</p>
+          <p>{s.p95Lower}</p>
+          <p>{s.p95Upper}</p>
+        </div>
       </div>
     )
   }
@@ -35,8 +54,11 @@ function App() {
   return (
     <div className="App">
       <div>
-        <input type="text" value="781"></input>
-        <input type="button" value="計算"></input>
+        <h2>SLOC</h2>
+        <input type="number"
+          defaultValue={initalLineCount}
+          onChange={(e) => { dispatch(e.target.valueAsNumber) }}>  
+        </input>
       </div>
       {renderStatics("ManHour", lineCountPredictor.manHourStatics)}
       <div>
@@ -51,5 +73,3 @@ function App() {
     </div>
   )
 }
-
-export default App
