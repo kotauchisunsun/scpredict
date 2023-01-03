@@ -1,32 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { LineCountPredictor } from '../core/LineCountPredictor';
+import { Statics } from '../core/Statics';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const lineCount = 4081;
+
+  const manHourSamplingCount = 10000;
+  const manHourResamplingCount = 100;
+  const monthSamplingCount = 1000;
+  const monthResamplingCount = 10000;
+
+  const lineCountPredictor = LineCountPredictor.predict(
+    lineCount,
+    manHourSamplingCount,
+    manHourResamplingCount,
+    monthSamplingCount,
+    monthResamplingCount,
+    0
+  );
+
+  const renderStatics = (header: string, s: Statics) => { 
+    return (<div>
+      <h2>{header}</h2>
+        <p>{s.mean}</p>
+        <p>{s.median}</p>
+        <p>{s.p50Lower}</p>
+        <p>{s.p50Upper}</p>
+        <p>{s.p95Lower}</p>
+        <p>{s.p95Upper}</p>
+      </div>
+    )
+  }
 
   return (
     <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input type="text" value="781"></input>
+        <input type="button" value="計算"></input>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      {renderStatics("ManHour", lineCountPredictor.manHourStatics)}
+      <div>
+        <h2>DevelopPhase</h2>
+        {renderStatics("All[Month]", lineCountPredictor.monthStatics)}
+        {renderStatics("BaseDesign[Month]", lineCountPredictor.developStatics.baseDesignStatics)}
+        {renderStatics("DetailDesign[Month]", lineCountPredictor.developStatics.detailDesignStatics)}
+        {renderStatics("Develop[Month]", lineCountPredictor.developStatics.developStatics)}
+        {renderStatics("IntegrationTest[Month]", lineCountPredictor.developStatics.integrationTestStatics)}
+        {renderStatics("SystemTest[Month]", lineCountPredictor.developStatics.systemTestStatics)}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
