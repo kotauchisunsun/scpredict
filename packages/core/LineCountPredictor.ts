@@ -4,6 +4,7 @@ import { Statics } from "./Statics";
 import { DevelopStatics } from "./DevelopStatics";
 import { resampling } from "./StaticsUtil";
 import { lezlm } from "./Regression";
+import { predictManHour } from "./predictManHour";
 
 export class LineCountPredictor {
     public constructor(
@@ -14,20 +15,8 @@ export class LineCountPredictor {
     }
 
     public static predict(lineCount: number, manHourSamplingCount: number, manHourResamplingCount: number, monthSamplingCount: number, monthResamplingCount: number, seed?: number): LineCountPredictor {
-        const manHourSamples = lezlm(
-            c.loc_man_hour.coefficient,
-            c.loc_man_hour.intercept,
-            tf.tensor1d([lineCount]),
-            tf.randomNormal(
-                [manHourSamplingCount],
-                c.loc_man_hour.mean,
-                c.loc_man_hour.std,
-                'float32',
-                seed
-            )
-        );
-
-        const manHourResamples = resampling(manHourSamples, manHourResamplingCount);
+        const manHourStatics = predictManHour(lineCount,manHourSamplingCount, seed)
+        const manHourResamples = resampling(manHourStatics.data, manHourResamplingCount);
         const monthSampling = lezlm(
             c.man_hour_month.coefficient,
             c.man_hour_month.intercept,
@@ -43,7 +32,6 @@ export class LineCountPredictor {
 
         const monthResamples = resampling(monthSampling, monthResamplingCount, seed);
 
-        const manHourStatics = Statics.build(manHourSamples);
         const monthStatics = Statics.build(monthSampling);
         const developStatics = DevelopStatics.build(monthResamples);
         return { manHourStatics, monthStatics, developStatics };
