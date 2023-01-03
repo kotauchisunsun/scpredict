@@ -69,7 +69,7 @@ describe("IPAの計算結果と一致している", () => {
     ];
 
     // eslint-disable-next-line jest/expect-expect
-    test.each(table)("ManHour %f", (manHour, median, p50Upper, p50Lower, p95Upper, p95Lower) => {
+    test.each(table)("ManHour %f => Month", (manHour, median, p50Upper, p50Lower, p95Upper, p95Lower) => {
         const data = tf.tensor1d([manHour])
         const s = predictMonth(data, samplingCount, seed);
         expectErrorRange(s.median,   median,   errorRange);

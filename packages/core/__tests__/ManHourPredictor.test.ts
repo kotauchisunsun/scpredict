@@ -66,7 +66,7 @@ describe("IPAの計算結果と一致している", () => {
     
 
     // eslint-disable-next-line jest/expect-expect
-    test.each(table)("SLOC %f", (loc, median, p50Upper, p50Lower, p95Upper, p95Lower) => { 
+    test.each(table)("SLOC %f => ManHour", (loc, median, p50Upper, p50Lower, p95Upper, p95Lower) => { 
         const errorRange = 0.05;
         const manHourSamplingCount = 10000;
         const seed = 1;
