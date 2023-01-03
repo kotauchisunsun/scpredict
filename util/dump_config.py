@@ -3,7 +3,7 @@ from calc_hour_date_regression import *
 import json
 
 
-with open("src/config.json","w") as f:
+with open("src/core/config.json","w") as f:
     r1,m1,s1 = calc_loc_hour_regression()
     c1 = {
         "coefficient" : r1.coef_[0],

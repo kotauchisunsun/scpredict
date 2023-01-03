@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 import * as fc from 'fast-check';
-import * as reg from "../src/Regression";
+import * as reg from "../Regression";
 
 const notErrorConstraint = {
     noNaN: true,
