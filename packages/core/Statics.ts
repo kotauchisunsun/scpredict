@@ -3,6 +3,7 @@ import * as q from "./StaticsUtil";
 
 export class Statics {
     public constructor(
+        public readonly data: tf.Tensor1D,
         public readonly mean: number,
         public readonly median: number,
         public readonly p50Lower: number,
@@ -18,6 +19,7 @@ export class Statics {
         const p = q.quantile(data, percentile).as1D().arraySync();
 
         return new Statics(
+            data,
             m,
             p[2],
             p[1],

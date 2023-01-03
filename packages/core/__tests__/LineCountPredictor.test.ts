@@ -1,4 +1,5 @@
 import { LineCountPredictor } from "../LineCountPredictor";
+import '@tensorflow/tfjs-node';
 import { Statics } from "../Statics";
 
 function expectErrorRange(expected: number, actual: number, errorRange = 0.2): void { 
