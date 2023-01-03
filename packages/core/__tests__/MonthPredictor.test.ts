@@ -1,4 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
+import '@tensorflow/tfjs-node';
 import { predictMonth } from "../predictMonth";
 
 function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 

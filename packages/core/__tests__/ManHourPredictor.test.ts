@@ -1,4 +1,5 @@
 import { predictManHour } from "../predictManHour";
+import '@tensorflow/tfjs-node';
 
 function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 
     expect(actual).toBeGreaterThan(expected * (1 - errorRange))
