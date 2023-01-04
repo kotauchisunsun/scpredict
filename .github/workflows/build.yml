@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 on:
   push:
     branches:
@@ -6,27 +6,37 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  sonarcloud:
+  testing:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      
+      - name: Checkout Code
+        uses: actions/checkout@v3
     
-      - uses: actions/setup-node@v3
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'yarn'
 
-      - name: yarn install
+      - name: Install Library
         run: yarn install --frozen-lockfile
 
-      - name: run lint
+      - name: Run lint
         run: yarn lint
 
-      - name: run test
+      - name: Run Test
         run: yarn test
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Publish Page
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: pages publish --project-name=scrpredict packages/ui/dist
