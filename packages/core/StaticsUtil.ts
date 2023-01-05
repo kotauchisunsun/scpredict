@@ -22,6 +22,12 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
     return k.where(k.isNaN().logicalNot(), d0)
 }
 
+export const percentileOfScore = (data: tf.Tensor1D, score: number) => { 
+    const less = data.less([score]).sum().as1D().arraySync()[0]
+    return less/data.size
+}
+
+
 export function resampling(sourceData: tf.Tensor1D, samplingCount: number, seed?: number): tf.Tensor1D {
     return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32", seed))
 }
