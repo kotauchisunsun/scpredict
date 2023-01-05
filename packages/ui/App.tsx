@@ -1,30 +1,29 @@
 import './App.css'
-/*
+import {useReducer, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
-import { Statics } from '../core/Statics';
-import {useReducer} from 'react'
 
 const initalLineCount = 800;
+const initialPeople = 2.7;
+const initialDay = 97.3;
 const manHourSamplingCount = 10000;
 const manHourResamplingCount = 100;
 const monthSamplingCount = 1000;
 const monthResamplingCount = 10000;
 
-const initialLineCountPredictor = LineCountPredictor.predict(
-  initalLineCount,
-  manHourSamplingCount,
-  manHourResamplingCount,
-  monthSamplingCount,
-  monthResamplingCount,
-  0
-);
-*/
-
 export const App = () => {
-  /*
-  const [lineCountPredictor, dispatch] = useReducer(
-    (state: LineCountPredictor, action: number) => { 
-      return LineCountPredictor.predict(
+  const [people, setPeople] = useState(initialPeople);
+  const [day, setDay] = useState(initialDay);
+
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = ("0" + (today.getMonth() + 1)).slice(-2);
+  const dd = ("0" + today.getDate()).slice(-2);
+  const dateStr = yyyy + '-' + mm + '-' + dd;
+  const [startDate, setStartDate] = useState(dateStr); 
+
+  const [lineCount, dispatch] = useReducer(
+    (state: number, action: number) => {
+      const linePredictor = LineCountPredictor.predict(
         action,
         manHourSamplingCount,
         manHourResamplingCount,
@@ -32,26 +31,20 @@ export const App = () => {
         monthResamplingCount,
         0
       );
-    },
-    initialLineCountPredictor
-  );
+  
+      const manHour = linePredictor.manHourStatics.mean;
+      const manDay = manHour / 8;
+      const month = linePredictor.monthStatics.mean;
+      const day = 20 * month;
+      const people = manDay / day;
+  
+      setPeople(Number(people.toFixed(1)));
+      setDay(Number(day.toFixed(1)));
 
-  const renderStatics = (header: string, s: Statics) => { 
-    return (
-      <div>
-        <h2>{header}</h2>
-        <div>
-          <p>{s.mean}</p>
-          <p>{s.median}</p>
-          <p>{s.p50Lower}</p>
-          <p>{s.p50Upper}</p>
-          <p>{s.p95Lower}</p>
-          <p>{s.p95Upper}</p>
-        </div>
-      </div>
-    )
-  }
-  */
+      return action;
+    },
+    initalLineCount
+  );
 
   return (
     <article className="App">
@@ -63,7 +56,7 @@ export const App = () => {
             <ul>
               <li>
                 <label htmlFor="SLOC">SLOC</label>
-                <input type="number" />
+                <input type="number" defaultValue={lineCount} onChange={(e) => { dispatch(e.target.valueAsNumber) } } />
               </li>
             </ul>
           </form>
@@ -74,15 +67,15 @@ export const App = () => {
             <ul>
               <li>
                 <label htmlFor="man">人数</label>
-                <input type="number" />
+                <input type="number" value={people} onChange={(e) => { setPeople(e.target.valueAsNumber) }} />
               </li>
               <li>
                 <label htmlFor="day">工期(日)</label>
-                <input type="number" />
+                <input type="number" value={day} onChange={(e) => { setDay(e.target.valueAsNumber) }} />
               </li>
               <li>
                 <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" disabled/>
+                <input type="number" value={ (people * day).toFixed(2) } disabled/>
               </li>
             </ul>
           </form>
@@ -101,7 +94,7 @@ export const App = () => {
           <ul>
             <li>
               <label htmlFor="startDate">開始日</label>
-              <input type="date" />
+              <input type="date" value={startDate} onChange={(e) => { setStartDate(e.target.value) }} />
             </li>
             <li>
               <label htmlFor="endDate">締切日</label>
@@ -119,25 +112,4 @@ export const App = () => {
       </section>
     </article>
   )
-
-  /*
-        <div>
-        <h2>SLOC</h2>
-        <input type="number"
-          min={10}
-          defaultValue={initalLineCount}
-          onChange={(e) => { dispatch(e.target.valueAsNumber) }}>  
-        </input>
-      </div>
-      {renderStatics("ManHour", lineCountPredictor.manHourStatics)}
-      <div>
-        <h2>DevelopPhase</h2>
-        {renderStatics("All[Month]", lineCountPredictor.monthStatics)}
-        {renderStatics("BaseDesign[Month]", lineCountPredictor.developStatics.baseDesignStatics)}
-        {renderStatics("DetailDesign[Month]", lineCountPredictor.developStatics.detailDesignStatics)}
-        {renderStatics("Develop[Month]", lineCountPredictor.developStatics.developStatics)}
-        {renderStatics("IntegrationTest[Month]", lineCountPredictor.developStatics.integrationTestStatics)}
-        {renderStatics("SystemTest[Month]", lineCountPredictor.developStatics.systemTestStatics)}
-      </div>
-  */
 }
