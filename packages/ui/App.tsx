@@ -1,8 +1,9 @@
 import './App.css'
-import {useEffect, useReducer, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 import * as tf from "@tensorflow/tfjs";
 import { Percentile } from './Percentile';
+import { Workload } from './Workload';
 
 const manHourSamplingCount = 10000;
 const manHourResamplingCount = 100;
@@ -21,14 +22,14 @@ type AppProps = {
 }
 
 export const App = (props : AppProps) => {
-  const [people, setPeople] = useState<number | null>(null);
+  const [man, setMan] = useState<number | null>(null);
   const [day, setDay] = useState<number | null>(null);
 
   const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
   const [workloadManDay, setWorkloadManDay] = useState<number | null>(null)
 
-  const estimateWorkload = (people: number|null, day: number| null) => { 
-    setPeople(people)
+  const applyWorkload = (people: number|null, day: number| null) => { 
+    setMan(people)
     setDay(day)
 
     if (people == null || day === null) { 
@@ -41,46 +42,53 @@ export const App = (props : AppProps) => {
     setEndDateStr(dumpDateStr(endDate))
   }
 
+  const applyDay = (inputDay: number|null) => { 
+    applyWorkload(man,inputDay)
+  }
+
+  const applyPeople = (inputPeople: number|null) => { 
+    applyWorkload(inputPeople,day)
+  }
+
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date())); 
   const [endDateStr, setEndDateStr] = useState<string | null>(null)
+  const [lineCount, setLineCount] = useState<number | null>(null)
 
-  const [lineCount, dispatch] = useReducer(
-    (state: number | null, action: number | null) => {
-      if (action === null)
-        return state
-      
-      const linePredictor = LineCountPredictor.predict(
-        action,
-        manHourSamplingCount,
-        manHourResamplingCount,
-        monthSamplingCount,
-        monthResamplingCount,
-        0
-      );
+  const applyLineCount = (action: number | null) => { 
+    if (action == null) { 
+      return
+    }
 
-      const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
-      setWorkloadManDayDistribution(workloadManDayDistribution)
-
-      const manHour = linePredictor.manHourStatics.mean;
-      const manDay = manHour / 8;
-      const month = linePredictor.monthStatics.mean;
-      const day = Math.ceil(20 * month);
-      const people = Math.ceil(manDay / day);
+    setLineCount(action)
   
-      estimateWorkload(people,day)
+    const linePredictor = LineCountPredictor.predict(
+      action,
+      manHourSamplingCount,
+      manHourResamplingCount,
+      monthSamplingCount,
+      monthResamplingCount,
+      0
+    );
 
-      return action;
-    },
-    null
-  );
+    const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
+    setWorkloadManDayDistribution(workloadManDayDistribution)
+
+    const manHour = linePredictor.manHourStatics.mean;
+    const manDay = manHour / 8;
+    const month = linePredictor.monthStatics.mean;
+    const day = Math.ceil(20 * month);
+    const people = Math.ceil(manDay / day);
+
+    applyWorkload(people,day)
+  }
 
   useEffect(
-    () => { dispatch(props.lineCount) },
+    () => { applyLineCount(props.lineCount) },
     []
   )
 
   return (
-    <article className="App" onLoad={() => dispatch(props.lineCount)}>
+    <article className="App">
       <section>
         <h1>工数の予測</h1>
         <section>
@@ -89,30 +97,18 @@ export const App = (props : AppProps) => {
             <ul>
               <li>
                 <label htmlFor="SLOC">SLOC</label>
-                <input type="number" value={lineCount?.toString()} onChange={(e) => { dispatch(e.target.valueAsNumber) } } />
+                <input type="number" value={lineCount?.toString()} onChange={(e) => { applyLineCount(e.target.valueAsNumber) } } />
               </li>
             </ul>
           </form>
         </section>
-        <section>
-          <h2>人数・工期の調整</h2>
-          <form>
-            <ul>
-              <li>
-                <label htmlFor="man">人数</label>
-                <input type="number" min={0} value={people?.toString()} onChange={(e) => { estimateWorkload(e.target.valueAsNumber,day) }} />
-              </li>
-              <li>
-                <label htmlFor="day">工期(日)</label>
-                <input type="number" min={0} value={day?.toString()} onChange={(e) => { estimateWorkload(people,e.target.valueAsNumber) }} />
-              </li>
-              <li>
-                <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" value={ workloadManDay?.toString() } disabled/>
-              </li>
-            </ul>
-          </form>
-        </section>
+        <Workload
+          man={man}
+          day={day}
+          manDay={workloadManDay}
+          onChangeMan={applyPeople}
+          onChangeDay={applyDay}
+        />
       </section>
       <section>
         <h1>工数の確率分布</h1>
