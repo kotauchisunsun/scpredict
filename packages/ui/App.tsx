@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 import * as tf from "@tensorflow/tfjs";
 import { Percentile } from './Percentile';
@@ -26,7 +26,7 @@ export const App = (props : AppProps) => {
   const [day, setDay] = useState<number | null>(null);
 
   const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
-  const [workloadManDay, setWorkloadManDay] = useState<number | null>(null)
+  const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null),[man,day])
 
   const applyWorkload = (people: number|null, day: number| null) => { 
     setMan(people)
@@ -35,7 +35,6 @@ export const App = (props : AppProps) => {
     if (people == null || day === null) { 
       return
     }
-    setWorkloadManDay(people * day)
 
     const endDate = new Date(Date.parse(startDateStr))
     endDate.setDate(endDate.getDate() + day);
