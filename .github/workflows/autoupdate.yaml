@@ -1,0 +1,10 @@
+name: AutoUpdate Base Branch
+on:
+  push: {}
+jobs:
+  autoupdate:
+    name: Auto Update Base Branch
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Update Base Branch
+        uses: docker://chinthakagodawita/autoupdate-action:v1
