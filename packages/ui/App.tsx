@@ -3,6 +3,7 @@ import {useEffect, useReducer, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 import * as tf from "@tensorflow/tfjs";
 import { Percentile } from './Percentile';
+import { Workload } from './Workload';
 
 const manHourSamplingCount = 10000;
 const manHourResamplingCount = 100;
@@ -21,14 +22,14 @@ type AppProps = {
 }
 
 export const App = (props : AppProps) => {
-  const [people, setPeople] = useState<number | null>(null);
+  const [man, setMan] = useState<number | null>(null);
   const [day, setDay] = useState<number | null>(null);
 
   const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
   const [workloadManDay, setWorkloadManDay] = useState<number | null>(null)
 
   const estimateWorkload = (people: number|null, day: number| null) => { 
-    setPeople(people)
+    setMan(people)
     setDay(day)
 
     if (people == null || day === null) { 
@@ -94,25 +95,13 @@ export const App = (props : AppProps) => {
             </ul>
           </form>
         </section>
-        <section>
-          <h2>人数・工期の調整</h2>
-          <form>
-            <ul>
-              <li>
-                <label htmlFor="man">人数</label>
-                <input type="number" min={0} value={people?.toString()} onChange={(e) => { estimateWorkload(e.target.valueAsNumber,day) }} />
-              </li>
-              <li>
-                <label htmlFor="day">工期(日)</label>
-                <input type="number" min={0} value={day?.toString()} onChange={(e) => { estimateWorkload(people,e.target.valueAsNumber) }} />
-              </li>
-              <li>
-                <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" value={ workloadManDay?.toString() } disabled/>
-              </li>
-            </ul>
-          </form>
-        </section>
+        <Workload
+          man={man}
+          day={day}
+          manDay={workloadManDay}
+          onChangeMan={(v) => { estimateWorkload(v,day) }}
+          onChangeDay={(v) => { estimateWorkload(man,v)}}
+        />
       </section>
       <section>
         <h1>工数の確率分布</h1>
