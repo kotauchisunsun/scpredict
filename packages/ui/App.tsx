@@ -25,7 +25,7 @@ export const App = () => {
   const [people, setPeople] = useState(initialPeople);
   const [day, setDay] = useState(initialDay);
 
-  const [workloadDistribution,setWorkloadDistribution] = useState<tf.Tensor1D | null>(tf.tensor1d([0, 1]))
+  const [workloadDistribution,setWorkloadDistribution] = useState<tf.Tensor1D | null>(null)
   const [workload, setWorkload] = useState<number | null>(initialWorkLoad)
 
   const estimateWorkload = (people: number, day: number) => { 
