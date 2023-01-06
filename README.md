@@ -53,3 +53,5 @@ A3.3.5 工程別工期：新規開発
 
 - [ソフトウェア開発 分析データ集 2022](https://www.ipa.go.jp/files/000102171.pdf)
 - [産業別にみた賃金](https://www.mhlw.go.jp/toukei/itiran/roudou/chingin/kouzou/z2021/dl/05.pdf)
+
+sample
