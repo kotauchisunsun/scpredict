@@ -43,7 +43,6 @@ export const App = () => {
 
   const [lineCount, dispatch] = useReducer(
     (state: number, action: number) => {
-      console.log(state.toString())
       const linePredictor = LineCountPredictor.predict(
         action,
         manHourSamplingCount,
