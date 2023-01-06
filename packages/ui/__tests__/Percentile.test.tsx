@@ -29,6 +29,22 @@ describe("Percentile tsx", () => {
     expect(screen.getByText("100%")).toBeTruthy();
   })
 
+  it("renders undefined with unknown distribution", () => { 
+    const data = null
+    const score = 3.0
+
+    render(<Percentile data={data} score={score} />)
+    expect(screen.getByText("--%")).toBeTruthy();
+  })
+
+  it("renders undefined with unknown score", () => { 
+    const data = tf.tensor1d([1,2])
+    const score = null
+
+    render(<Percentile data={data} score={score} />)
+    expect(screen.getByText("--%")).toBeTruthy();
+  })
+
   it("renders transition from 0% to 100%", () => { 
     const data = tf.tensor1d([1, 2])
     

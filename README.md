@@ -8,7 +8,10 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
+
+# 工期・工数予測サイト
+
+https://scpredict.facevtuber.com
 
 # ソフトウェア開発に関するデータ
 
