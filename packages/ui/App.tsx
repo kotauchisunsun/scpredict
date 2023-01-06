@@ -25,8 +25,8 @@ export const App = () => {
   const [people, setPeople] = useState(initialPeople);
   const [day, setDay] = useState(initialDay);
 
-  const [workloadDistribution,setWorkloadDistribution] = useState(tf.tensor1d([0, 1]))
-  const [workload, setWorkload] = useState(initialWorkLoad)
+  const [workloadDistribution,setWorkloadDistribution] = useState<tf.Tensor1D | null>(tf.tensor1d([0, 1]))
+  const [workload, setWorkload] = useState<number | null>(initialWorkLoad)
 
   const estimateWorkload = (people: number, day: number) => { 
     setPeople(people)
@@ -89,15 +89,15 @@ export const App = () => {
             <ul>
               <li>
                 <label htmlFor="man">人数</label>
-                <input type="number" value={people} onChange={(e) => { estimateWorkload(e.target.valueAsNumber,day) }} />
+                <input type="number" min={0} value={people} onChange={(e) => { estimateWorkload(e.target.valueAsNumber,day) }} />
               </li>
               <li>
                 <label htmlFor="day">工期(日)</label>
-                <input type="number" value={day} onChange={(e) => { estimateWorkload(people,e.target.valueAsNumber) }} />
+                <input type="number" min={0} value={day} onChange={(e) => { estimateWorkload(people,e.target.valueAsNumber) }} />
               </li>
               <li>
                 <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" value={ workload } disabled/>
+                <input type="number" value={ workload?.toString() } disabled/>
               </li>
             </ul>
           </form>
