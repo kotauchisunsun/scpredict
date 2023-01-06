@@ -24,8 +24,8 @@ export const App = (props : AppProps) => {
   const [people, setPeople] = useState<number | null>(null);
   const [day, setDay] = useState<number | null>(null);
 
-  const [workloadDistribution,setWorkloadDistribution] = useState<tf.Tensor1D | null>(null)
-  const [workload, setWorkload] = useState<number | null>(null)
+  const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
+  const [workloadManDay, setWorkloadManDay] = useState<number | null>(null)
 
   const estimateWorkload = (people: number|null, day: number| null) => { 
     setPeople(people)
@@ -34,7 +34,7 @@ export const App = (props : AppProps) => {
     if (people == null || day === null) { 
       return
     }
-    setWorkload(people * day)
+    setWorkloadManDay(people * day)
 
     const endDate = new Date(Date.parse(startDateStr))
     endDate.setDate(endDate.getDate() + day);
@@ -58,8 +58,8 @@ export const App = (props : AppProps) => {
         0
       );
 
-      const workloadDistribution = linePredictor.manHourStatics.data.div(8).as1D()
-      setWorkloadDistribution(workloadDistribution)
+      const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
+      setWorkloadManDayDistribution(workloadManDayDistribution)
 
       const manHour = linePredictor.manHourStatics.mean;
       const manDay = manHour / 8;
@@ -108,7 +108,7 @@ export const App = (props : AppProps) => {
               </li>
               <li>
                 <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" value={ workload?.toString() } disabled/>
+                <input type="number" value={ workloadManDay?.toString() } disabled/>
               </li>
             </ul>
           </form>
@@ -117,7 +117,7 @@ export const App = (props : AppProps) => {
       <section>
         <h1>工数の確率分布</h1>
       </section>
-      <Percentile data={workloadDistribution} score={workload}/>
+      <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
       <section>
         <h1>リリース完了の予測</h1>
         <form>
