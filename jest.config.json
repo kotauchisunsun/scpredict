@@ -1,4 +1,7 @@
 {
   "preset": "ts-jest",
-  "testEnvironment": "jsdom"
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.css$": ["jest-transform-css", { "modules": true }]
+  }
 }
