@@ -3,8 +3,8 @@ import {useReducer, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 
 const initalLineCount = 800;
-const initialPeople = 2.7;
-const initialDay = 97.3;
+const initialPeople = 3;
+const initialDay = 96;
 const manHourSamplingCount = 10000;
 const manHourResamplingCount = 100;
 const monthSamplingCount = 1000;
@@ -35,11 +35,11 @@ export const App = () => {
       const manHour = linePredictor.manHourStatics.mean;
       const manDay = manHour / 8;
       const month = linePredictor.monthStatics.mean;
-      const day = 20 * month;
-      const people = manDay / day;
+      const day = Math.ceil(20 * month);
+      const people = Math.ceil(manDay / day);
   
-      setPeople(Number(people.toFixed(1)));
-      setDay(Number(day.toFixed(1)));
+      setPeople(people);
+      setDay(day);
 
       return action;
     },
@@ -75,7 +75,7 @@ export const App = () => {
               </li>
               <li>
                 <label htmlFor="manDay">工数(人日)</label>
-                <input type="number" value={ (people * day).toFixed(2) } disabled/>
+                <input type="number" value={ people * day } disabled/>
               </li>
             </ul>
           </form>
