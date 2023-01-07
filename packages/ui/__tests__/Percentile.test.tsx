@@ -14,7 +14,7 @@ describe("Percentile tsx", () => {
   })
 
   it("renders 0%", () => { 
-    const data = tf.tensor1d([1,2])
+    const data = tf.tensor1d([1, 2])
     const score = 0.5
 
     render(<Percentile data={data} score={score} />)
@@ -22,7 +22,7 @@ describe("Percentile tsx", () => {
   })
 
   it("renders 100%", () => { 
-    const data = tf.tensor1d([1,2])
+    const data = tf.tensor1d([1, 2])
     const score = 3.0
 
     render(<Percentile data={data} score={score} />)
@@ -38,7 +38,7 @@ describe("Percentile tsx", () => {
   })
 
   it("renders undefined with unknown score", () => { 
-    const data = tf.tensor1d([1,2])
+    const data = tf.tensor1d([1, 2])
     const score = null
 
     render(<Percentile data={data} score={score} />)

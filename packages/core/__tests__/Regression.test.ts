@@ -70,7 +70,7 @@ describe("Property Based Testing", () => {
             (a, x, b) => {
               const d = reg.lm(a, b, tf.tensor1d(x)).arraySync();
               const threshold = 1e-3;
-              return d.every((v,i) => {
+              return d.every((v, i) => {
                 const c = a * x[i] + b;
                 const eps1 = Math.abs(c - v);
                 const eps2 = Math.abs(v - c);
@@ -116,7 +116,7 @@ describe("Property Based Testing", () => {
   // eslint-disable-next-line jest/expect-expect
   test('exp(a*log(exp(x))+b+z) == exp(a*x+b+z)', () => fc.assert(
     fc.property(
-      fc.integer({min: 1 , max:1000}),
+      fc.integer({min: 1, max:1000}),
       (l) => {
         const arrayConstraint = { minLength: l, maxLength: l };
         fc.assert(
@@ -137,7 +137,7 @@ describe("Property Based Testing", () => {
 
               const ret = d.every(x => x <= 1e-3);
               if (!ret) {
-                console.log(a, x, b, z,d1.arraySync(),d2.arraySync(), d);
+                console.log(a, x, b, z, d1.arraySync(), d2.arraySync(), d);
               }
               return ret;
             }
@@ -163,10 +163,10 @@ describe('線形回帰が', (): void => {
   test('xの引数が3つの要素の時に成功する', (): void => {
     const a = 3.0;
     const b = 2.0;
-    const x = tf.tensor1d([0.0,1.0,2.0]);
+    const x = tf.tensor1d([0.0, 1.0, 2.0]);
 
     const result = reg.lm(a, b, x);
-    expect(result.arraySync()).toEqual([2.0,5.0,8.0]);
+    expect(result.arraySync()).toEqual([2.0, 5.0, 8.0]);
   })
 })
 
@@ -188,7 +188,7 @@ describe('ノイズ項付き線形回帰が', (): void => {
     const z = tf.tensor1d([3.0, 3.0, 1.0]);
 
     const result = reg.zlm(a, b, x, z);
-    expect(result.arraySync()).toEqual([5.0,8.0,9.0]);
+    expect(result.arraySync()).toEqual([5.0, 8.0, 9.0]);
   })
 
   test('xの引数が3つの要素で、ノイズ項が2要素の時、失敗する', (): void => {
@@ -215,10 +215,10 @@ describe('対数変換ノイズ項付き線形回帰の指数変換が', (): voi
   test('xの引数が3つの要素の時に成功する', (): void => {
     const a = 2.0;
     const b = 1.0;
-    const x = tf.tensor1d([3.0,4.0,2.0]).exp();
-    const z = tf.tensor1d([1.0,2.0,1.0]);
+    const x = tf.tensor1d([3.0, 4.0, 2.0]).exp();
+    const z = tf.tensor1d([1.0, 2.0, 1.0]);
 
     const result = reg.lezlm(a, b, x, z);
-    expect(result.arraySync()).toEqual(tf.tensor1d([8.0,11.0,6.0]).exp().arraySync());
+    expect(result.arraySync()).toEqual(tf.tensor1d([8.0, 11.0, 6.0]).exp().arraySync());
   })
 })

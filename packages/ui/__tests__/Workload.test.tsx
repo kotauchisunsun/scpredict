@@ -6,7 +6,7 @@ const getManInput = () => {
 }
 
 const getDayInput = () => { 
-  return screen.getByRole("spinbutton",{name:"工期(日)"}) as HTMLInputElement  
+  return screen.getByRole("spinbutton", {name:"工期(日)"}) as HTMLInputElement  
 }
 
 const getManDayInput = () => { 
@@ -14,7 +14,7 @@ const getManDayInput = () => {
 }
 
 describe("Workloadのセクションで", () => { 
-  it("初期化時に初期値を入力する",() => { 
+  it("初期化時に初期値を入力する", () => { 
     const man = 10;
     const day = 20;
     const manDay = man * day;

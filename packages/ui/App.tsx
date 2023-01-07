@@ -25,8 +25,8 @@ export const App = (props : AppProps) => {
   const [man, setMan] = useState<number | null>(null);
   const [day, setDay] = useState<number | null>(null);
 
-  const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
-  const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null),[man,day])
+  const [workloadManDayDistribution, setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
+  const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
 
   function applyWorkload(man: number | null, day: number | null) {
     setMan(man);

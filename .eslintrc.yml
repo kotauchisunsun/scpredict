@@ -21,3 +21,4 @@ parserOptions:
 rules:
     react/react-in-jsx-scope: 'off'
     indent: ["error",2]
+    comma-spacing: [2, {"before": false, "after": true}]

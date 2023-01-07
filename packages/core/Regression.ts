@@ -18,5 +18,5 @@ export const zlm = (a: number, b: number, x: tf.Tensor1D, z: tf.Tensor1D): tf.Te
  * y = exp(a*ln(x) + b + z)
  */
 export const lezlm = (a: number, b: number, x: tf.Tensor1D, z: tf.Tensor1D): tf.Tensor1D => { 
-  return tf.exp(zlm(a,b,tf.log(x),z))
+  return tf.exp(zlm(a, b, tf.log(x), z))
 }
