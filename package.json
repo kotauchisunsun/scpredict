@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "npx jest --coverage --verbose",
-    "lint": "npx eslint ."
+    "test": "yarn jest --coverage --verbose",
+    "lint": "yarn eslint .",
+    "fix": "yarn eslint . --fix"
   },
   "keywords": [],
   "author": "",
