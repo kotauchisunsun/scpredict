@@ -5,11 +5,7 @@ import * as tf from "@tensorflow/tfjs"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
-
-const manHourSamplingCount = 10000
-const manHourResamplingCount = 100
-const monthSamplingCount = 1000
-const monthResamplingCount = 10000
+import { PredictConfig } from "./PredictConfig"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -19,10 +15,11 @@ const dumpDateStr = (date: Date): string => {
 }
 
 type AppProps = {
-  initialLineCount : number
+  initialLineCount: number,
+  predictConfig: PredictConfig
 }
 
-export const App = (props: AppProps) => {
+export const App = ({initialLineCount, predictConfig}: AppProps) => {
   const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(null)
   const [man, setMan] = useState<number | null>(null)
   const [day, setDay] = useState<number | null>(null)
@@ -67,11 +64,11 @@ export const App = (props: AppProps) => {
 
       const linePredictor = LineCountPredictor.predict(
         action,
-        manHourSamplingCount,
-        manHourResamplingCount,
-        monthSamplingCount,
-        monthResamplingCount,
-        0
+        predictConfig.manHourSamplingCount,
+        predictConfig.manHourResamplingCount,
+        predictConfig.monthSamplingCount,
+        predictConfig.monthResamplingCount,
+        predictConfig.seed
       )
 
       setLineCountPredictor(linePredictor)
@@ -89,12 +86,12 @@ export const App = (props: AppProps) => {
 
       return action
     },
-    props.initialLineCount
+    initialLineCount
   )
 
   useEffect(
-    () => { applyLineCount(props.initialLineCount) },
-    [props.initialLineCount]
+    () => { applyLineCount(initialLineCount) },
+    [initialLineCount]
   )
 
   const dumpManDay = (n?: number) => {
