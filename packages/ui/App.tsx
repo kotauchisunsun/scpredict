@@ -4,6 +4,7 @@ import { LineCountPredictor } from "../core/LineCountPredictor"
 import * as tf from "@tensorflow/tfjs"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
+import { Panel } from "./Panel"
 
 const manHourSamplingCount = 10000
 const manHourResamplingCount = 100
@@ -90,10 +91,9 @@ export const App = (props : AppProps) => {
 
   return (
     <article className="App">
-      <section>
-        <h1>工数の予測</h1>
+      <Panel title="開発規模と開発工数">
         <section>
-          <h2>SLOCから工数の予測</h2>
+          <h2>SLOCから開発工数の予測</h2>
           <form>
             <ul>
               <li>
@@ -110,13 +110,12 @@ export const App = (props : AppProps) => {
           onChangeMan={applyMan}
           onChangeDay={applyDay}
         />
-      </section>
-      <section>
-        <h1>工数の確率分布</h1>
-      </section>
-      <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
-      <section>
-        <h1>リリース完了の予測</h1>
+      </Panel>
+      <Panel title="開発工数の確率分布" />
+      <Panel title="開発工数の妥当性">
+        <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
+      </Panel>
+      <Panel title="リリース完了の予測" >
         <form>
           <ul>
             <li>
@@ -129,14 +128,11 @@ export const App = (props : AppProps) => {
             </li>
           </ul>
         </form>
-      </section>
-      <section>
-        <h1>工期の確率分布</h1>
-      </section>
-      <section>
-        <h1>締め切り完了確率</h1>
-        <span>92%</span>
-      </section>
+      </Panel>
+      <Panel title="工期の確率分布" />
+      <Panel title="締め切り完了確率" >
+        <Percentile data={null} score={null} />
+      </Panel>
     </article>
   )
 }

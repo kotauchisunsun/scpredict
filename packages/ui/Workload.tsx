@@ -9,7 +9,7 @@ type WorkloadProps = {
 export const Workload = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadProps) => {
   return (
     <section>
-      <h2>人数・工期の調整</h2>
+      <h2>想定の開発工数</h2>
       <form>
         <ul>
           <li>

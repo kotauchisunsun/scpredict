@@ -8,7 +8,6 @@ type PercentileProps = {
 };
 
 export const Percentile = (props: PercentileProps) => {
-
   const render = () => {
     if (props.data === null || props.score === null) {
       return "--"
@@ -18,9 +17,6 @@ export const Percentile = (props: PercentileProps) => {
   }
 
   return (
-    <section>
-      <h1>工数の分位数</h1>
-      <span className="percentile">{ render() }%</span>
-    </section>
+    <span className="percentile">{render()}%</span>
   )
 }
