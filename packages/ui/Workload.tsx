@@ -14,11 +14,11 @@ export const Workload = ({ man, day, manDay, onChangeMan, onChangeDay}: Workload
         <ul>
           <li>
             <label htmlFor="man">人数</label>
-            <input id="man" type="number" min={0} value={man == null ? "": man.toString()} onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} />
+            <input id="man" type="number" min={0} value={man == null ? "" : man.toString()}  onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} disabled={ man===null } />
           </li>
           <li>
             <label htmlFor="day">工期(日)</label>
-            <input id="day" type="number" min={0} value={day == null ? "": day.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} />
+            <input id="day" type="number" min={0} value={day == null ? "": day.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} disabled={ day===null } />
           </li>
           <li>
             <label htmlFor="manDay">工数(人日)</label>
