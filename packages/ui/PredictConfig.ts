@@ -12,4 +12,4 @@ export const config: PredictConfig = {
   monthSamplingCount: 1000,
   monthResamplingCount: 10000,
   seed: 1
-};
+}
