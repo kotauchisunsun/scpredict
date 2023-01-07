@@ -14,7 +14,7 @@ export class LineCountPredictor {
 
   public static predict(lineCount: number, manHourSamplingCount: number, manHourResamplingCount: number, monthSamplingCount: number, monthResamplingCount: number, seed?: number): LineCountPredictor {
     const manHourStatics = predictManHour(lineCount, manHourSamplingCount, seed)
-    const manHourResamples = resampling(manHourStatics.data, manHourResamplingCount)
+    const manHourResamples = resampling(manHourStatics.data, manHourResamplingCount, seed)
     const monthStatics = predictMonth(manHourResamples, monthSamplingCount, seed)
     const monthResamples = resampling(monthStatics.data, monthResamplingCount, seed)
 

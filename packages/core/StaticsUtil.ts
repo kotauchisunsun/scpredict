@@ -1,6 +1,6 @@
-import * as tf from "@tensorflow/tfjs"
+import { Tensor1D, randomUniform } from "@tensorflow/tfjs"
 
-export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
+export const quantile = (data: Tensor1D, p: Tensor1D): Tensor1D => {
   const sorted = data.topk(data.size).values.reverse()
 
   const np = p.mul(data.size-1)
@@ -22,12 +22,12 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
   return k.where(k.isNaN().logicalNot(), d0)
 }
 
-export const percentileOfScore = (data: tf.Tensor1D, score: number) => {
+export const percentileOfScore = (data: Tensor1D, score: number) => {
   const less = data.less([score]).sum().as1D().arraySync()[0]
   return less/data.size
 }
 
 
-export function resampling(sourceData: tf.Tensor1D, samplingCount: number, seed?: number): tf.Tensor1D {
-  return sourceData.gather(tf.randomUniform([samplingCount], 0, sourceData.size, "int32", seed))
+export function resampling(sourceData: Tensor1D, samplingCount: number, seed?: number): Tensor1D {
+  return sourceData.gather(randomUniform([samplingCount], 0, sourceData.size, "int32", seed))
 }

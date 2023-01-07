@@ -1,9 +1,9 @@
 import "./Percentile.css"
-import * as tf from "@tensorflow/tfjs"
+import { Tensor1D } from "@tensorflow/tfjs"
 import { percentileOfScore } from "../core/StaticsUtil"
 
 type PercentileProps = {
-  data: tf.Tensor1D | null;
+  data: Tensor1D | null;
   score: number | null;
 };
 

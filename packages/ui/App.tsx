@@ -1,15 +1,10 @@
 import "./App.css"
 import {useEffect, useMemo, useReducer, useState} from "react"
 import { LineCountPredictor } from "../core/LineCountPredictor"
-import * as tf from "@tensorflow/tfjs"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
-
-const manHourSamplingCount = 10000
-const manHourResamplingCount = 100
-const monthSamplingCount = 1000
-const monthResamplingCount = 10000
+import { PredictConfig } from "./PredictConfig"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -19,15 +14,16 @@ const dumpDateStr = (date: Date): string => {
 }
 
 type AppProps = {
-  initialLineCount : number
+  initialLineCount: number,
+  predictConfig: PredictConfig
 }
 
-export const App = (props: AppProps) => {
+export const App = ({initialLineCount, predictConfig}: AppProps) => {
   const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(null)
   const [man, setMan] = useState<number | null>(null)
   const [day, setDay] = useState<number | null>(null)
 
-  const [workloadManDayDistribution, setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
+  const workloadManDayDistribution = useMemo(()=>( lineCountPredictor == null ? null : lineCountPredictor.manHourStatics.data.div(8).as1D()), [lineCountPredictor])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
 
   function applyWorkload(man: number | null, day: number | null) {
@@ -65,23 +61,20 @@ export const App = (props: AppProps) => {
         return state
       }
 
-      const linePredictor = LineCountPredictor.predict(
+      const lineCountPredictor = LineCountPredictor.predict(
         action,
-        manHourSamplingCount,
-        manHourResamplingCount,
-        monthSamplingCount,
-        monthResamplingCount,
-        0
+        predictConfig.manHourSamplingCount,
+        predictConfig.manHourResamplingCount,
+        predictConfig.monthSamplingCount,
+        predictConfig.monthResamplingCount,
+        predictConfig.seed
       )
 
-      setLineCountPredictor(linePredictor)
+      setLineCountPredictor(lineCountPredictor)
 
-      const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
-      setWorkloadManDayDistribution(workloadManDayDistribution)
-
-      const manHour = linePredictor.manHourStatics.mean
+      const manHour = lineCountPredictor.manHourStatics.mean
       const manDay = manHour / 8
-      const month = linePredictor.monthStatics.mean
+      const month = lineCountPredictor.monthStatics.mean
       const day = Math.ceil(20 * month)
       const man = Math.ceil(manDay / day)
 
@@ -89,12 +82,12 @@ export const App = (props: AppProps) => {
 
       return action
     },
-    props.initialLineCount
+    initialLineCount
   )
 
   useEffect(
-    () => { applyLineCount(props.initialLineCount) },
-    [props.initialLineCount]
+    () => { applyLineCount(initialLineCount) },
+    [initialLineCount]
   )
 
   const dumpManDay = (n?: number) => {
