@@ -5,6 +5,10 @@ import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
+import { Statics } from "../core/Statics"
+import { tensor1d } from "@tensorflow/tfjs"
+import { DevelopStatics } from "../core/DevelopStatics"
+import { manHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -14,14 +18,25 @@ const dumpDateStr = (date: Date): string => {
 }
 
 type AppProps = {
-  initialLineCount: number,
   predictConfig: PredictConfig
 }
 
-export const App = ({initialLineCount, predictConfig}: AppProps) => {
-  const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(null)
-  const [man, setMan] = useState<number | null>(null)
-  const [day, setDay] = useState<number | null>(null)
+export const App = ({ predictConfig }: AppProps) => {
+
+  const dummyStatics = new Statics(tensor1d([]), 0, 0, 0, 0, 0, 0)
+  const defaultManHourStatics = new Statics(tensor1d(manHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
+  const defaultMonthStatics = dummyStatics
+  const defaultDevelopStatics = new DevelopStatics(dummyStatics, dummyStatics, dummyStatics, dummyStatics, dummyStatics)
+
+  const initialLineCountPredictor = new LineCountPredictor(
+    defaultManHourStatics,
+    defaultMonthStatics,
+    defaultDevelopStatics
+  )
+
+  const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(initialLineCountPredictor)
+  const [man, setMan] = useState<number | null>(defaultMan)
+  const [day, setDay] = useState<number | null>(defaultDay)
 
   const workloadManDayDistribution = useMemo(()=>( lineCountPredictor == null ? null : lineCountPredictor.manHourStatics.data.div(8).as1D()), [lineCountPredictor])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
@@ -82,13 +97,10 @@ export const App = ({initialLineCount, predictConfig}: AppProps) => {
 
       return action
     },
-    initialLineCount
+    defaultLineCount
   )
 
-  useEffect(
-    () => { applyLineCount(initialLineCount) },
-    [initialLineCount]
-  )
+  applyWorkload(man,day)
 
   const dumpManDay = (n?: number) => {
     if (n == null) {
