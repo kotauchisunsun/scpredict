@@ -61,7 +61,7 @@ export const App = ({initialLineCount, predictConfig}: AppProps) => {
         return state
       }
 
-      const linePredictor = LineCountPredictor.predict(
+      const lineCountPredictor = LineCountPredictor.predict(
         action,
         predictConfig.manHourSamplingCount,
         predictConfig.manHourResamplingCount,
@@ -70,11 +70,11 @@ export const App = ({initialLineCount, predictConfig}: AppProps) => {
         predictConfig.seed
       )
 
-      setLineCountPredictor(linePredictor)
+      setLineCountPredictor(lineCountPredictor)
 
-      const manHour = linePredictor.manHourStatics.mean
+      const manHour = lineCountPredictor.manHourStatics.mean
       const manDay = manHour / 8
-      const month = linePredictor.monthStatics.mean
+      const month = lineCountPredictor.monthStatics.mean
       const day = Math.ceil(20 * month)
       const man = Math.ceil(manDay / day)
 
