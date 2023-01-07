@@ -76,9 +76,9 @@ export const App = (props : AppProps) => {
       const day = Math.ceil(20 * month);
       const man = Math.ceil(manDay / day);
   
-        applyWorkload(man, day)
+      applyWorkload(man, day)
         
-        return action;
+      return action;
     },
     props.initialLineCount
   )
