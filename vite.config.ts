@@ -7,8 +7,10 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      manualChunks: {
-        tfjs: ['@tensorflow/tfjs']
+      output: {
+        manualChunks: {
+          tfjs: ['@tensorflow/tfjs']
+        }
       }
     },
   }
