@@ -1,17 +1,17 @@
-import * as tf from "@tensorflow/tfjs";
-import '@tensorflow/tfjs-node';
-import { predictMonth } from "../predictMonth";
+import * as tf from "@tensorflow/tfjs"
+import "@tensorflow/tfjs-node"
+import { predictMonth } from "../predictMonth"
 
-function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 
+function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void {
   expect(actual).toBeGreaterThan(expected * (1 - errorRange))
   expect(actual).toBeLessThan(expected* (1 + errorRange))
 }
 
 // eslint-disable-next-line jest/expect-expect
 describe("IPAの計算結果と一致している", () => {
-  const errorRange = 0.05;
-  const samplingCount = 10000;
-  const seed = 1;
+  const errorRange = 0.05
+  const samplingCount = 10000
+  const seed = 1
 
   const table = [
     [1224.489796, 4.071660555, 5.31520663, 3.119054597, 8.85448042, 1.872319875],
@@ -66,17 +66,17 @@ describe("IPAの計算結果と一致している", () => {
     [281632.6531, 23.95714499, 31.3170309, 18.32692243, 52.30781199, 10.97244894],
     [287755.102, 24.12564219, 31.5384755, 18.45512828, 52.68146841, 11.04841282],
     [293877.551, 24.29173968, 31.75678204, 18.5814991, 53.04988023, 11.12327896],
-    [300000, 24.45552059, 31.97205905, 18.70609855, 53.41322829, 11.19708556]        
-  ];
+    [300000, 24.45552059, 31.97205905, 18.70609855, 53.41322829, 11.19708556]
+  ]
 
   // eslint-disable-next-line jest/expect-expect
   test.each(table)("ManHour %f => Month", (manHour, median, p50Upper, p50Lower, p95Upper, p95Lower) => {
     const data = tf.tensor1d([manHour])
-    const s = predictMonth(data, samplingCount, seed);
-    expectErrorRange(s.median,   median,   errorRange);
-    expectErrorRange(s.p50Upper, p50Upper, errorRange);
-    expectErrorRange(s.p50Lower, p50Lower, errorRange);
-    expectErrorRange(s.p95Upper, p95Upper, errorRange);
-    expectErrorRange(s.p95Lower, p95Lower, errorRange);
-  });
-});
+    const s = predictMonth(data, samplingCount, seed)
+    expectErrorRange(s.median,   median,   errorRange)
+    expectErrorRange(s.p50Upper, p50Upper, errorRange)
+    expectErrorRange(s.p50Lower, p50Lower, errorRange)
+    expectErrorRange(s.p95Upper, p95Upper, errorRange)
+    expectErrorRange(s.p95Lower, p95Lower, errorRange)
+  })
+})

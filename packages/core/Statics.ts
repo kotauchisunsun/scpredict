@@ -1,5 +1,5 @@
-import * as tf from "@tensorflow/tfjs";
-import * as q from "./StaticsUtil";
+import * as tf from "@tensorflow/tfjs"
+import * as q from "./StaticsUtil"
 
 export class Statics {
   public constructor(
@@ -13,10 +13,10 @@ export class Statics {
   ) { }
 
   public static build(data: tf.Tensor1D): Statics {
-    const percentile = tf.tensor1d([0.025, 0.25, 0.5, 0.75, 0.975]);
+    const percentile = tf.tensor1d([0.025, 0.25, 0.5, 0.75, 0.975])
 
-    const m = data.mean().as1D().arraySync()[0];
-    const p = q.quantile(data, percentile).as1D().arraySync();
+    const m = data.mean().as1D().arraySync()[0]
+    const p = q.quantile(data, percentile).as1D().arraySync()
 
     return new Statics(
       data,

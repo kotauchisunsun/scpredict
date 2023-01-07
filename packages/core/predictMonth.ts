@@ -1,7 +1,7 @@
-import { Statics } from "./Statics";
-import * as tf from "@tensorflow/tfjs";
-import { lezlm } from "./Regression";
-import * as c from "./config.json";
+import { Statics } from "./Statics"
+import * as tf from "@tensorflow/tfjs"
+import { lezlm } from "./Regression"
+import * as c from "./config.json"
 
 export const predictMonth = (manHour: tf.Tensor1D, resamplingCount: number, seed?: number): Statics => {
   const monthSampling = lezlm(
@@ -12,10 +12,10 @@ export const predictMonth = (manHour: tf.Tensor1D, resamplingCount: number, seed
       [resamplingCount * manHour.size],
       c.man_hour_month.mean,
       c.man_hour_month.std,
-      'float32',
+      "float32",
       seed
     )
-  );
+  )
 
-  return Statics.build(monthSampling);
-};
+  return Statics.build(monthSampling)
+}

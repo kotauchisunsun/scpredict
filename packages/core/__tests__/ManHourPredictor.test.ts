@@ -1,13 +1,13 @@
-import { predictManHour } from "../predictManHour";
-import '@tensorflow/tfjs-node';
+import { predictManHour } from "../predictManHour"
+import "@tensorflow/tfjs-node"
 
-function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void { 
+function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void {
   expect(actual).toBeGreaterThan(expected * (1 - errorRange))
   expect(actual).toBeLessThan(expected* (1 + errorRange))
 }
 
 // eslint-disable-next-line jest/expect-expect
-describe("IPAの計算結果と一致している", () => { 
+describe("IPAの計算結果と一致している", () => {
 
   const table = [
     [4081.632653, 3202.639624, 6066.640553, 1690.705173, 20532.71875, 499.5393297],
@@ -64,18 +64,18 @@ describe("IPAの計算結果と一致している", () => {
     [979591.8367, 69820.34218, 132368.8388, 36828.00443, 448722.5338, 10863.90768],
     [1000000, 70634.61561, 133914.4893, 37256.97606, 453974.5607, 10990.15089]
   ]
-    
+
 
   // eslint-disable-next-line jest/expect-expect
-  test.each(table)("SLOC %f => ManHour", (loc, median, p50Upper, p50Lower, p95Upper, p95Lower) => { 
-    const errorRange = 0.05;
-    const manHourSamplingCount = 10000;
-    const seed = 1;
-    const s = predictManHour(loc, manHourSamplingCount, seed);
-    expectErrorRange(s.median,   median,   errorRange);
-    expectErrorRange(s.p50Upper, p50Upper, errorRange);
-    expectErrorRange(s.p50Lower, p50Lower, errorRange);
-    expectErrorRange(s.p95Upper, p95Upper, errorRange);
-    expectErrorRange(s.p95Lower, p95Lower, errorRange);
+  test.each(table)("SLOC %f => ManHour", (loc, median, p50Upper, p50Lower, p95Upper, p95Lower) => {
+    const errorRange = 0.05
+    const manHourSamplingCount = 10000
+    const seed = 1
+    const s = predictManHour(loc, manHourSamplingCount, seed)
+    expectErrorRange(s.median,   median,   errorRange)
+    expectErrorRange(s.p50Upper, p50Upper, errorRange)
+    expectErrorRange(s.p50Lower, p50Lower, errorRange)
+    expectErrorRange(s.p95Upper, p95Upper, errorRange)
+    expectErrorRange(s.p95Lower, p95Lower, errorRange)
   })
 })

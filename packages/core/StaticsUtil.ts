@@ -1,6 +1,6 @@
-import * as tf from "@tensorflow/tfjs";
+import * as tf from "@tensorflow/tfjs"
 
-export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => { 
+export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
   const sorted = data.topk(data.size).values.reverse()
 
   const np = p.mul(data.size-1)
@@ -13,7 +13,7 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
 
   const d0 = sorted.gather(floor)
   const d1 = sorted.gather(ceil)
-    
+
   const r = (p.sub(p0)).div(p1.sub(p0))
   const s = d1.sub(d0)
 
@@ -22,7 +22,7 @@ export const quantile = (data: tf.Tensor1D, p: tf.Tensor1D): tf.Tensor1D => {
   return k.where(k.isNaN().logicalNot(), d0)
 }
 
-export const percentileOfScore = (data: tf.Tensor1D, score: number) => { 
+export const percentileOfScore = (data: tf.Tensor1D, score: number) => {
   const less = data.less([score]).sum().as1D().arraySync()[0]
   return less/data.size
 }

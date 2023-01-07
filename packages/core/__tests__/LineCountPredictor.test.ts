@@ -1,29 +1,29 @@
-import { LineCountPredictor } from "../LineCountPredictor";
-import '@tensorflow/tfjs-node';
-import { Statics } from "../Statics";
+import { LineCountPredictor } from "../LineCountPredictor"
+import "@tensorflow/tfjs-node"
+import { Statics } from "../Statics"
 
-function expectErrorRange(expected: number, actual: number, errorRange = 0.2): void { 
+function expectErrorRange(expected: number, actual: number, errorRange = 0.2): void {
   expect(actual).toBeGreaterThan(expected * (1 - errorRange))
   expect(actual).toBeLessThan(expected* (1 + errorRange))
 }
 
-function expectStatics(statics: Statics, expected: number[], errorRange = 0.2): void { 
-  expectErrorRange(statics.mean,     expected[0], errorRange);
-  expectErrorRange(statics.median,   expected[1], errorRange);
-  expectErrorRange(statics.p50Lower, expected[2], errorRange);
-  expectErrorRange(statics.p50Upper, expected[3], errorRange);
-  expectErrorRange(statics.p95Lower, expected[4], errorRange);
-  expectErrorRange(statics.p95Upper, expected[5], errorRange);
+function expectStatics(statics: Statics, expected: number[], errorRange = 0.2): void {
+  expectErrorRange(statics.mean,     expected[0], errorRange)
+  expectErrorRange(statics.median,   expected[1], errorRange)
+  expectErrorRange(statics.p50Lower, expected[2], errorRange)
+  expectErrorRange(statics.p50Upper, expected[3], errorRange)
+  expectErrorRange(statics.p95Lower, expected[4], errorRange)
+  expectErrorRange(statics.p95Upper, expected[5], errorRange)
 }
 
 // eslint-disable-next-line jest/expect-expect
 test("predict LineCountStatics", () => {
-  const lineCount = 4081;
+  const lineCount = 4081
 
-  const manHourSamplingCount = 10000;
-  const manHourResamplingCount = 100;
-  const monthSamplingCount = 1000;
-  const monthResamplingCount = 10000;
+  const manHourSamplingCount = 10000
+  const manHourResamplingCount = 100
+  const monthSamplingCount = 1000
+  const monthResamplingCount = 10000
 
   const lineCountPredictor = LineCountPredictor.predict(
     lineCount,
@@ -32,7 +32,7 @@ test("predict LineCountStatics", () => {
     monthSamplingCount,
     monthResamplingCount,
     0
-  );
+  )
 
   console.log("man-hour:")
   lineCountPredictor.manHourStatics.print()
@@ -44,8 +44,8 @@ test("predict LineCountStatics", () => {
 
   console.log(`mean:   ${(lineCountPredictor.monthStatics.mean     * monthCost).toFixed()}\n` +
                 `median: ${(lineCountPredictor.monthStatics.median   * monthCost).toFixed()}\n` +
-                `50%:    ${(lineCountPredictor.monthStatics.p50Lower * monthCost).toFixed()} - ${(lineCountPredictor.monthStatics.p50Upper * monthCost).toFixed()}\n` + 
-                `95%:    ${(lineCountPredictor.monthStatics.p95Lower * monthCost).toFixed()} - ${(lineCountPredictor.monthStatics.p95Upper * monthCost).toFixed()}`);
+                `50%:    ${(lineCountPredictor.monthStatics.p50Lower * monthCost).toFixed()} - ${(lineCountPredictor.monthStatics.p50Upper * monthCost).toFixed()}\n` +
+                `95%:    ${(lineCountPredictor.monthStatics.p95Lower * monthCost).toFixed()} - ${(lineCountPredictor.monthStatics.p95Upper * monthCost).toFixed()}`)
 
   console.log("develop detail")
   lineCountPredictor.developStatics.print()
@@ -143,7 +143,7 @@ test("Sample", () => {
         2095.9,
         4100.,
         7000.,
-        9937.275,       
+        9937.275,
         12600.,
         17385.51,
         21013.2,
@@ -162,7 +162,7 @@ test("Sample", () => {
 
     let s = "";
 
-    for (const lineCount of lineCounts) { 
+    for (const lineCount of lineCounts) {
         const lineCountPredictor = LineCountPredictor.predict(
             lineCount,
             manHourSamplingCount,
@@ -174,7 +174,7 @@ test("Sample", () => {
         const s1 = lineCountPredictor.manHourStatics;
         const s2 = lineCountPredictor.monthStatics;
         const s3 = lineCountPredictor.developStatics.developStatics;
-        
+
         const l1 = `${lineCount}\t${s1.mean}\t${s1.median}\t${s1.p50Lower}\t${s1.p50Upper}\t${s1.p95Lower}\t${s1.p95Upper}`
         const l2 = `${lineCount}\t${s2.mean}\t${s2.median}\t${s2.p50Lower}\t${s2.p50Upper}\t${s2.p95Lower}\t${s2.p95Upper}`
         const l3 = `${lineCount}\t${s3.mean}\t${s3.median}\t${s3.p50Lower}\t${s3.p50Upper}\t${s3.p95Lower}\t${s3.p95Upper}`
