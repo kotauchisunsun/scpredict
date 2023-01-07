@@ -111,11 +111,11 @@ export const App = (props: AppProps) => {
     <article className="App">
       <Panel title="開発規模と開発工数">
         <section>
-          <h2>SLOCから開発工数の予測</h2>
+          <h2>開発規模から開発工数の予測</h2>
           <form>
             <ul>
               <li>
-                <label htmlFor="SLOC">SLOC</label>
+                <label htmlFor="SLOC">開発規模(SLOC)</label>
                 <input type="number" value={lineCount?.toString()} onChange={(e) => { applyLineCount(e.target.valueAsNumber) } } />
               </li>
             </ul>
