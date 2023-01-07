@@ -41,12 +41,12 @@ export const App = (props : AppProps) => {
     setEndDateStr(dumpDateStr(endDate))
   }
 
-  const applyDay = (inputDay: number|null) => { 
-    applyWorkload(man,inputDay)
+  function applyDay(inputDay: number | null) {
+    applyWorkload(man, inputDay);
   }
 
-  const applyPeople = (inputPeople: number|null) => { 
-    applyWorkload(inputPeople,day)
+  function applyPeople(inputPeople: number | null) {
+    applyWorkload(inputPeople, day);
   }
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date())); 
