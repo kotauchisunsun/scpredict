@@ -1,5 +1,5 @@
 import "./App.css"
-import {useEffect, useMemo, useReducer, useState} from "react"
+import { useMemo, useReducer, useState} from "react"
 import { LineCountPredictor } from "../core/LineCountPredictor"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
@@ -8,7 +8,7 @@ import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
 import { tensor1d } from "@tensorflow/tfjs"
 import { DevelopStatics } from "../core/DevelopStatics"
-import { manHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
+import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -24,7 +24,7 @@ type AppProps = {
 export const App = ({ predictConfig }: AppProps) => {
 
   const dummyStatics = new Statics(tensor1d([]), 0, 0, 0, 0, 0, 0)
-  const defaultManHourStatics = new Statics(tensor1d(manHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
+  const defaultManHourStatics = new Statics(tensor1d(defaultManHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
   const defaultMonthStatics = dummyStatics
   const defaultDevelopStatics = new DevelopStatics(dummyStatics, dummyStatics, dummyStatics, dummyStatics, dummyStatics)
 
@@ -100,7 +100,7 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
-  applyWorkload(man,day)
+  applyWorkload(man, day)
 
   const dumpManDay = (n?: number) => {
     if (n == null) {
