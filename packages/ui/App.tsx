@@ -52,6 +52,11 @@ export const App = (props : AppProps) => {
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
   const [endDateStr, setEndDateStr] = useState<string | null>(null)
 
+  function applyStartDate(dateStr: string) {
+    setStartDateStr(dateStr)
+    applyWorkload(man, day)
+  }
+
   const [lineCount, applyLineCount] = useReducer(
     (state: number | null, action: number | null) => {
       if (action == null) {
@@ -121,11 +126,11 @@ export const App = (props : AppProps) => {
           <ul>
             <li>
               <label htmlFor="startDate">開始日</label>
-              <input type="date" value={startDateStr} onChange={(e) => { setStartDateStr(e.target.value) }} />
+              <input type="date" value={startDateStr} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
             </li>
             <li>
               <label htmlFor="endDate">締切日</label>
-              <input type="date" value={endDateStr?.toString()} onChange={(e) => { setEndDateStr(e.target.value) }} />
+              <input type="date" value={endDateStr?.toString()} onChange={(e) => { setEndDateStr(e.target.value) }} disabled={ endDateStr === null } />
             </li>
           </ul>
         </form>
