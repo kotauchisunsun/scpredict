@@ -9,7 +9,6 @@ import { Statics } from "../core/Statics"
 import { tensor1d } from "@tensorflow/tfjs"
 import { DevelopStatics } from "../core/DevelopStatics"
 import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
-import { dilation2d } from "@tensorflow/tfjs-node"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -71,14 +70,14 @@ export const App = ({ predictConfig }: AppProps) => {
     applyWorkload(man, day)
   }
 
-  function applyEndDate(dateStr: string) { 
+  function applyEndDate(dateStr: string) {
     setEndDateStr(dateStr)
 
     const endDate = new Date(Date.parse(dateStr))
     const startDate = new Date(Date.parse(startDateStr))
 
     const diffTime = endDate.getTime() - startDate.getTime()
-    var diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
     setDay(diffDay)
   }
 
