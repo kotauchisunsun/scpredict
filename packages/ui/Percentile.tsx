@@ -1,6 +1,6 @@
-import './Percentile.css'
-import * as tf from "@tensorflow/tfjs";
-import { percentileOfScore } from '../core/StaticsUtil';
+import "./Percentile.css"
+import * as tf from "@tensorflow/tfjs"
+import { percentileOfScore } from "../core/StaticsUtil"
 
 type PercentileProps = {
   data: tf.Tensor1D | null;
@@ -9,8 +9,8 @@ type PercentileProps = {
 
 export const Percentile = (props: PercentileProps) => {
 
-  const render = () => { 
-    if (props.data === null || props.score === null) { 
+  const render = () => {
+    if (props.data === null || props.score === null) {
       return "--"
     }
 
@@ -22,5 +22,5 @@ export const Percentile = (props: PercentileProps) => {
       <h1>工数の分位数</h1>
       <span className="percentile">{ render() }%</span>
     </section>
-  );
-};
+  )
+}
