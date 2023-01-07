@@ -9,6 +9,6 @@ ReactGA.initialize("G-CY0SBJXLMC")
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App initialLineCount={800} predictConfig={config} />
+    <App predictConfig={config} />
   </React.StrictMode>,
 )
