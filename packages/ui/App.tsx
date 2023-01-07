@@ -22,7 +22,8 @@ type AppProps = {
   initialLineCount : number
 }
 
-export const App = (props : AppProps) => {
+export const App = (props: AppProps) => {
+  const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(null)
   const [man, setMan] = useState<number | null>(null)
   const [day, setDay] = useState<number | null>(null)
 
@@ -68,6 +69,8 @@ export const App = (props : AppProps) => {
         0
       )
 
+      setLineCountPredictor(linePredictor)
+
       const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
       setWorkloadManDayDistribution(workloadManDayDistribution)
 
@@ -88,6 +91,16 @@ export const App = (props : AppProps) => {
     () => { applyLineCount(props.initialLineCount) },
     [props.initialLineCount]
   )
+
+  const dumpManDay = (n?: number) => {
+    if (n == null) {
+      return ""
+    }
+
+    const a = n?.toFixed(0)
+    const b = Number(a)
+    return b.toLocaleString()
+  }
 
   return (
     <article className="App">
@@ -111,26 +124,54 @@ export const App = (props : AppProps) => {
           onChangeDay={applyDay}
         />
       </Panel>
-      <Panel title="開発工数の確率分布" />
+      <Panel title="開発工数の確率分布の統計量">
+        <table>
+          <thead>
+            <tr>
+              <th>項目</th><th>工数(人日)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>平均</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.mean)}</td>
+            </tr>
+            <tr>
+              <td>中央値</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.median)}</td>
+            </tr>
+            <tr>
+              <td>2.5%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p95Lower)}</td>
+            </tr>
+            <tr>
+              <td>25%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p50Lower)}</td>
+            </tr>
+            <tr>
+              <td>75%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p50Upper)}</td>
+            </tr>
+            <tr>
+              <td>97.5%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p95Upper)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </Panel>
       <Panel title="開発工数の妥当性">
         <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
       </Panel>
-      <Panel title="リリース完了の予測" >
+      <Panel title="開発予定" >
         <form>
           <ul>
             <li>
               <label htmlFor="startDate">開始日</label>
-              <input type="date" value={startDateStr} onChange={(e) => { setStartDateStr(e.target.value) }} />
+              <input type="date" value={startDateStr ?? ""} onChange={(e) => { setStartDateStr(e.target.value) }} />
             </li>
             <li>
               <label htmlFor="endDate">締切日</label>
-              <input type="date" value={endDateStr?.toString()} onChange={(e) => { setEndDateStr(e.target.value) }} />
+              <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { setEndDateStr(e.target.value) }} />
             </li>
           </ul>
         </form>
       </Panel>
       <Panel title="工期の確率分布" />
-      <Panel title="締め切り完了確率" >
+      <Panel title="締切前完了確率" >
         <Percentile data={null} score={null} />
       </Panel>
     </article>

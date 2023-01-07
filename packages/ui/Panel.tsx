@@ -4,9 +4,7 @@ export const Panel = (props: { title: string; children?: ReactNode; }) => {
   return (
     <section>
       <h1>{props.title}</h1>
-      <p>
-        {props.children}
-      </p>
+      {props.children ?? <p>{ props.children }</p>}
     </section>
   )
 }

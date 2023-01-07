@@ -14,15 +14,15 @@ export const Workload = ({ man, day, manDay, onChangeMan, onChangeDay}: Workload
         <ul>
           <li>
             <label htmlFor="man">人数</label>
-            <input id="man" type="number" min={0} value={man?.toString()} onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} />
+            <input id="man" type="number" min={0} value={man == null ? "": man.toString()} onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} />
           </li>
           <li>
             <label htmlFor="day">工期(日)</label>
-            <input id="day" type="number" min={0} value={day?.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} />
+            <input id="day" type="number" min={0} value={day == null ? "": day.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} />
           </li>
           <li>
             <label htmlFor="manDay">工数(人日)</label>
-            <input id="manDay" type="number" value={manDay?.toString()} disabled />
+            <input id="manDay" type="number" value={manDay == null ? "": manDay.toString()} disabled />
           </li>
         </ul>
       </form>

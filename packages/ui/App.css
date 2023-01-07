@@ -27,6 +27,20 @@ section {
   display: block;
 }
 
+table {
+  width:80%;
+  border-collapse: collapse;
+}
+
+th {
+  border: none;
+  border-bottom: 1px solid;
+}
+
+td {
+  text-align: center;
+}
+
 ul {
   list-style: none;
 }

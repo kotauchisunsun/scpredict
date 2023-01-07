@@ -39,7 +39,6 @@ describe("Workloadのセクションで", () => {
 
     render(<Workload man={man} day={null} manDay={null} onChangeMan={(v) => { man = v }} />)
     fireEvent.input(getManInput(), {target: {value : "20"}})
-    expect(getManInput().value).toBe("20")
     expect(man).toBe(20)
   })
 
@@ -48,7 +47,6 @@ describe("Workloadのセクションで", () => {
 
     render(<Workload man={null} day={day} manDay={null} onChangeDay={(v) => {day = v}} />)
     fireEvent.input(getDayInput(), {target: {value : "10"}})
-    expect(getDayInput().value).toBe("10")
     expect(day).toBe(10)
   })
 })
