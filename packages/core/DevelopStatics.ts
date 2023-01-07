@@ -1,4 +1,4 @@
-import * as tf from "@tensorflow/tfjs"
+import { Tensor1D, tensor2d, randomUniform } from "@tensorflow/tfjs"
 import * as c from "./config.json"
 import { Statics } from "./Statics"
 
@@ -11,11 +11,11 @@ export class DevelopStatics {
         readonly systemTestStatics: Statics
   ) { }
 
-  public static build(monthResamples: tf.Tensor1D): DevelopStatics {
+  public static build(monthResamples: Tensor1D): DevelopStatics {
     const monthResamplingCount = monthResamples.size
 
-    const records = tf.tensor2d(c.develop5_records)
-    const samplingIndicies = tf.randomUniform([monthResamplingCount], 0, records.shape[0], "int32")
+    const records = tensor2d(c.develop5_records)
+    const samplingIndicies = randomUniform([monthResamplingCount], 0, records.shape[0], "int32")
 
     const samplingRecords = records.gather(samplingIndicies)
     const developMonthSamples = monthResamples.reshape([monthResamplingCount, 1]).mul(samplingRecords)

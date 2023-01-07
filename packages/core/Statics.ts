@@ -1,9 +1,9 @@
-import * as tf from "@tensorflow/tfjs"
-import * as q from "./StaticsUtil"
+import { Tensor1D, tensor1d } from "@tensorflow/tfjs"
+import { quantile } from "./StaticsUtil"
 
 export class Statics {
   public constructor(
-        public readonly data: tf.Tensor1D,
+        public readonly data: Tensor1D,
         public readonly mean: number,
         public readonly median: number,
         public readonly p50Lower: number,
@@ -12,11 +12,11 @@ export class Statics {
         public readonly p95Upper: number
   ) { }
 
-  public static build(data: tf.Tensor1D): Statics {
-    const percentile = tf.tensor1d([0.025, 0.25, 0.5, 0.75, 0.975])
+  public static build(data: Tensor1D): Statics {
+    const percentile = tensor1d([0.025, 0.25, 0.5, 0.75, 0.975])
 
     const m = data.mean().as1D().arraySync()[0]
-    const p = q.quantile(data, percentile).as1D().arraySync()
+    const p = quantile(data, percentile).as1D().arraySync()
 
     return new Statics(
       data,

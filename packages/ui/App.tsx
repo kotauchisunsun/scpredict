@@ -1,7 +1,6 @@
 import "./App.css"
 import {useEffect, useMemo, useReducer, useState} from "react"
 import { LineCountPredictor } from "../core/LineCountPredictor"
-import * as tf from "@tensorflow/tfjs"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
@@ -24,7 +23,7 @@ export const App = ({initialLineCount, predictConfig}: AppProps) => {
   const [man, setMan] = useState<number | null>(null)
   const [day, setDay] = useState<number | null>(null)
 
-  const [workloadManDayDistribution, setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
+  const workloadManDayDistribution = useMemo(()=>( lineCountPredictor == null ? null : lineCountPredictor.manHourStatics.data.div(8).as1D()), [lineCountPredictor])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
 
   function applyWorkload(man: number | null, day: number | null) {
@@ -72,9 +71,6 @@ export const App = ({initialLineCount, predictConfig}: AppProps) => {
       )
 
       setLineCountPredictor(linePredictor)
-
-      const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
-      setWorkloadManDayDistribution(workloadManDayDistribution)
 
       const manHour = linePredictor.manHourStatics.mean
       const manDay = manHour / 8
