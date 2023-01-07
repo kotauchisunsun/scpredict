@@ -1,5 +1,5 @@
 import "./App.css"
-import { useMemo, useReducer, useState} from "react"
+import { useEffect, useMemo, useReducer, useState} from "react"
 import { LineCountPredictor } from "../core/LineCountPredictor"
 import { Percentile } from "./Percentile"
 import { Workload } from "./Workload"
@@ -100,7 +100,7 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
-  applyWorkload(man, day)
+  useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
 
   const dumpManDay = (n?: number) => {
     if (n == null) {

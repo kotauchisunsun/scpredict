@@ -5,4 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   root: "packages/ui",
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      manualChunks: {
+        tfjs: ['@tensorflow/tfjs']
+      }
+    },
+  }
 })
