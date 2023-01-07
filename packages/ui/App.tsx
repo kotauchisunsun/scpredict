@@ -28,11 +28,11 @@ export const App = (props : AppProps) => {
   const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null),[man,day])
 
-  const applyWorkload = (people: number|null, day: number| null) => { 
-    setMan(people)
+  const applyWorkload = (man: number|null, day: number| null) => { 
+    setMan(man)
     setDay(day)
 
-    if (people == null || day === null) { 
+    if (man == null || day === null) { 
       return
     }
 
@@ -45,8 +45,8 @@ export const App = (props : AppProps) => {
     applyWorkload(man, inputDay);
   }
 
-  function applyPeople(inputPeople: number | null) {
-    applyWorkload(inputPeople, day);
+  function applyMan(inputMan: number | null) {
+    applyWorkload(inputMan, day);
   }
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date())); 
@@ -76,9 +76,9 @@ export const App = (props : AppProps) => {
     const manDay = manHour / 8;
     const month = linePredictor.monthStatics.mean;
     const day = Math.ceil(20 * month);
-    const people = Math.ceil(manDay / day);
+    const man = Math.ceil(manDay / day);
 
-    applyWorkload(people,day)
+    applyWorkload(man,day)
   }
 
   useEffect(
@@ -105,7 +105,7 @@ export const App = (props : AppProps) => {
           man={man}
           day={day}
           manDay={workloadManDay}
-          onChangeMan={applyPeople}
+          onChangeMan={applyMan}
           onChangeDay={applyDay}
         />
       </section>
