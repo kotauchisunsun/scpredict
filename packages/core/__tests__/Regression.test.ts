@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import * as tf from "@tensorflow/tfjs";
 import '@tensorflow/tfjs-node';
 import * as fc from 'fast-check';
