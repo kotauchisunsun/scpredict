@@ -9,20 +9,20 @@ type WorkloadProps = {
 export const Workload = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadProps) => {
   return (
     <section>
-      <h2>人数・工期の調整</h2>
+      <h2>想定の開発工数</h2>
       <form>
         <ul>
           <li>
             <label htmlFor="man">人数</label>
-            <input id="man" type="number" min={0} value={man?.toString()} onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} disabled={ man===null } />
+            <input id="man" type="number" min={0} value={man == null ? "" : man.toString()}  onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} disabled={ man===null } />
           </li>
           <li>
             <label htmlFor="day">工期(日)</label>
-            <input id="day" type="number" min={0} value={day?.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} disabled={ day===null } />
+            <input id="day" type="number" min={0} value={day == null ? "": day.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} disabled={ day===null } />
           </li>
           <li>
             <label htmlFor="manDay">工数(人日)</label>
-            <input id="manDay" type="number" value={manDay?.toString()} disabled />
+            <input id="manDay" type="number" value={manDay == null ? "": manDay.toString()} disabled />
           </li>
         </ul>
       </form>
