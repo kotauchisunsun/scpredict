@@ -8,6 +8,6 @@ ReactGA.initialize("G-CY0SBJXLMC")
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App lineCount={800} />
+    <App initialLineCount={800} />
   </React.StrictMode>,
 )

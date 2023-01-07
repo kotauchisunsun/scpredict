@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useMemo, useState} from 'react'
+import {useEffect, useMemo, useReducer, useState} from 'react'
 import { LineCountPredictor } from '../core/LineCountPredictor';
 import * as tf from "@tensorflow/tfjs";
 import { Percentile } from './Percentile';
@@ -18,7 +18,7 @@ const dumpDateStr = (date: Date): string => {
 }
 
 type AppProps = {
-  lineCount : number
+  initialLineCount : number
 }
 
 export const App = (props : AppProps) => {
@@ -28,17 +28,17 @@ export const App = (props : AppProps) => {
   const [workloadManDayDistribution,setWorkloadManDayDistribution] = useState<tf.Tensor1D | null>(null)
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null),[man,day])
 
-  const applyWorkload = (man: number|null, day: number| null) => { 
-    setMan(man)
-    setDay(day)
+  function applyWorkload(man: number | null, day: number | null) {
+    setMan(man);
+    setDay(day);
 
-    if (man == null || day === null) { 
-      return
+    if (man == null || day === null) {
+      return;
     }
 
-    const endDate = new Date(Date.parse(startDateStr))
+    const endDate = new Date(Date.parse(startDateStr));
     endDate.setDate(endDate.getDate() + day);
-    setEndDateStr(dumpDateStr(endDate))
+    setEndDateStr(dumpDateStr(endDate));
   }
 
   function applyDay(inputDay: number | null) {
@@ -51,39 +51,41 @@ export const App = (props : AppProps) => {
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date())); 
   const [endDateStr, setEndDateStr] = useState<string | null>(null)
-  const [lineCount, setLineCount] = useState<number | null>(null)
-
-  const applyLineCount = (action: number | null) => { 
-    if (action == null) { 
-      return
-    }
-
-    setLineCount(action)
   
-    const linePredictor = LineCountPredictor.predict(
-      action,
-      manHourSamplingCount,
-      manHourResamplingCount,
-      monthSamplingCount,
-      monthResamplingCount,
-      0
-    );
+  const [lineCount, applyLineCount] = useReducer(
+    (state: number | null, action: number | null) => {
+      if (action == null) { 
+        return state
+      }
 
-    const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
-    setWorkloadManDayDistribution(workloadManDayDistribution)
-
-    const manHour = linePredictor.manHourStatics.mean;
-    const manDay = manHour / 8;
-    const month = linePredictor.monthStatics.mean;
-    const day = Math.ceil(20 * month);
-    const man = Math.ceil(manDay / day);
-
-    applyWorkload(man,day)
-  }
+      const linePredictor = LineCountPredictor.predict(
+        action,
+        manHourSamplingCount,
+        manHourResamplingCount,
+        monthSamplingCount,
+        monthResamplingCount,
+        0
+      );
+  
+      const workloadManDayDistribution = linePredictor.manHourStatics.data.div(8).as1D()
+      setWorkloadManDayDistribution(workloadManDayDistribution)
+  
+      const manHour = linePredictor.manHourStatics.mean;
+      const manDay = manHour / 8;
+      const month = linePredictor.monthStatics.mean;
+      const day = Math.ceil(20 * month);
+      const man = Math.ceil(manDay / day);
+  
+        applyWorkload(man, day)
+        
+        return action;
+    },
+    props.initialLineCount
+  )
 
   useEffect(
-    () => { applyLineCount(props.lineCount) },
-    []
+    () => { applyLineCount(props.initialLineCount) },
+    [props.initialLineCount]
   )
 
   return (
