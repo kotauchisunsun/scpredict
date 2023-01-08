@@ -30,6 +30,7 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const [man, setMan] = useState<number | null>(defaultMan)
   const [day, setDay] = useState<number | null>(defaultDay)
+  const month = useMemo(() => day == null ? null : day / 20, [day])
 
   const workloadManDayDistribution = useMemo(()=>( manHourStatics == null ? null : manHourStatics.data.div(8).as1D()), [manHourStatics])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
@@ -99,6 +100,13 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
+  const workloadMonthDistribution = useMemo(() => {
+    if (workloadManDay == null) {
+      return null
+    }
+    return predictMonth(tensor1d([workloadManDay / 8]), 1000, predictConfig.seed).data
+  }, [workloadManDay])
+
   useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
 
   return (
@@ -145,7 +153,7 @@ export const App = ({ predictConfig }: AppProps) => {
       </Panel>
       <Panel title="工期の確率分布" />
       <Panel title="締切前完了確率" >
-        <PercentileViewer data={null} score={null} />
+        <PercentileViewer data={workloadMonthDistribution} score={month} />
       </Panel>
     </article>
   )
