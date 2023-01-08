@@ -4,7 +4,7 @@ import { Workload } from "./Workload"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
-import { Tensor1D, tensor1d } from "@tensorflow/tfjs"
+import { tensor, Tensor1D, tensor1d } from "@tensorflow/tfjs"
 import { defaultManHourData, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
@@ -52,11 +52,14 @@ export const App = ({ predictConfig }: AppProps) => {
   )
 
   const workloadMonthDistribution = useMemo(() => {
-    if (workloadManDay == null) {
+    if (workloadManDay == null || manHourDistribution==null) {
       return null
     }
-    return predictMonth(tensor1d([workloadManDay / 8]), 1000, predictConfig.seed).data
-  }, [workloadManDay])
+
+    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workloadManDay * 8)
+    const target = resampling(tensor(filteredManHourDistribution), 1000, predictConfig.seed)
+    return predictMonth(target, 1000, predictConfig.seed).data
+  }, [workloadManDay,manHourDistribution])
 
   const workloadDayStatics = useMemo(() => {
     if (workloadMonthDistribution == null) {
