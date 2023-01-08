@@ -59,7 +59,7 @@ export const App = ({ predictConfig }: AppProps) => {
     const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workloadManDay * 8)
     const target = resampling(tensor(filteredManHourDistribution), 100, predictConfig.seed)
     return predictMonth(target, 1000, predictConfig.seed).data
-  }, [workloadManDay,manHourDistribution])
+  }, [workloadManDay, manHourDistribution])
 
   const workloadDayStatics = useMemo(() => {
     if (workloadMonthDistribution == null) {
