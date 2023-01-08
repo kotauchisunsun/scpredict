@@ -93,17 +93,25 @@ export const App = ({ predictConfig }: AppProps) => {
     [manDayPercentile, monthPercentile]
   )
 
-  function applyWorkload(man: number | null, workloadTime: WorkloadTime | null) {
-    setMan(man)
-    setWorkloadTime(workloadTime)
-
-    if (man == null || workloadTime === null) {
+  function applyEndDateByWorkloadTime(workloadTime: WorkloadTime | null) {
+    if (workloadTime == null) {
       return
     }
 
     const endDate = new Date(Date.parse(startDateStr))
     endDate.setDate(endDate.getDate() + workloadTime.day)
     setEndDateStr(dumpDateStr(endDate))
+  }
+
+  function applyWorkload(man: number | null, workloadTime: WorkloadTime | null) {
+    setMan(man)
+    setWorkloadTime(workloadTime)
+
+    if (workloadTime === null) {
+      return
+    }
+
+    applyEndDateByWorkloadTime(workloadTime)
   }
 
   function applyDay(inputDay: number | null) {
@@ -131,8 +139,8 @@ export const App = ({ predictConfig }: AppProps) => {
     const diffTime = endDate.getTime() - startDate.getTime()
 
     //差がmsで来るので、時間へ変換
-    const diffHour = Math.floor(diffTime / (1000 * 60 * 60))
-    setWorkloadTime(WorkloadTime.fromHour(diffHour))
+    const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    setWorkloadTime(WorkloadTime.fromDay(diffDay))
   }
 
   const [lineCount, applyLineCount] = useReducer(
@@ -159,7 +167,9 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
-  useEffect(() => { applyWorkload(defaultMan, WorkloadTime.fromDay(defaultDay)) }, [])
+  useEffect(() => {
+    applyEndDateByWorkloadTime(workloadTime)
+  }, [])
 
   return (
     <article className="App">
