@@ -1,6 +1,6 @@
 import "./App.css"
 import { useEffect, useMemo, useReducer, useState} from "react"
-import { Workload } from "./Workload"
+import { WorkloadPanel } from "./WorkloadPanel"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
@@ -11,6 +11,8 @@ import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
 import { StaticsViewer } from "./StaticsViewer"
 import { PercentViewer } from "./PercentViewer"
+import { WorkloadTime } from "../core/WorkloadTime"
+import { Workload } from "../core/Workload"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -29,10 +31,9 @@ export const App = ({ predictConfig }: AppProps) => {
   const manDayDistribution = useMemo(()=>( manHourDistribution == null ? null : manHourDistribution.div(8).as1D()), [manHourDistribution])
 
   const [man, setMan] = useState<number | null>(defaultMan)
-  const [day, setDay] = useState<number | null>(defaultDay)
-  const month = useMemo(() => day == null ? null : day / 20, [day])
+  const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(WorkloadTime.fromDay(defaultDay))
 
-  const manDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
+  const workload = useMemo(() => (man != null && workloadTime != null ? new Workload(man, workloadTime) : null), [man, workloadTime])
 
   const manDayStatics = useMemo(() => {
     if (manHourDistribution == null) {
@@ -43,42 +44,43 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const manDayPercentile = useMemo(
     () => {
-      if (manDay == null || manDayDistribution == null) {
+      if (workload == null || manDayDistribution == null) {
         return null
       }
 
-      return percentileOfScore(manDayDistribution, manDay)
+      return percentileOfScore(manDayDistribution, workload.manDay)
     },
-    [manDay, manDayDistribution]
+    [workload, manDayDistribution]
   )
 
   const monthDistribution = useMemo(() => {
-    if (manDay == null || manHourDistribution==null) {
+    if (workload == null || manHourDistribution==null) {
       return null
     }
 
-    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < manDay * 8)
+    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workload.manHour)
     const target = resampling(tensor(filteredManHourDistribution), 1000, predictConfig.seed)
     return predictMonth(target, 100, predictConfig.seed).data
-  }, [manDay, manHourDistribution])
+  }, [workload, manHourDistribution])
 
   const dayStatics = useMemo(() => {
     if (monthDistribution == null) {
       return null
     }
 
+    //1人月は20人日
     return Statics.build(monthDistribution.mul(20))
   },
   [monthDistribution])
 
   const monthPercentile = useMemo(
     () => {
-      if (month == null || monthDistribution == null) {
+      if (workloadTime == null || monthDistribution == null) {
         return null
       }
-      return percentileOfScore(monthDistribution, month)
+      return percentileOfScore(monthDistribution, workloadTime.month)
     },
-    [month, monthDistribution]
+    [workloadTime, monthDistribution]
   )
 
   const completeProbability = useMemo(
@@ -91,25 +93,25 @@ export const App = ({ predictConfig }: AppProps) => {
     [manDayPercentile, monthPercentile]
   )
 
-  function applyWorkload(man: number | null, day: number | null) {
+  function applyWorkload(man: number | null, workloadTime: WorkloadTime | null) {
     setMan(man)
-    setDay(day)
+    setWorkloadTime(workloadTime)
 
-    if (man == null || day === null) {
+    if (man == null || workloadTime === null) {
       return
     }
 
     const endDate = new Date(Date.parse(startDateStr))
-    endDate.setDate(endDate.getDate() + day)
+    endDate.setDate(endDate.getDate() + workloadTime.day)
     setEndDateStr(dumpDateStr(endDate))
   }
 
   function applyDay(inputDay: number | null) {
-    applyWorkload(man, inputDay)
+    applyWorkload(man, inputDay == null ? null :WorkloadTime.fromDay(inputDay))
   }
 
   function applyMan(inputMan: number | null) {
-    applyWorkload(inputMan, day)
+    applyWorkload(inputMan, workloadTime)
   }
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
@@ -117,7 +119,7 @@ export const App = ({ predictConfig }: AppProps) => {
 
   function applyStartDate(dateStr: string) {
     setStartDateStr(dateStr)
-    applyWorkload(man, day)
+    applyWorkload(man, workloadTime)
   }
 
   function applyEndDate(dateStr: string) {
@@ -127,8 +129,10 @@ export const App = ({ predictConfig }: AppProps) => {
     const startDate = new Date(Date.parse(startDateStr))
 
     const diffTime = endDate.getTime() - startDate.getTime()
-    const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-    setDay(diffDay)
+
+    //差がmsで来るので、時間へ変換
+    const diffHour = Math.floor(diffTime / (1000 * 60 * 60))
+    setWorkloadTime(WorkloadTime.fromHour(diffHour))
   }
 
   const [lineCount, applyLineCount] = useReducer(
@@ -143,20 +147,19 @@ export const App = ({ predictConfig }: AppProps) => {
 
       setManHourDistribution(manHourStatics.data)
 
-      const manHour = manHourStatics.mean
-      const manDay = manHour / 8
-      const month = monthStatics.mean
-      const day = Math.ceil(20 * month)
-      const man = Math.ceil(manDay / day)
+      const meanWorkload = Workload.fromManHour(manHourStatics.mean)
+      const meanWorkloadTime = WorkloadTime.fromMonth(monthStatics.mean)
+      const man = Math.ceil(meanWorkload.calcMan(meanWorkloadTime))
+      const workloadTime = WorkloadTime.fromDay(Math.ceil(meanWorkloadTime.day))
 
-      applyWorkload(man, day)
+      applyWorkload(man, workloadTime)
 
       return action
     },
     defaultLineCount
   )
 
-  useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
+  useEffect(() => { applyWorkload(defaultMan, WorkloadTime.fromDay(defaultDay)) }, [])
 
   return (
     <article className="App">
@@ -172,10 +175,10 @@ export const App = ({ predictConfig }: AppProps) => {
             </ul>
           </form>
         </section>
-        <Workload
+        <WorkloadPanel
           man={man}
-          day={day}
-          manDay={manDay}
+          day={workloadTime == null ? null : workloadTime.day}
+          manDay={workload == null ? null: workload.manDay}
           onChangeMan={applyMan}
           onChangeDay={applyDay}
         />

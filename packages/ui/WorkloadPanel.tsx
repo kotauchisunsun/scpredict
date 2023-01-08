@@ -1,4 +1,4 @@
-type WorkloadProps = {
+type WorkloadPanelProps = {
     man: number | null;
     day: number | null;
     manDay: number | null;
@@ -6,7 +6,7 @@ type WorkloadProps = {
     onChangeDay?: (v: number | null) => void;
 };
 
-export const Workload = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadProps) => {
+export const WorkloadPanel = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadPanelProps) => {
   return (
     <section>
       <h2>想定の開発工数</h2>
