@@ -132,7 +132,7 @@ export const App = ({ predictConfig }: AppProps) => {
             <ul>
               <li>
                 <label htmlFor="SLOC">開発規模(SLOC)</label>
-                <input type="number" value={lineCount?.toString()} onChange={(e) => { applyLineCount(e.target.valueAsNumber) } } />
+                <input id="SLOC" type="number" value={lineCount?.toString()} onChange={(e) => { applyLineCount(e.target.valueAsNumber) } } />
               </li>
             </ul>
           </form>
