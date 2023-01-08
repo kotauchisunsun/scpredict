@@ -5,7 +5,7 @@ import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
 import { Tensor1D, tensor1d } from "@tensorflow/tfjs"
-import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
+import { defaultManHourData, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
@@ -25,7 +25,7 @@ type AppProps = {
 
 export const App = ({ predictConfig }: AppProps) => {
 
-  const [manHourDistribution,setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))  
+  const [manHourDistribution, setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))
   const manDayStatics = useMemo(() => {
     if (manHourDistribution == null) {
       return null
@@ -58,8 +58,8 @@ export const App = ({ predictConfig }: AppProps) => {
     return predictMonth(tensor1d([workloadManDay / 8]), 1000, predictConfig.seed).data
   }, [workloadManDay])
 
-  const workloadDayStatics = useMemo(() => { 
-    if (workloadMonthDistribution == null) { 
+  const workloadDayStatics = useMemo(() => {
+    if (workloadMonthDistribution == null) {
       return null
     }
 
@@ -177,7 +177,7 @@ export const App = ({ predictConfig }: AppProps) => {
         />
       </Panel>
       <Panel title="開発工数の確率分布の統計量">
-        <StaticsViewer statics={manDayStatics} />
+        <StaticsViewer statics={manDayStatics} itemName="工数(人日)"/>
       </Panel>
       <Panel title="開発工数の妥当性">
         <PercentViewer score={workloadPercentile} />
@@ -197,7 +197,7 @@ export const App = ({ predictConfig }: AppProps) => {
         </form>
       </Panel>
       <Panel title="工期の確率分布の統計量">
-        <StaticsViewer statics={workloadDayStatics} />
+        <StaticsViewer statics={workloadDayStatics} itemName="工期(日)"/>
       </Panel>
       <Panel title="締切前完了確率" >
         <PercentViewer score={completeProbability} />
