@@ -1,13 +1,6 @@
 export class WorkloadTime {
-  //public readonly hour: number
-  //public readonly day: number
-  //public readonly month: number
 
-  private constructor(private readonly hourValue: number) {
-    //this.hour = hourValue
-    //this.day = this.hour / 8
-    //this.month = this.day / 20
-  }
+  private constructor(private readonly hourValue: number) {}
 
   get hour() {
     return this.hourValue
