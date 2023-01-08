@@ -55,9 +55,9 @@ describe("App tsx", () => {
     expect(getManDayInput().value).toBe("294")
 
     //開発工数の確率分布の統計量
-    expect(screen.getAllByText("269")).toBeTruthy()
-    expect(screen.getAllByText("174")).toBeTruthy()
-    expect(screen.getByText("26")).toBeTruthy()
+    expect(screen.getByText("269")).toBeTruthy()
+    expect(screen.getByText("174")).toBeTruthy()
+    expect(screen.getAllByText("26")).toBeTruthy()
     expect(screen.getByText("89")).toBeTruthy()
     expect(screen.getByText("327")).toBeTruthy()
     expect(screen.getByText("1,076")).toBeTruthy()
