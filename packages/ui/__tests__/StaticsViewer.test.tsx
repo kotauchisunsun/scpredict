@@ -16,7 +16,8 @@ describe("StaticsViewer tsx", () => {
       5
     )
 
-    render(<StaticsViewer statics={s} />)
+    render(<StaticsViewer statics={s} itemName={"itemName"} />)
+    expect(screen.getByText("itemName")).toBeTruthy()
     expect(screen.getByText("0")).toBeTruthy()
     expect(screen.getByText("1")).toBeTruthy()
     expect(screen.getByText("2")).toBeTruthy()
@@ -36,7 +37,8 @@ describe("StaticsViewer tsx", () => {
       1005
     )
 
-    render(<StaticsViewer statics={s} />)
+    render(<StaticsViewer statics={s} itemName={"sample"} />)
+    expect(screen.getByText("sample")).toBeTruthy()
     expect(screen.getByText("1,000")).toBeTruthy()
     expect(screen.getByText("1,001")).toBeTruthy()
     expect(screen.getByText("1,002")).toBeTruthy()

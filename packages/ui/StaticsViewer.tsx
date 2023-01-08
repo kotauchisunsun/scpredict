@@ -9,12 +9,13 @@ const toFixedLocaleString = (n?: number) => {
   const b = Number(a)
   return b.toLocaleString()
 }
-export const StaticsViewer = ({ statics }: { statics: Statics|null }) => {
+
+export const StaticsViewer = ({ itemName, statics }: { itemName: string, statics: Statics|null }) => {
   return (
     <table>
       <thead>
         <tr>
-          <th>項目</th><th>工数(人日)</th>
+          <th>項目</th><th>{itemName}</th>
         </tr>
       </thead>
       <tbody>

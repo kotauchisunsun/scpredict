@@ -1,16 +1,16 @@
 import "./App.css"
 import { useEffect, useMemo, useReducer, useState} from "react"
-import { PercentileViewer } from "./PercentileViewer"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
-import { tensor1d } from "@tensorflow/tfjs"
-import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
+import { tensor, Tensor1D, tensor1d } from "@tensorflow/tfjs"
+import { defaultManHourData, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
-import { resampling } from "../core/StaticsUtil"
+import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
 import { StaticsViewer } from "./StaticsViewer"
+import { PercentViewer } from "./PercentViewer"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -25,14 +25,70 @@ type AppProps = {
 
 export const App = ({ predictConfig }: AppProps) => {
 
-  const defaultManHourStatics = new Statics(tensor1d(defaultManHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
-  const [manHourStatics, setManHourStatics] = useState<Statics|null>(defaultManHourStatics)
+  const [manHourDistribution, setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))
+  const manDayStatics = useMemo(() => {
+    if (manHourDistribution == null) {
+      return null
+    }
+    return Statics.build(manHourDistribution.div(8).as1D())
+  }, [manHourDistribution])
 
   const [man, setMan] = useState<number | null>(defaultMan)
   const [day, setDay] = useState<number | null>(defaultDay)
+  const month = useMemo(() => day == null ? null : day / 20, [day])
 
-  const workloadManDayDistribution = useMemo(()=>( manHourStatics == null ? null : manHourStatics.data.div(8).as1D()), [manHourStatics])
+  const workloadManDayDistribution = useMemo(()=>( manHourDistribution == null ? null : manHourDistribution.div(8).as1D()), [manHourDistribution])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
+
+  const workloadPercentile = useMemo(
+    () => {
+      if (workloadManDay == null || workloadManDayDistribution == null) {
+        return null
+      }
+
+      return percentileOfScore(workloadManDayDistribution, workloadManDay)
+    },
+    [workloadManDay, workloadManDayDistribution]
+  )
+
+  const workloadMonthDistribution = useMemo(() => {
+    if (workloadManDay == null || manHourDistribution==null) {
+      return null
+    }
+
+    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workloadManDay * 8)
+    const target = resampling(tensor(filteredManHourDistribution), 1000, predictConfig.seed)
+    return predictMonth(target, 100, predictConfig.seed).data
+  }, [workloadManDay, manHourDistribution])
+
+  const workloadDayStatics = useMemo(() => {
+    if (workloadMonthDistribution == null) {
+      return null
+    }
+
+    return Statics.build(workloadMonthDistribution.mul(20))
+  },
+  [workloadMonthDistribution])
+
+  const monthPercentile = useMemo(
+    () => {
+      if (month == null || workloadMonthDistribution == null) {
+        return null
+      }
+      return percentileOfScore(workloadMonthDistribution, month)
+    },
+    [month, workloadMonthDistribution]
+  )
+
+  const completeProbability = useMemo(
+    () => {
+      if (workloadPercentile == null || monthPercentile == null) {
+        return null
+      }
+      return workloadPercentile * monthPercentile
+    },
+    [workloadPercentile, monthPercentile]
+  )
 
   function applyWorkload(man: number | null, day: number | null) {
     setMan(man)
@@ -84,7 +140,7 @@ export const App = ({ predictConfig }: AppProps) => {
       const manHourResamples = resampling(manHourStatics.data, predictConfig.manHourResamplingCount, predictConfig.seed)
       const monthStatics = predictMonth(manHourResamples, predictConfig.monthSamplingCount, predictConfig.seed)
 
-      setManHourStatics(manHourStatics)
+      setManHourDistribution(manHourStatics.data)
 
       const manHour = manHourStatics.mean
       const manDay = manHour / 8
@@ -124,10 +180,10 @@ export const App = ({ predictConfig }: AppProps) => {
         />
       </Panel>
       <Panel title="開発工数の確率分布の統計量">
-        <StaticsViewer statics={manHourStatics} />
+        <StaticsViewer statics={manDayStatics} itemName="工数(人日)"/>
       </Panel>
       <Panel title="開発工数の妥当性">
-        <PercentileViewer data={workloadManDayDistribution} score={workloadManDay}/>
+        <PercentViewer score={workloadPercentile} />
       </Panel>
       <Panel title="開発スケジュール" >
         <form>
@@ -143,9 +199,11 @@ export const App = ({ predictConfig }: AppProps) => {
           </ul>
         </form>
       </Panel>
-      <Panel title="工期の確率分布" />
+      <Panel title="工期の確率分布の統計量">
+        <StaticsViewer statics={workloadDayStatics} itemName="工期(日)"/>
+      </Panel>
       <Panel title="締切前完了確率" >
-        <PercentileViewer data={null} score={null} />
+        <PercentViewer score={completeProbability} />
       </Panel>
     </article>
   )
