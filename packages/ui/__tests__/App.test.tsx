@@ -1,5 +1,5 @@
 import { App } from "../App"
-import {render, screen} from "@testing-library/react"
+import {render, screen, fireEvent} from "@testing-library/react"
 import { config } from "../PredictConfig"
 
 const getSLOCInput = () => {
@@ -40,5 +40,29 @@ describe("App tsx", () => {
 
     //開発工数の妥当性
     expect(screen.getByText("73%")).toBeTruthy()
+  })
+
+  it("show transition", () => {
+    render(<App predictConfig={config} />)
+    fireEvent.input(getSLOCInput(), { target: { value: "900" } })
+
+    //開発規模から開発工数の予測
+    expect(getSLOCInput().value).toBe("900")
+
+    //想定の開発工数
+    expect(getManInput().value).toBe("3")
+    expect(getDayInput().value).toBe("98")
+    expect(getManDayInput().value).toBe("294")
+
+    //開発工数の確率分布の統計量
+    expect(screen.getByText("2,148")).toBeTruthy()
+    expect(screen.getByText("1,393")).toBeTruthy()
+    expect(screen.getByText("211")).toBeTruthy()
+    expect(screen.getByText("715")).toBeTruthy()
+    expect(screen.getByText("2,612")).toBeTruthy()
+    expect(screen.getByText("8,607")).toBeTruthy()
+
+    //開発工数の妥当性
+    expect(screen.getByText("72%")).toBeTruthy()
   })
 })
