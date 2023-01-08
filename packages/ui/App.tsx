@@ -70,6 +70,17 @@ export const App = ({ predictConfig }: AppProps) => {
     applyWorkload(man, day)
   }
 
+  function applyEndDate(dateStr: string) {
+    setEndDateStr(dateStr)
+
+    const endDate = new Date(Date.parse(dateStr))
+    const startDate = new Date(Date.parse(startDateStr))
+
+    const diffTime = endDate.getTime() - startDate.getTime()
+    const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    setDay(diffDay)
+  }
+
   const [lineCount, applyLineCount] = useReducer(
     (state: number | null, action: number | null) => {
       if (action == null) {
@@ -166,7 +177,7 @@ export const App = ({ predictConfig }: AppProps) => {
       <Panel title="開発工数の妥当性">
         <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
       </Panel>
-      <Panel title="開発予定" >
+      <Panel title="開発スケジュール" >
         <form>
           <ul>
             <li>
@@ -175,7 +186,7 @@ export const App = ({ predictConfig }: AppProps) => {
             </li>
             <li>
               <label htmlFor="endDate">締切日</label>
-              <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { setEndDateStr(e.target.value) }} disabled={ endDateStr === null } />
+              <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
             </li>
           </ul>
         </form>
