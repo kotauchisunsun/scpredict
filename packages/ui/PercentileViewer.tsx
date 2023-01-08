@@ -7,7 +7,7 @@ type PercentileProps = {
   score: number | null;
 };
 
-export const Percentile = (props: PercentileProps) => {
+export const PercentileViewer = (props: PercentileProps) => {
   const render = () => {
     if (props.data === null || props.score === null) {
       return "--"

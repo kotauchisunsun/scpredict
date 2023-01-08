@@ -1,14 +1,16 @@
 import "./App.css"
 import { useEffect, useMemo, useReducer, useState} from "react"
-import { LineCountPredictor } from "../core/LineCountPredictor"
-import { Percentile } from "./Percentile"
+import { PercentileViewer } from "./PercentileViewer"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
 import { tensor1d } from "@tensorflow/tfjs"
-import { DevelopStatics } from "../core/DevelopStatics"
 import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
+import { predictManHour } from "../core/predictManHour"
+import { resampling } from "../core/StaticsUtil"
+import { predictMonth } from "../core/predictMonth"
+import { StaticsViewer } from "./StaticsViewer"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -23,22 +25,13 @@ type AppProps = {
 
 export const App = ({ predictConfig }: AppProps) => {
 
-  const dummyStatics = new Statics(tensor1d([]), 0, 0, 0, 0, 0, 0)
   const defaultManHourStatics = new Statics(tensor1d(defaultManHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
-  const defaultMonthStatics = dummyStatics
-  const defaultDevelopStatics = new DevelopStatics(dummyStatics, dummyStatics, dummyStatics, dummyStatics, dummyStatics)
+  const [manHourStatics, setManHourStatics] = useState<Statics|null>(defaultManHourStatics)
 
-  const initialLineCountPredictor = new LineCountPredictor(
-    defaultManHourStatics,
-    defaultMonthStatics,
-    defaultDevelopStatics
-  )
-
-  const [lineCountPredictor, setLineCountPredictor] = useState<LineCountPredictor|null>(initialLineCountPredictor)
   const [man, setMan] = useState<number | null>(defaultMan)
   const [day, setDay] = useState<number | null>(defaultDay)
 
-  const workloadManDayDistribution = useMemo(()=>( lineCountPredictor == null ? null : lineCountPredictor.manHourStatics.data.div(8).as1D()), [lineCountPredictor])
+  const workloadManDayDistribution = useMemo(()=>( manHourStatics == null ? null : manHourStatics.data.div(8).as1D()), [manHourStatics])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
 
   function applyWorkload(man: number | null, day: number | null) {
@@ -87,20 +80,15 @@ export const App = ({ predictConfig }: AppProps) => {
         return state
       }
 
-      const lineCountPredictor = LineCountPredictor.predict(
-        action,
-        predictConfig.manHourSamplingCount,
-        predictConfig.manHourResamplingCount,
-        predictConfig.monthSamplingCount,
-        predictConfig.monthResamplingCount,
-        predictConfig.seed
-      )
+      const manHourStatics = predictManHour(action, predictConfig.manHourSamplingCount, predictConfig.seed)
+      const manHourResamples = resampling(manHourStatics.data, predictConfig.manHourResamplingCount, predictConfig.seed)
+      const monthStatics = predictMonth(manHourResamples, predictConfig.monthSamplingCount, predictConfig.seed)
 
-      setLineCountPredictor(lineCountPredictor)
+      setManHourStatics(manHourStatics)
 
-      const manHour = lineCountPredictor.manHourStatics.mean
+      const manHour = manHourStatics.mean
       const manDay = manHour / 8
-      const month = lineCountPredictor.monthStatics.mean
+      const month = monthStatics.mean
       const day = Math.ceil(20 * month)
       const man = Math.ceil(manDay / day)
 
@@ -112,16 +100,6 @@ export const App = ({ predictConfig }: AppProps) => {
   )
 
   useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
-
-  const dumpManDay = (n?: number) => {
-    if (n == null) {
-      return ""
-    }
-
-    const a = n?.toFixed(0)
-    const b = Number(a)
-    return b.toLocaleString()
-  }
 
   return (
     <article className="App">
@@ -146,36 +124,10 @@ export const App = ({ predictConfig }: AppProps) => {
         />
       </Panel>
       <Panel title="開発工数の確率分布の統計量">
-        <table>
-          <thead>
-            <tr>
-              <th>項目</th><th>工数(人日)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>平均</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.mean)}</td>
-            </tr>
-            <tr>
-              <td>中央値</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.median)}</td>
-            </tr>
-            <tr>
-              <td>2.5%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p95Lower)}</td>
-            </tr>
-            <tr>
-              <td>25%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p50Lower)}</td>
-            </tr>
-            <tr>
-              <td>75%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p50Upper)}</td>
-            </tr>
-            <tr>
-              <td>97.5%</td><td>{dumpManDay(lineCountPredictor?.manHourStatics.p95Upper)}</td>
-            </tr>
-          </tbody>
-        </table>
+        <StaticsViewer statics={manHourStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
-        <Percentile data={workloadManDayDistribution} score={workloadManDay}/>
+        <PercentileViewer data={workloadManDayDistribution} score={workloadManDay}/>
       </Panel>
       <Panel title="開発スケジュール" >
         <form>
@@ -193,7 +145,7 @@ export const App = ({ predictConfig }: AppProps) => {
       </Panel>
       <Panel title="工期の確率分布" />
       <Panel title="締切前完了確率" >
-        <Percentile data={null} score={null} />
+        <PercentileViewer data={null} score={null} />
       </Panel>
     </article>
   )
