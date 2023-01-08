@@ -1,6 +1,5 @@
 import "./App.css"
 import { useEffect, useMemo, useReducer, useState} from "react"
-import { PercentileViewer } from "./PercentileViewer"
 import { Workload } from "./Workload"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
