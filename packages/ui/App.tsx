@@ -26,7 +26,14 @@ type AppProps = {
 export const App = ({ predictConfig }: AppProps) => {
 
   const defaultManHourStatics = new Statics(tensor1d(defaultManHourData), defaultLineCountParameter.mean, defaultLineCountParameter.median, defaultLineCountParameter.p50Lower, defaultLineCountParameter.p50Upper, defaultLineCountParameter.p95Lower, defaultLineCountParameter.p95Upper)
-  const [manHourStatics, setManHourStatics] = useState<Statics|null>(defaultManHourStatics)
+  const [manHourStatics, setManHourStatics] = useState<Statics | null>(defaultManHourStatics)
+  const manDayStatics = useMemo(() => {
+    if (manHourStatics == null) {
+      return null
+    }
+
+    return Statics.build(manHourStatics.data.div(8).as1D())
+  }, [manHourStatics])
 
   const [man, setMan] = useState<number | null>(defaultMan)
   const [day, setDay] = useState<number | null>(defaultDay)
@@ -62,6 +69,16 @@ export const App = ({ predictConfig }: AppProps) => {
       return percentileOfScore(workloadMonthDistribution, month)
     },
     [month, workloadMonthDistribution]
+  )
+
+  const completeProbability = useMemo(
+    () => {
+      if (workloadPercentile == null || monthPercentile == null) {
+        return null
+      }
+      return workloadPercentile * monthPercentile
+    },
+    [workloadPercentile, monthPercentile]
   )
 
   function applyWorkload(man: number | null, day: number | null) {
@@ -154,7 +171,7 @@ export const App = ({ predictConfig }: AppProps) => {
         />
       </Panel>
       <Panel title="開発工数の確率分布の統計量">
-        <StaticsViewer statics={manHourStatics} />
+        <StaticsViewer statics={manDayStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
         <PercentViewer score={workloadPercentile} />
@@ -175,7 +192,7 @@ export const App = ({ predictConfig }: AppProps) => {
       </Panel>
       <Panel title="工期の確率分布" />
       <Panel title="締切前完了確率" >
-        <PercentViewer score={monthPercentile} />
+        <PercentViewer score={completeProbability} />
       </Panel>
     </article>
   )

@@ -31,15 +31,15 @@ describe("App tsx", () => {
     expect(getManDayInput().value).toBe("288")
 
     //開発工数の確率分布の統計量
-    expect(screen.getByText("2,011")).toBeTruthy()
-    expect(screen.getByText("1,303")).toBeTruthy()
-    expect(screen.getByText("197")).toBeTruthy()
-    expect(screen.getByText("669")).toBeTruthy()
-    expect(screen.getByText("2,445")).toBeTruthy()
-    expect(screen.getByText("8,055")).toBeTruthy()
+    expect(screen.getByText("251")).toBeTruthy()
+    expect(screen.getByText("163")).toBeTruthy()
+    expect(screen.getByText("25")).toBeTruthy()
+    expect(screen.getByText("84")).toBeTruthy()
+    expect(screen.getByText("306")).toBeTruthy()
+    expect(screen.getByText("1,007")).toBeTruthy()
 
     //開発工数の妥当性
-    expect(screen.getByText("73%")).toBeTruthy()
+    expect(screen.getAllByText("73%")).toBeTruthy()
   })
 
   it("show transition", () => {
@@ -55,14 +55,14 @@ describe("App tsx", () => {
     expect(getManDayInput().value).toBe("294")
 
     //開発工数の確率分布の統計量
-    expect(screen.getByText("2,148")).toBeTruthy()
-    expect(screen.getByText("1,393")).toBeTruthy()
-    expect(screen.getByText("211")).toBeTruthy()
-    expect(screen.getByText("715")).toBeTruthy()
-    expect(screen.getByText("2,612")).toBeTruthy()
-    expect(screen.getByText("8,607")).toBeTruthy()
+    expect(screen.getAllByText("269")).toBeTruthy()
+    expect(screen.getAllByText("174")).toBeTruthy()
+    expect(screen.getByText("26")).toBeTruthy()
+    expect(screen.getByText("89")).toBeTruthy()
+    expect(screen.getByText("327")).toBeTruthy()
+    expect(screen.getByText("1,076")).toBeTruthy()
 
     //開発工数の妥当性
-    expect(screen.getByText("72%")).toBeTruthy()
+    expect(screen.getAllByText("72%")).toBeTruthy()
   })
 })
