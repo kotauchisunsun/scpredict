@@ -8,9 +8,10 @@ import { Statics } from "../core/Statics"
 import { tensor1d } from "@tensorflow/tfjs"
 import { defaultManHourData, defaultLineCountParameter, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
-import { resampling } from "../core/StaticsUtil"
+import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
 import { StaticsViewer } from "./StaticsViewer"
+import { PercentViewer } from "./PercentViewer"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -34,6 +35,35 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const workloadManDayDistribution = useMemo(()=>( manHourStatics == null ? null : manHourStatics.data.div(8).as1D()), [manHourStatics])
   const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
+
+  const workloadPercentile = useMemo(
+    () => {
+      if (workloadManDay == null || workloadManDayDistribution == null) {
+        return null
+      }
+
+      return percentileOfScore(workloadManDayDistribution, workloadManDay)
+    },
+    [workloadManDay, workloadManDayDistribution]
+  )
+
+  const workloadMonthDistribution = useMemo(() => {
+    if (workloadManDay == null) {
+      return null
+    }
+    return predictMonth(tensor1d([workloadManDay / 8]), 1000, predictConfig.seed).data
+  }, [workloadManDay])
+
+
+  const monthPercentile = useMemo(
+    () => {
+      if (month == null || workloadMonthDistribution == null) {
+        return null
+      }
+      return percentileOfScore(workloadMonthDistribution, month)
+    },
+    [month, workloadMonthDistribution]
+  )
 
   function applyWorkload(man: number | null, day: number | null) {
     setMan(man)
@@ -100,13 +130,6 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
-  const workloadMonthDistribution = useMemo(() => {
-    if (workloadManDay == null) {
-      return null
-    }
-    return predictMonth(tensor1d([workloadManDay / 8]), 1000, predictConfig.seed).data
-  }, [workloadManDay])
-
   useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
 
   return (
@@ -135,7 +158,7 @@ export const App = ({ predictConfig }: AppProps) => {
         <StaticsViewer statics={manHourStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
-        <PercentileViewer data={workloadManDayDistribution} score={workloadManDay}/>
+        <PercentViewer score={workloadPercentile} />
       </Panel>
       <Panel title="開発スケジュール" >
         <form>
@@ -153,7 +176,7 @@ export const App = ({ predictConfig }: AppProps) => {
       </Panel>
       <Panel title="工期の確率分布" />
       <Panel title="締切前完了確率" >
-        <PercentileViewer data={workloadMonthDistribution} score={month} />
+        <PercentViewer score={monthPercentile} />
       </Panel>
     </article>
   )
