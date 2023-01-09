@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "yarn jest --coverage --verbose",
-    "test-core": "yarn test packages/core",
-    "test-ui": "yarn test packages/ui",
+    "test-core": "yarn test packages/core --bail",
+    "test-ui": "yarn test packages/ui --bail",
     "lint": "yarn eslint .",
     "fix": "yarn eslint . --fix"
   },
