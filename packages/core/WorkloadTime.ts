@@ -1,6 +1,3 @@
-import { date } from "fast-check"
-import { Workload } from "./Workload"
-
 export class WorkloadTime {
 
   private constructor(private readonly hourValue: number) {}
