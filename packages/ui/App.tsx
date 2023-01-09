@@ -97,8 +97,7 @@ export const App = ({ predictConfig }: AppProps) => {
       return
     }
 
-    const endDate = new Date(Date.parse(startDateStr))
-    endDate.setDate(endDate.getDate() + workloadTime.day)
+    const endDate = workloadTime.calcDateWithoutWeekend(new Date(Date.parse(startDateStr)))
     setEndDateStr(dumpDateStr(endDate))
   }
 
@@ -135,11 +134,8 @@ export const App = ({ predictConfig }: AppProps) => {
     const endDate = new Date(Date.parse(dateStr))
     const startDate = new Date(Date.parse(startDateStr))
 
-    const diffTime = endDate.getTime() - startDate.getTime()
-
-    //差がmsで来るので、時間へ変換
-    const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-    setWorkloadTime(WorkloadTime.fromDay(diffDay))
+    const workloadTime = WorkloadTime.diffWithoutWeekend(startDate, endDate)
+    setWorkloadTime(workloadTime)
   }
 
   const [lineCount, applyLineCount] = useReducer(
