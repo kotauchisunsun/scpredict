@@ -32,9 +32,9 @@ export class Statics {
   public print() {
     console.log(
       `mean:   ${this.mean}\n` +
-            `median: ${this.median}\n` +
-            `50%:    ${this.p50Lower} - ${this.p50Upper}\n` +
-            `95%:    ${this.p95Lower} - ${this.p95Upper}`
+      `median: ${this.median}\n` +
+      `50%:    ${this.p50Lower} - ${this.p50Upper}\n` +
+      `95%:    ${this.p95Lower} - ${this.p95Upper}`
     )
   }
 }

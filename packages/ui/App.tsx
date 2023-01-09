@@ -1,11 +1,11 @@
 import "./App.css"
-import { useEffect, useMemo, useReducer, useState} from "react"
+import { useMemo, useState} from "react"
 import { WorkloadPanel } from "./WorkloadPanel"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
-import { tensor, Tensor1D, tensor1d } from "@tensorflow/tfjs"
-import { defaultManHourData, defaultMan, defaultDay, defaultLineCount } from "./defaultData"
+import { tensor, tensor1d } from "@tensorflow/tfjs"
+import { defaultManHourData, defaultLineCount } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
@@ -25,12 +25,55 @@ type AppProps = {
   predictConfig: PredictConfig
 }
 
+function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
+  function g(args: K): V {
+    if (preCache.has(args)) {
+      console.log("hit")
+      return preCache.get(args) as V
+    }
+    return f(args)
+  }
+  return g
+}
+
 export const App = ({ predictConfig }: AppProps) => {
 
-  const [manHourDistribution, setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))
+  const [lineCount, applyLineCount] = useState<number>(defaultLineCount)
+  const [man, setMan] = useState<number | null>(null)
+  const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(null)
 
-  const [man, setMan] = useState<number | null>(defaultMan)
-  const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(WorkloadTime.fromDay(defaultDay))
+  const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
+  const [endDateStr, setEndDateStr] = useState<string | null>(null)
+
+  const cacheResult = {
+    manHourData:  tensor1d(defaultManHourData),
+    manHourStaticsMean: 2010.5684814453125,
+    monthStaticsMean: 4.79464054107666
+  }
+
+  const calcMeanFromLineCount = precachedDecorator((lineCount: number) => {
+    const manHourStatics = predictManHour(lineCount, predictConfig.manHourSamplingCount, predictConfig.seed)
+    const manHourResamples = resampling(manHourStatics.data, predictConfig.manHourResamplingCount, predictConfig.seed)
+    const monthStatics = predictMonth(manHourResamples, predictConfig.monthSamplingCount, predictConfig.seed)
+
+    return {
+      manHourData: manHourStatics.data,
+      manHourStaticsMean: manHourStatics.mean,
+      monthStaticsMean: monthStatics.mean
+    }
+  }, new Map([[defaultLineCount, cacheResult]]))
+
+  const manHourDistribution = useMemo(() => {
+    const result = calcMeanFromLineCount(lineCount)
+
+    const meanWorkload = Workload.fromManHour(result.manHourStaticsMean)
+    const meanWorkloadTime = WorkloadTime.fromMonth(result.monthStaticsMean)
+    const man = Math.ceil(meanWorkload.calcMan(meanWorkloadTime))
+    const workloadTime = WorkloadTime.fromDay(Math.ceil(meanWorkloadTime.day))
+
+    applyWorkload(man, workloadTime)
+    return result.manHourData
+  }, [lineCount])
 
   const workload = useMemo(() => (man != null && workloadTime != null ? new Workload(man, workloadTime) : null), [man, workloadTime])
 
@@ -120,9 +163,6 @@ export const App = ({ predictConfig }: AppProps) => {
     applyWorkload(inputMan, workloadTime)
   }
 
-  const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
-  const [endDateStr, setEndDateStr] = useState<string | null>(null)
-
   function applyStartDate(dateStr: string) {
     setStartDateStr(dateStr)
     applyWorkload(man, workloadTime)
@@ -137,38 +177,6 @@ export const App = ({ predictConfig }: AppProps) => {
     const workloadTime = WorkloadTime.diffWithoutWeekend(startDate, endDate)
     setWorkloadTime(workloadTime)
   }
-
-  const [lineCount, applyLineCount] = useReducer(
-    (state: number | null, action: number | null) => {
-      if (action == null) {
-        return state
-      }
-
-      const manHourStatics = predictManHour(action, predictConfig.manHourSamplingCount, predictConfig.seed)
-      const manHourResamples = resampling(manHourStatics.data, predictConfig.manHourResamplingCount, predictConfig.seed)
-      const monthStatics = predictMonth(manHourResamples, predictConfig.monthSamplingCount, predictConfig.seed)
-
-      setManHourDistribution(manHourStatics.data)
-
-      const meanWorkload = Workload.fromManHour(manHourStatics.mean)
-      const meanWorkloadTime = WorkloadTime.fromMonth(monthStatics.mean)
-      const man = Math.ceil(meanWorkload.calcMan(meanWorkloadTime))
-      const workloadTime = WorkloadTime.fromDay(Math.ceil(meanWorkloadTime.day))
-
-      applyWorkload(man, workloadTime)
-
-      return action
-    },
-    defaultLineCount
-  )
-
-  let flag = true
-  useEffect(() => {
-    if (flag) {
-      applyEndDateByWorkloadTime(workloadTime)
-      flag = false
-    }
-  }, [])
 
   return (
     <article className="App">
