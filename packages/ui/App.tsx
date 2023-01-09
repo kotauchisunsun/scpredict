@@ -28,7 +28,6 @@ type AppProps = {
 export const App = ({ predictConfig }: AppProps) => {
 
   const [manHourDistribution, setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))
-  const manDayDistribution = useMemo(()=>( manHourDistribution == null ? null : manHourDistribution.div(8).as1D()), [manHourDistribution])
 
   const [man, setMan] = useState<number | null>(defaultMan)
   const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(WorkloadTime.fromDay(defaultDay))
@@ -44,13 +43,13 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const manDayPercentile = useMemo(
     () => {
-      if (workload == null || manDayDistribution == null) {
+      if (workload == null || manHourDistribution == null) {
         return null
       }
 
-      return percentileOfScore(manDayDistribution, workload.manDay)
+      return percentileOfScore(manHourDistribution, workload.manHour)
     },
-    [workload, manDayDistribution]
+    [workload, manHourDistribution]
   )
 
   const monthDistribution = useMemo(() => {
