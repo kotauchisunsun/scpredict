@@ -2,7 +2,7 @@ import { Statics } from "../core/Statics"
 
 const toFixedLocaleString = (n?: number) => {
   if (n == null) {
-    return ""
+    return "-"
   }
 
   const a = n?.toFixed(0)
