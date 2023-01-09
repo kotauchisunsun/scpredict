@@ -34,7 +34,7 @@ export class WorkloadTime {
 
   public calcDateWithoutWeekend(startDate: Date): Date {
     const endDate = new Date(startDate.getTime())
-    endDate.setDate(endDate.getDate() + Math.floor(7 / 5 * this.day))
+    endDate.setDate(endDate.getDate() + Math.floor(7 / 5 * this.day * 2))
     while (WorkloadTime.diffWithoutWeekend(startDate, endDate).day != this.day) {
       endDate.setDate(endDate.getDate() - 1)
     }

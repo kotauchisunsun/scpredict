@@ -78,6 +78,16 @@ describe("工数から終了日時を計算するとき", () => {
     expect(result.getTime()).toBe(endDate)
   })
 
+  test("停止しないバグがあった", () => {
+    const startDate = new Date(1673308800000)
+    //const endDate = new Date(1684108800000)
+    const day = 90
+
+    const workloadTime = WorkloadTime.fromDay(day)
+    const result = workloadTime.calcDateWithoutWeekend(startDate)
+    expect(WorkloadTime.diffWithoutWeekend(startDate, result).day).toBe(day)
+  })
+
   // eslint-disable-next-line jest/expect-expect
   test("網羅チェック", () => fc.assert(
     fc.property(
