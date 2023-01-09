@@ -1,6 +1,6 @@
 import "./App.css"
 import { useEffect, useMemo, useReducer, useState} from "react"
-import { Workload } from "./Workload"
+import { WorkloadPanel } from "./WorkloadPanel"
 import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
@@ -11,6 +11,8 @@ import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
 import { StaticsViewer } from "./StaticsViewer"
 import { PercentViewer } from "./PercentViewer"
+import { WorkloadTime } from "../core/WorkloadTime"
+import { Workload } from "../core/Workload"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -26,6 +28,12 @@ type AppProps = {
 export const App = ({ predictConfig }: AppProps) => {
 
   const [manHourDistribution, setManHourDistribution] = useState<Tensor1D|null>(tensor1d(defaultManHourData))
+
+  const [man, setMan] = useState<number | null>(defaultMan)
+  const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(WorkloadTime.fromDay(defaultDay))
+
+  const workload = useMemo(() => (man != null && workloadTime != null ? new Workload(man, workloadTime) : null), [man, workloadTime])
+
   const manDayStatics = useMemo(() => {
     if (manHourDistribution == null) {
       return null
@@ -33,82 +41,84 @@ export const App = ({ predictConfig }: AppProps) => {
     return Statics.build(manHourDistribution.div(8).as1D())
   }, [manHourDistribution])
 
-  const [man, setMan] = useState<number | null>(defaultMan)
-  const [day, setDay] = useState<number | null>(defaultDay)
-  const month = useMemo(() => day == null ? null : day / 20, [day])
-
-  const workloadManDayDistribution = useMemo(()=>( manHourDistribution == null ? null : manHourDistribution.div(8).as1D()), [manHourDistribution])
-  const workloadManDay = useMemo(() => (man != null && day != null ? man * day : null), [man, day])
-
-  const workloadPercentile = useMemo(
+  const manDayPercentile = useMemo(
     () => {
-      if (workloadManDay == null || workloadManDayDistribution == null) {
+      if (workload == null || manHourDistribution == null) {
         return null
       }
 
-      return percentileOfScore(workloadManDayDistribution, workloadManDay)
+      return percentileOfScore(manHourDistribution, workload.manHour)
     },
-    [workloadManDay, workloadManDayDistribution]
+    [workload, manHourDistribution]
   )
 
-  const workloadMonthDistribution = useMemo(() => {
-    if (workloadManDay == null || manHourDistribution==null) {
+  const monthDistribution = useMemo(() => {
+    if (workload == null || manHourDistribution==null) {
       return null
     }
 
-    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workloadManDay * 8)
+    const filteredManHourDistribution = manHourDistribution.arraySync().filter((x) => x < workload.manHour)
     const target = resampling(tensor(filteredManHourDistribution), 1000, predictConfig.seed)
     return predictMonth(target, 100, predictConfig.seed).data
-  }, [workloadManDay, manHourDistribution])
+  }, [workload, manHourDistribution])
 
-  const workloadDayStatics = useMemo(() => {
-    if (workloadMonthDistribution == null) {
+  const dayStatics = useMemo(() => {
+    if (monthDistribution == null) {
       return null
     }
 
-    return Statics.build(workloadMonthDistribution.mul(20))
+    //1人月は20人日
+    return Statics.build(monthDistribution.mul(20))
   },
-  [workloadMonthDistribution])
+  [monthDistribution])
 
   const monthPercentile = useMemo(
     () => {
-      if (month == null || workloadMonthDistribution == null) {
+      if (workloadTime == null || monthDistribution == null) {
         return null
       }
-      return percentileOfScore(workloadMonthDistribution, month)
+      return percentileOfScore(monthDistribution, workloadTime.month)
     },
-    [month, workloadMonthDistribution]
+    [workloadTime, monthDistribution]
   )
 
   const completeProbability = useMemo(
     () => {
-      if (workloadPercentile == null || monthPercentile == null) {
+      if (manDayPercentile == null || monthPercentile == null) {
         return null
       }
-      return workloadPercentile * monthPercentile
+      return manDayPercentile * monthPercentile
     },
-    [workloadPercentile, monthPercentile]
+    [manDayPercentile, monthPercentile]
   )
 
-  function applyWorkload(man: number | null, day: number | null) {
-    setMan(man)
-    setDay(day)
-
-    if (man == null || day === null) {
+  function applyEndDateByWorkloadTime(workloadTime: WorkloadTime | null) {
+    if (workloadTime == null) {
       return
     }
 
     const endDate = new Date(Date.parse(startDateStr))
-    endDate.setDate(endDate.getDate() + day)
+    endDate.setDate(endDate.getDate() + workloadTime.day)
     setEndDateStr(dumpDateStr(endDate))
   }
 
+  function applyWorkload(man: number | null, workloadTime: WorkloadTime | null) {
+    setMan(man)
+    setWorkloadTime(workloadTime)
+
+    if (workloadTime === null) {
+      return
+    }
+
+    applyEndDateByWorkloadTime(workloadTime)
+  }
+
   function applyDay(inputDay: number | null) {
-    applyWorkload(man, inputDay)
+    applyWorkload(man, inputDay == null ? null :WorkloadTime.fromDay(inputDay))
   }
 
   function applyMan(inputMan: number | null) {
-    applyWorkload(inputMan, day)
+    applyWorkload(inputMan, workloadTime)
   }
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
@@ -116,7 +126,7 @@ export const App = ({ predictConfig }: AppProps) => {
 
   function applyStartDate(dateStr: string) {
     setStartDateStr(dateStr)
-    applyWorkload(man, day)
+    applyWorkload(man, workloadTime)
   }
 
   function applyEndDate(dateStr: string) {
@@ -126,8 +136,10 @@ export const App = ({ predictConfig }: AppProps) => {
     const startDate = new Date(Date.parse(startDateStr))
 
     const diffTime = endDate.getTime() - startDate.getTime()
+
+    //差がmsで来るので、時間へ変換
     const diffDay = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-    setDay(diffDay)
+    setWorkloadTime(WorkloadTime.fromDay(diffDay))
   }
 
   const [lineCount, applyLineCount] = useReducer(
@@ -142,20 +154,21 @@ export const App = ({ predictConfig }: AppProps) => {
 
       setManHourDistribution(manHourStatics.data)
 
-      const manHour = manHourStatics.mean
-      const manDay = manHour / 8
-      const month = monthStatics.mean
-      const day = Math.ceil(20 * month)
-      const man = Math.ceil(manDay / day)
+      const meanWorkload = Workload.fromManHour(manHourStatics.mean)
+      const meanWorkloadTime = WorkloadTime.fromMonth(monthStatics.mean)
+      const man = Math.ceil(meanWorkload.calcMan(meanWorkloadTime))
+      const workloadTime = WorkloadTime.fromDay(Math.ceil(meanWorkloadTime.day))
 
-      applyWorkload(man, day)
+      applyWorkload(man, workloadTime)
 
       return action
     },
     defaultLineCount
   )
 
-  useEffect(() => { applyWorkload(defaultMan, defaultDay) }, [])
+  useEffect(() => {
+    applyEndDateByWorkloadTime(workloadTime)
+  }, [])
 
   return (
     <article className="App">
@@ -171,10 +184,10 @@ export const App = ({ predictConfig }: AppProps) => {
             </ul>
           </form>
         </section>
-        <Workload
+        <WorkloadPanel
           man={man}
-          day={day}
-          manDay={workloadManDay}
+          day={workloadTime == null ? null : workloadTime.day}
+          manDay={workload == null ? null: workload.manDay}
           onChangeMan={applyMan}
           onChangeDay={applyDay}
         />
@@ -183,7 +196,7 @@ export const App = ({ predictConfig }: AppProps) => {
         <StaticsViewer statics={manDayStatics} itemName="工数(人日)"/>
       </Panel>
       <Panel title="開発工数の妥当性">
-        <PercentViewer score={workloadPercentile} />
+        <PercentViewer score={manDayPercentile} />
       </Panel>
       <Panel title="開発スケジュール" >
         <form>
@@ -200,7 +213,7 @@ export const App = ({ predictConfig }: AppProps) => {
         </form>
       </Panel>
       <Panel title="工期の確率分布の統計量">
-        <StaticsViewer statics={workloadDayStatics} itemName="工期(日)"/>
+        <StaticsViewer statics={dayStatics} itemName="工期(日)"/>
       </Panel>
       <Panel title="締切前完了確率" >
         <PercentViewer score={completeProbability} />

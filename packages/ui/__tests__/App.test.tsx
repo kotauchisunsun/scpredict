@@ -40,6 +40,9 @@ describe("App tsx", () => {
 
     //開発工数の妥当性
     expect(screen.getAllByText("73%")).toBeTruthy()
+
+    //締め切り前完了確率
+    expect(screen.getAllByText("54%")).toBeTruthy()
   })
 
   it("show transition", () => {
@@ -64,5 +67,8 @@ describe("App tsx", () => {
 
     //開発工数の妥当性
     expect(screen.getAllByText("72%")).toBeTruthy()
+
+    //締め切り前完了確率
+    expect(screen.getAllByText("53%")).toBeTruthy()
   })
 })
