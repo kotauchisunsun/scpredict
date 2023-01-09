@@ -61,7 +61,7 @@ export const App = ({ predictConfig }: AppProps) => {
       manHourStaticsMean: manHourStatics.mean,
       monthStaticsMean: monthStatics.mean
     }
-  }, new Map([[800, cacheResult]]))
+  }, new Map([[defaultLineCount, cacheResult]]))
 
   const manHourDistribution = useMemo(() => {
     const result = calcMeanFromLineCount(lineCount)
