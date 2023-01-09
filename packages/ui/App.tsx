@@ -162,11 +162,11 @@ export const App = ({ predictConfig }: AppProps) => {
     defaultLineCount
   )
 
-  let flag = true;
+  let flag = true
   useEffect(() => {
     if (flag) {
       applyEndDateByWorkloadTime(workloadTime)
-      flag = false;
+      flag = false
     }
   }, [])
 
