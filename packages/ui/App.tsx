@@ -28,7 +28,6 @@ type AppProps = {
 function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
   function g(args: K): V {
     if (preCache.has(args)) {
-      console.log("hit")
       return preCache.get(args) as V
     }
     return f(args)
