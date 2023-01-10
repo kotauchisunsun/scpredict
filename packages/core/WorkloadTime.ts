@@ -1,6 +1,14 @@
 export class WorkloadTime {
 
-  private constructor(private readonly hourValue: number) {}
+  private readonly hourValue : number
+
+  private constructor(hourValue: number) {
+    if(isNaN(hourValue) || hourValue == Infinity || hourValue == -Infinity || hourValue < 0) {
+      throw new Error("Value is a number greater than or equal to 0")
+    }
+
+    this.hourValue = hourValue
+  }
 
   get hour() {
     return this.hourValue

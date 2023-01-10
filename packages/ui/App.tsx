@@ -28,7 +28,6 @@ type AppProps = {
 function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
   function g(args: K): V {
     if (preCache.has(args)) {
-      console.log("hit")
       return preCache.get(args) as V
     }
     return f(args)
@@ -160,6 +159,10 @@ export const App = ({ predictConfig }: AppProps) => {
   }
 
   function applyMan(inputMan: number | null) {
+    if (inputMan == null || isNaN(inputMan) || inputMan < 0) {
+      return
+    }
+
     applyWorkload(inputMan, workloadTime)
   }
 
@@ -187,7 +190,11 @@ export const App = ({ predictConfig }: AppProps) => {
             <ul>
               <li>
                 <label htmlFor="SLOC">開発規模(SLOC)</label>
-                <input id="SLOC" type="number" value={lineCount?.toString()} onChange={(e) => { applyLineCount(e.target.valueAsNumber) } } />
+                <input
+                  id="SLOC"
+                  type="number"
+                  value={lineCount?.toString()}
+                  onChange={(e) => { if (!isNaN(e.target.valueAsNumber) && e.target.valueAsNumber >= 0) { applyLineCount(e.target.valueAsNumber) } }} />
               </li>
             </ul>
           </form>
