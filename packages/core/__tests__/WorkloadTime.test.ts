@@ -26,6 +26,10 @@ describe("人月の計算において", () => {
     const time = WorkloadTime.fromDay(20)
     expect(time.month).toBe(1)
   })
+
+  test("Nanはエラー", () => {
+    expect(()=>WorkloadTime.fromHour(NaN)).toThrow()
+  })
 })
 
 describe("日付の差の計算において", () => {
@@ -103,3 +107,4 @@ describe("工数から終了日時を計算するとき", () => {
     )
   ))
 })
+
