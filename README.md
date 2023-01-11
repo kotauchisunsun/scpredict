@@ -1,3 +1,7 @@
+![GitHub top language](https://img.shields.io/github/languages/top/kotauchisunsun/scpredict)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kotauchisunsun/scpredict)
+
+
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kotauchisunsun_scpredict&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kotauchisunsun_scpredict)
