@@ -155,15 +155,11 @@ export const App = ({ predictConfig }: AppProps) => {
   }
 
   function applyDay(inputDay: number | null) {
-    applyWorkload(man, inputDay == null ? null :WorkloadTime.fromDay(inputDay))
+    applyWorkload(man, WorkloadTime.fromDay( inputDay == null || isNaN(inputDay) || inputDay < 0 ? 0 :  inputDay))
   }
 
   function applyMan(inputMan: number | null) {
-    if (inputMan == null || isNaN(inputMan) || inputMan < 0) {
-      return
-    }
-
-    applyWorkload(inputMan, workloadTime)
+    applyWorkload((inputMan == null || isNaN(inputMan) || inputMan < 0) ? 0 : inputMan, workloadTime)
   }
 
   function applyStartDate(dateStr: string) {
