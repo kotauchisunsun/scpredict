@@ -1,3 +1,4 @@
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/kotauchisunsun/scpredict/build.yml)
 ![GitHub top language](https://img.shields.io/github/languages/top/kotauchisunsun/scpredict)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/kotauchisunsun/scpredict)
 
