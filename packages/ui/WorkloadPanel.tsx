@@ -17,7 +17,7 @@ export const WorkloadPanel = ({ man, day, manDay, onChangeMan, onChangeDay}: Wor
             <input id="man" type="number" min={0} value={man == null ? "" : man.toString()}  onChange={(e) => { onChangeMan?.(e.target.valueAsNumber) }} disabled={ man===null } />
           </li>
           <li>
-            <label htmlFor="day">工期(日)</label>
+            <label htmlFor="day" title="基礎設計・詳細設計・製作・結合テスト・総合テスト　５工程の合計">工期(日)</label>
             <input id="day" type="number" min={0} value={day == null ? "": day.toString()} onChange={(e) => { onChangeDay?.(e.target.valueAsNumber) }} disabled={ day===null } />
           </li>
           <li>

@@ -190,11 +190,12 @@ export const App = ({ predictConfig }: AppProps) => {
           <form>
             <ul>
               <li>
-                <label htmlFor="SLOC">開発規模(SLOC)</label>
+                <label htmlFor="SLOC" title="ソースコードの行数">開発規模(SLOC)</label>
                 <input
                   id="SLOC"
                   type="number"
                   value={lineCount?.toString()}
+                  step={100}
                   onChange={(e) => { if (!isNaN(e.target.valueAsNumber) && e.target.valueAsNumber >= 0) { applyLineCount(e.target.valueAsNumber) } }} />
               </li>
             </ul>
@@ -219,11 +220,11 @@ export const App = ({ predictConfig }: AppProps) => {
           <form>
             <ul>
               <li>
-                <label htmlFor="startDate">開始日</label>
+                <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
                 <input type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
               </li>
               <li>
-                <label htmlFor="endDate">締切日</label>
+                <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
                 <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
               </li>
             </ul>
@@ -232,15 +233,15 @@ export const App = ({ predictConfig }: AppProps) => {
         <Panel title="開発コスト">
           <ul>
             <li>
-              <label htmlFor="manMonthCost">人件費(人月)</label>
-              <input id="manCost" type="number" min={0} value={manMonthCost} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
+              <label htmlFor="manMonthCost">人件費(円/人月)</label>
+              <input id="manCost" type="number" min={0} value={manMonthCost} step={1000} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
             </li>
             <li>
-              <label htmlFor="totalCost">開発人件費</label>
+              <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
               <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
             </li>
             <li>
-              <label htmlFor="breakEvenProfit">損益分岐利益</label>
+              <label htmlFor="breakEvenProfit" title="推定損益分岐利益 × 締め切り前完了確率 = 開発人件費">推定損益分岐利益</label>
               <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
             </li>
           </ul>
