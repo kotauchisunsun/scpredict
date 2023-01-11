@@ -13,6 +13,7 @@ import { StaticsViewer } from "./StaticsViewer"
 import { PercentViewer } from "./PercentViewer"
 import { WorkloadTime } from "../core/WorkloadTime"
 import { Workload } from "../core/Workload"
+import { toFixedLocaleString } from "./toFixedLocaleString"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -134,6 +135,10 @@ export const App = ({ predictConfig }: AppProps) => {
     [manDayPercentile, monthPercentile]
   )
 
+  const [manMonthCost, setManMonthCost] = useState<number>(373500)
+  const totalCost = useMemo(() => workload == null ? 0 : manMonthCost * workload.manMonth, [workload, manMonthCost])
+  const breakEvenProfit = useMemo(()=>completeProbability == null || completeProbability == 0 ? 0 : totalCost/completeProbability, [totalCost, completeProbability])
+
   function applyEndDateByWorkloadTime(workloadTime: WorkloadTime | null) {
     if (workloadTime == null) {
       return
@@ -209,20 +214,39 @@ export const App = ({ predictConfig }: AppProps) => {
       <Panel title="開発工数の妥当性">
         <PercentViewer score={manDayPercentile} />
       </Panel>
-      <Panel title="開発スケジュール" >
-        <form>
+      <section>
+        <Panel title="開発スケジュール" >
+          <form>
+            <ul>
+              <li>
+                <label htmlFor="startDate">開始日</label>
+                <input type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
+              </li>
+              <li>
+                <label htmlFor="endDate">締切日</label>
+                <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
+              </li>
+            </ul>
+          </form>
+        </Panel>
+        <Panel title="開発コスト">
           <ul>
             <li>
-              <label htmlFor="startDate">開始日</label>
-              <input type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
+              <label htmlFor="manMonthCost">人件費(人月)</label>
+              <input id="manCost" type="number" min={0} value={manMonthCost} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
             </li>
             <li>
-              <label htmlFor="endDate">締切日</label>
-              <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
+              <label htmlFor="totalCost">開発人件費</label>
+              <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
+            </li>
+            <li>
+              <label htmlFor="breakEvenProfit">損益分岐利益</label>
+              <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
             </li>
           </ul>
-        </form>
-      </Panel>
+        </Panel>
+      </section>
+
       <Panel title="工期の確率分布の統計量">
         <StaticsViewer statics={dayStatics} itemName="工期(日)"/>
       </Panel>
