@@ -233,7 +233,7 @@ export const App = ({ predictConfig }: AppProps) => {
         <Panel title="開発コスト">
           <ul>
             <li>
-              <label htmlFor="manMonthCost">人件費(円/人月)</label>
+              <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
               <input id="manCost" type="number" min={0} value={manMonthCost} step={1000} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
             </li>
             <li>
