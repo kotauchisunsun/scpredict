@@ -20,7 +20,7 @@ const getManDayInput = () => {
 
 describe("App tsx", () => {
   it("show initial", () => {
-    render(<App predictConfig={config} />)
+    render(<App predictConfig={config} startDate={new Date()} />)
 
     //開発規模から開発工数の予測
     expect(getSLOCInput().value).toBe("800")
@@ -46,7 +46,7 @@ describe("App tsx", () => {
   })
 
   it("show transition", () => {
-    render(<App predictConfig={config} />)
+    render(<App predictConfig={config} startDate={new Date()} />)
     fireEvent.input(getSLOCInput(), { target: { value: "900" } })
 
     //開発規模から開発工数の予測
@@ -70,5 +70,12 @@ describe("App tsx", () => {
 
     //締め切り前完了確率
     expect(screen.getAllByText("53%")).toBeTruthy()
+  })
+
+  it("set startDate", () => {
+    const startDate = new Date("2022-01-23")
+    render(<App predictConfig={config} startDate={startDate} />)
+    const element = screen.getByLabelText("開始日", { selector: "input" }) as HTMLInputElement
+    expect(element.value).toBe("2022-01-23")
   })
 })
