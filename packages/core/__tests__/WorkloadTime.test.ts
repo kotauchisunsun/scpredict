@@ -33,6 +33,16 @@ describe("人月の計算において", () => {
 })
 
 describe("日付の差の計算において", () => {
+  describe("平日のみの", () => {
+    it("2023/01/09～2023/01/12の間は3日間である", () => {
+      const startDate = new Date(Date.parse("2023-01-09"))
+      const endDate = new Date(Date.parse("2023-01-12"))
+
+      const time = WorkloadTime.diffWithoutWeekend(startDate, endDate)
+      expect(time.day).toBe(3)
+    })
+  })
+
   describe("月をまたがない", () => {
     const startDate = new Date(Date.parse("2023-01-16"))
     const endDate = new Date(Date.parse("2023-01-23"))

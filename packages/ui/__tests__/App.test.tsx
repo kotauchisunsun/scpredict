@@ -72,10 +72,11 @@ describe("App tsx", () => {
     expect(screen.getAllByText("53%")).toBeTruthy()
   })
 
-  it("set startDate", () => {
-    const startDate = new Date("2022-01-23")
+  it("set endDate", () => {
+    const startDate = new Date("2022-01-30")
     render(<App predictConfig={config} startDate={startDate} />)
-    const element = screen.getByLabelText("開始日", { selector: "input" }) as HTMLInputElement
-    expect(element.value).toBe("2022-01-23")
+    const element = screen.getByLabelText("締切日", { selector: "input" }) as HTMLInputElement
+    fireEvent.input(element, { target: { value: "2022-02-06" } })
+    expect(getDayInput().value).toBe("5")
   })
 })
