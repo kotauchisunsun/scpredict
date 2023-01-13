@@ -9,6 +9,6 @@ ReactGA.initialize("G-CY0SBJXLMC")
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App predictConfig={config} />
+    <App predictConfig={config} startDate={new Date()} />
   </React.StrictMode>,
 )

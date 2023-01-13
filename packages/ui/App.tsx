@@ -24,6 +24,7 @@ const dumpDateStr = (date: Date): string => {
 
 type AppProps = {
   predictConfig: PredictConfig
+  startDate: Date
 }
 
 function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
@@ -36,13 +37,13 @@ function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
   return g
 }
 
-export const App = ({ predictConfig }: AppProps) => {
+export const App = ({ startDate, predictConfig }: AppProps) => {
 
   const [lineCount, applyLineCount] = useState<number>(defaultLineCount)
   const [man, setMan] = useState<number | null>(null)
   const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(null)
 
-  const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
+  const [startDateStr, setStartDateStr] = useState(dumpDateStr(startDate))
   const [endDateStr, setEndDateStr] = useState<string | null>(null)
 
   const cacheResult = {
@@ -86,7 +87,7 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const manDayPercentile = useMemo(
     () => {
-      if (workload == null || manHourDistribution == null) {
+      if (workload == null) {
         return null
       }
 
@@ -96,7 +97,7 @@ export const App = ({ predictConfig }: AppProps) => {
   )
 
   const monthDistribution = useMemo(() => {
-    if (workload == null || manHourDistribution==null) {
+    if (workload == null) {
       return null
     }
 
@@ -221,11 +222,11 @@ export const App = ({ predictConfig }: AppProps) => {
             <ul>
               <li>
                 <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
-                <input type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
+                <input id="startDate" type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
               </li>
               <li>
                 <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
-                <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
+                <input id="endDate" type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
               </li>
             </ul>
           </form>
