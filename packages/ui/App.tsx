@@ -188,7 +188,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
       <Panel title="開発規模と開発工数">
         <section>
           <h2>開発規模から開発工数の予測</h2>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <ul>
               <li>
                 <label htmlFor="SLOC" title="ソースコードの行数">開発規模(SLOC)</label>
