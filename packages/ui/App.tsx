@@ -222,7 +222,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
             <ul>
               <li>
                 <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
-                <input id="startDate" type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
+                <input id="startDate" type="date" value={startDateStr} onChange={(e) => { applyStartDate(e.target.value) }}/>
               </li>
               <li>
                 <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
