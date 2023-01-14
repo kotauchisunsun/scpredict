@@ -44,7 +44,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
   const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(null)
 
   const [startDateStr, setStartDateStr] = useState(dumpDateStr(startDate))
-  const [endDateStr, setEndDateStr] = useState<string | null>(null)
+  const [endDateStr, setEndDateStr] = useState<string>()
 
   const cacheResult = {
     manHourData:  tensor1d(defaultManHourData),
@@ -226,7 +226,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
               </li>
               <li>
                 <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
-                <input id="endDate" type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
+                <input id="endDate" type="date" value={endDateStr} onChange={(e) => { applyEndDate(e.target.value) }}/>
               </li>
             </ul>
           </form>
