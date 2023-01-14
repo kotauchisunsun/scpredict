@@ -5,7 +5,7 @@ import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
 import { tensor, tensor1d } from "@tensorflow/tfjs"
-import { defaultManHourData, defaultLineCount } from "./defaultData"
+import { defaultManHourData, defaultLineCount, defaultManMonthCost } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
@@ -136,7 +136,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
     [manDayPercentile, monthPercentile]
   )
 
-  const [manMonthCost, setManMonthCost] = useState<number>(373500)
+  const [manMonthCost, setManMonthCost] = useState<number>(defaultManMonthCost)
   const totalCost = useMemo(() => workload == null ? 0 : manMonthCost * workload.manMonth, [workload, manMonthCost])
   const breakEvenProfit = useMemo(()=>completeProbability == null || completeProbability == 0 ? 0 : totalCost/completeProbability, [totalCost, completeProbability])
 
@@ -235,7 +235,13 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           <ul>
             <li>
               <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
-              <input id="manCost" type="number" min={0} value={manMonthCost} step={1000} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
+              <input
+                id="manCost"
+                type="number"
+                min={0}
+                value={manMonthCost}
+                step={500}
+                onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
             </li>
             <li>
               <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
