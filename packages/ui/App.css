@@ -5,14 +5,18 @@ body {
   flex-direction: column;
 }
 
-header {
-  height: auto;
-  min-width: 100%;
+header>h1 {
+  margin:0px;
+  padding:0.5rem;
 }
 
+
 main {
-  display:flex;
-  flex-grow: 1;
+  display:block;
+}
+
+.panel {
+  padding:0.5rem;
 }
 
 article {
@@ -21,6 +25,7 @@ article {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  grid-gap: 1em;
 }
 
 section {
@@ -28,6 +33,8 @@ section {
 }
 
 table {
+  position:relative; 
+  margin:auto;
   width:80%;
   border-collapse: collapse;
 }

@@ -187,7 +187,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
     <article className="App">
       <Panel title="開発規模と開発工数">
         <section>
-          <h2>開発規模から開発工数の予測</h2>
+          <h1>開発規模から開発工数の予測</h1>
           <form onSubmit={(e) => e.preventDefault()}>
             <ul>
               <li>
@@ -216,8 +216,9 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
       <Panel title="開発工数の妥当性">
         <PercentViewer score={manDayPercentile} />
       </Panel>
-      <section>
-        <Panel title="開発スケジュール" >
+      <Panel>
+        <section>
+          <h1>開発スケジュール</h1>
           <form>
             <ul>
               <li>
@@ -230,8 +231,9 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
               </li>
             </ul>
           </form>
-        </Panel>
-        <Panel title="開発コスト">
+        </section>
+        <section>
+          <h1>開発コスト</h1>
           <ul>
             <li>
               <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
@@ -252,8 +254,8 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
               <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
             </li>
           </ul>
-        </Panel>
-      </section>
+        </section>
+      </Panel>
 
       <Panel title="工期の確率分布の統計量">
         <StaticsViewer statics={dayStatics} itemName="工期(日)"/>
