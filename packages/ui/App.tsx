@@ -5,7 +5,7 @@ import { Panel } from "./Panel"
 import { PredictConfig } from "./PredictConfig"
 import { Statics } from "../core/Statics"
 import { tensor, tensor1d } from "@tensorflow/tfjs"
-import { defaultManHourData, defaultLineCount } from "./defaultData"
+import { defaultManHourData, defaultLineCount, defaultManMonthCost } from "./defaultData"
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
@@ -24,6 +24,7 @@ const dumpDateStr = (date: Date): string => {
 
 type AppProps = {
   predictConfig: PredictConfig
+  startDate: Date
 }
 
 function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
@@ -36,14 +37,14 @@ function precachedDecorator<K, V>(f: (args: K) => V, preCache : Map<K, V>) {
   return g
 }
 
-export const App = ({ predictConfig }: AppProps) => {
+export const App = ({ startDate, predictConfig }: AppProps) => {
 
   const [lineCount, applyLineCount] = useState<number>(defaultLineCount)
   const [man, setMan] = useState<number | null>(null)
   const [workloadTime, setWorkloadTime] = useState<WorkloadTime | null>(null)
 
-  const [startDateStr, setStartDateStr] = useState(dumpDateStr(new Date()))
-  const [endDateStr, setEndDateStr] = useState<string | null>(null)
+  const [startDateStr, setStartDateStr] = useState(dumpDateStr(startDate))
+  const [endDateStr, setEndDateStr] = useState<string>()
 
   const cacheResult = {
     manHourData:  tensor1d(defaultManHourData),
@@ -86,7 +87,7 @@ export const App = ({ predictConfig }: AppProps) => {
 
   const manDayPercentile = useMemo(
     () => {
-      if (workload == null || manHourDistribution == null) {
+      if (workload == null) {
         return null
       }
 
@@ -96,7 +97,7 @@ export const App = ({ predictConfig }: AppProps) => {
   )
 
   const monthDistribution = useMemo(() => {
-    if (workload == null || manHourDistribution==null) {
+    if (workload == null) {
       return null
     }
 
@@ -135,7 +136,7 @@ export const App = ({ predictConfig }: AppProps) => {
     [manDayPercentile, monthPercentile]
   )
 
-  const [manMonthCost, setManMonthCost] = useState<number>(373500)
+  const [manMonthCost, setManMonthCost] = useState<number>(defaultManMonthCost)
   const totalCost = useMemo(() => workload == null ? 0 : manMonthCost * workload.manMonth, [workload, manMonthCost])
   const breakEvenProfit = useMemo(()=>completeProbability == null || completeProbability == 0 ? 0 : totalCost/completeProbability, [totalCost, completeProbability])
 
@@ -221,11 +222,11 @@ export const App = ({ predictConfig }: AppProps) => {
             <ul>
               <li>
                 <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
-                <input type="date" value={startDateStr ?? ""} onChange={(e) => { applyStartDate(e.target.value) }} disabled={ startDateStr === null } />
+                <input id="startDate" type="date" value={startDateStr} onChange={(e) => { applyStartDate(e.target.value) }}/>
               </li>
               <li>
                 <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
-                <input type="date" value={endDateStr==null ? "" : endDateStr?.toString()} onChange={(e) => { applyEndDate(e.target.value) }} disabled={ endDateStr === null } />
+                <input id="endDate" type="date" value={endDateStr} onChange={(e) => { applyEndDate(e.target.value) }}/>
               </li>
             </ul>
           </form>
@@ -234,7 +235,13 @@ export const App = ({ predictConfig }: AppProps) => {
           <ul>
             <li>
               <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
-              <input id="manCost" type="number" min={0} value={manMonthCost} step={1000} onChange={(e) => {setManMonthCost(isNaN(e.target.valueAsNumber) ? 375000 : e.target.valueAsNumber)}}></input>
+              <input
+                id="manCost"
+                type="number"
+                min={0}
+                value={manMonthCost}
+                step={500}
+                onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
             </li>
             <li>
               <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
