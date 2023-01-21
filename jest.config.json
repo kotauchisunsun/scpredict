@@ -3,5 +3,8 @@
   "testEnvironment": "jsdom",
   "transform": {
     "^.+\\.css$": ["jest-transform-css", { "modules": true }]
-  }
+  },
+  "setupFiles": [
+    "jsdom-worker"
+  ]
 }
