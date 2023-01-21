@@ -1,6 +1,9 @@
 import { App } from "../App"
 import {render, screen, fireEvent} from "@testing-library/react"
 import { config } from "../PredictConfig"
+import * as tf from "@tensorflow/tfjs"
+
+tf.setBackend("cpu")
 
 const getSLOCInput = () => {
   return screen.getByRole("spinbutton", { name: "開発規模(SLOC)" }) as HTMLInputElement

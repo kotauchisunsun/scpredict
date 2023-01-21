@@ -4,6 +4,8 @@ import "@tensorflow/tfjs-node"
 import { Statics } from "../../core/Statics"
 import { StaticsViewer } from "../StaticsViewer"
 
+tf.setBackend("cpu")
+
 describe("StaticsViewer tsx", () => {
   it("render", () => {
     const s = new Statics(
