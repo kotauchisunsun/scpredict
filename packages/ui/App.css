@@ -19,7 +19,7 @@ article {
   min-width: 100%;
   min-height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(300px,800px))
+  grid-template-columns: 1fr 2fr 1fr;
 }
 
 section {
