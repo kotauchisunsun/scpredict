@@ -66,7 +66,6 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
     ]}
     layout={
       {
-        width: 800,
         xaxis: {
           title: xaxisTitle,
           range: [0, statics.p95Upper * 1.1]
