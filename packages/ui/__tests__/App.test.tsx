@@ -30,14 +30,6 @@ describe("App tsx", () => {
     expect(getDayInput().value).toBe("96")
     expect(getManDayInput().value).toBe("288")
 
-    //開発工数の確率分布の統計量
-    expect(screen.getByText("251")).toBeTruthy()
-    expect(screen.getByText("163")).toBeTruthy()
-    expect(screen.getByText("25")).toBeTruthy()
-    expect(screen.getByText("84")).toBeTruthy()
-    expect(screen.getByText("306")).toBeTruthy()
-    expect(screen.getByText("1,007")).toBeTruthy()
-
     //開発工数の妥当性
     expect(screen.getAllByText("73%")).toBeTruthy()
 
@@ -56,14 +48,6 @@ describe("App tsx", () => {
     expect(getManInput().value).toBe("3")
     expect(getDayInput().value).toBe("98")
     expect(getManDayInput().value).toBe("294")
-
-    //開発工数の確率分布の統計量
-    expect(screen.getByText("269")).toBeTruthy()
-    expect(screen.getByText("174")).toBeTruthy()
-    expect(screen.getAllByText("26")).toBeTruthy()
-    expect(screen.getByText("89")).toBeTruthy()
-    expect(screen.getByText("327")).toBeTruthy()
-    expect(screen.getByText("1,076")).toBeTruthy()
 
     //開発工数の妥当性
     expect(screen.getAllByText("72%")).toBeTruthy()

@@ -9,11 +9,11 @@ import { defaultManHourData, defaultLineCount, defaultManMonthCost } from "./def
 import { predictManHour } from "../core/predictManHour"
 import { percentileOfScore, resampling } from "../core/StaticsUtil"
 import { predictMonth } from "../core/predictMonth"
-import { StaticsViewer } from "./StaticsViewer"
 import { PercentViewer } from "./PercentViewer"
 import { WorkloadTime } from "../core/WorkloadTime"
 import { Workload } from "../core/Workload"
 import { toFixedLocaleString } from "./toFixedLocaleString"
+import { DistribitionViewer } from "./DistributionViewer"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -210,8 +210,8 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           onChangeDay={applyDay}
         />
       </Panel>
-      <Panel title="開発工数の確率分布の統計量">
-        <StaticsViewer statics={manDayStatics} itemName="工数(人日)"/>
+      <Panel title="開発工数の確率分布">
+        <DistribitionViewer statics={manDayStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
         <PercentViewer score={manDayPercentile} />
@@ -255,8 +255,8 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
         </Panel>
       </section>
 
-      <Panel title="工期の確率分布の統計量">
-        <StaticsViewer statics={dayStatics} itemName="工期(日)"/>
+      <Panel title="工期の確率分布">
+        <DistribitionViewer statics={dayStatics} />
       </Panel>
       <Panel title="締切前完了確率" >
         <PercentViewer score={completeProbability} />
