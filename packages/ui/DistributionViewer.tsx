@@ -1,7 +1,7 @@
 import Plot from "react-plotly.js"
 import { Statics } from "../core/Statics"
 
-export const DistribitionViewer = ({xaxisTitle, ulimt, statics}: { xaxisTitle: string, ulimt: number, statics: Statics | null}) => {
+export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTitle: string, yUpperLimit: number, statics: Statics | null}) => {
   if (statics == null) {
     return <></>
   }
@@ -23,42 +23,42 @@ export const DistribitionViewer = ({xaxisTitle, ulimt, statics}: { xaxisTitle: s
       },
       {
         x: [statics.p50Lower, statics.p50Lower],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "50%信頼区間の下側",
         mode: "lines",
         line: { color: p50Color }
       },
       {
         x: [statics.p50Upper, statics.p50Upper],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "50%信頼区間の上側",
         mode: "lines",
         line: { color: p50Color }
       },
       {
         x: [statics.p95Lower, statics.p95Lower],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "95%信頼区間の下側",
         mode: "lines",
         line: { color: p95Color }
       },
       {
         x: [statics.p95Upper, statics.p95Upper],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "95%信頼区間の上側",
         mode: "lines",
         line: { color: p95Color }
       },
       {
         x: [statics.median, statics.median],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "中央値",
         mode: "lines",
         line: { color: medianColor }
       },
       {
         x: [statics.mean, statics.mean],
-        y: [0, ulimt],
+        y: [0, yUpperLimit],
         name: "平均値",
         mode: "lines",
         line: { color: meanColor }
