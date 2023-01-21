@@ -2,6 +2,8 @@ import * as tf from "@tensorflow/tfjs"
 import "@tensorflow/tfjs-node"
 import { predictMonth } from "../predictMonth"
 
+tf.setBackend("cpu")
+
 function expectErrorRange(expected: number, actual: number, errorRange = 0.1): void {
   expect(actual).toBeGreaterThan(expected * (1 - errorRange))
   expect(actual).toBeLessThan(expected* (1 + errorRange))
