@@ -243,26 +243,28 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           </section>
           <section>
             <Typography variant="h6">開発コスト</Typography>
-            <ul>
-              <li>
-                <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
-                <input
-                  id="manCost"
-                  type="number"
-                  min={0}
-                  value={manMonthCost}
-                  step={500}
-                  onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
-              </li>
-              <li>
-                <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
-                <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
-              </li>
-              <li>
-                <label htmlFor="breakEvenProfit" title="推定損益分岐利益 × 締め切り前完了確率 = 開発人件費">推定損益分岐利益</label>
-                <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
-              </li>
-            </ul>
+            <form>
+              <ul>
+                <li>
+                  <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
+                  <input
+                    id="manCost"
+                    type="number"
+                    min={0}
+                    value={manMonthCost}
+                    step={500}
+                    onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
+                </li>
+                <li>
+                  <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
+                  <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
+                </li>
+                <li>
+                  <label htmlFor="breakEvenProfit" title="推定損益分岐利益 × 締め切り前完了確率 = 開発人件費">推定損益分岐利益</label>
+                  <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
+                </li>
+              </ul>
+            </form>
           </section>
         </Panel>
         <Panel md={6} title="工期の確率分布">
