@@ -228,7 +228,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           />
         </Panel>
         <Panel md={6} title="開発工数の確率分布">
-          <DistribitionViewer xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
+          <DistribitionViewer legend="開発工数の確率分布" xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
         </Panel>
         <Panel title="開発工数の妥当性">
           <PercentViewer score={manDayPercentile} />
@@ -276,7 +276,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           </section>
         </Panel>
         <Panel md={6} title="工期の確率分布">
-          <DistribitionViewer xaxisTitle="工期(日)" yUpperLimit={0.015} statics={dayStatics} />
+          <DistribitionViewer legend="工期の確率分布" xaxisTitle="工期(日)" yUpperLimit={0.015} statics={dayStatics} />
         </Panel>
         <Panel title="締切前完了確率" >
           <PercentViewer score={completeProbability} />
