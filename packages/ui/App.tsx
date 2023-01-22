@@ -14,7 +14,7 @@ import { WorkloadTime } from "../core/WorkloadTime"
 import { Workload } from "../core/Workload"
 import { toFixedLocaleString } from "./toFixedLocaleString"
 import { DistribitionViewer } from "./DistributionViewer"
-import {Grid} from "@mui/material"
+import { Grid, Container, AppBar, Typography, Toolbar } from "@mui/material"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -185,85 +185,94 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
   }
 
   return (
-    <Grid container>
-      <Panel title="開発規模と開発工数">
-        <section>
-          <h1>開発規模から開発工数の予測</h1>
-          <form onSubmit={(e) => e.preventDefault()}>
+    <Container maxWidth={false} disableGutters>
+      <AppBar position="static">
+        <Container maxWidth={false}>
+          <Toolbar disableGutters>
+            <Typography variant="h3" noWrap>工数・工期予測</Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Grid container spacing={1} p={3}>
+        <Panel title="開発規模と開発工数">
+          <section>
+            <Typography variant="h6">開発規模から開発工数の予測</Typography>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <ul>
+                <li>
+                  <label htmlFor="SLOC" title="ソースコードの行数">開発規模(SLOC)</label>
+                  <input
+                    id="SLOC"
+                    type="number"
+                    value={lineCount?.toString()}
+                    step={100}
+                    onChange={(e) => { if (!isNaN(e.target.valueAsNumber) && e.target.valueAsNumber >= 0) { applyLineCount(e.target.valueAsNumber) } }} />
+                </li>
+              </ul>
+            </form>
+          </section>
+          <WorkloadPanel
+            man={man}
+            day={workloadTime == null ? null : workloadTime.day}
+            manDay={workload == null ? null: workload.manDay}
+            onChangeMan={applyMan}
+            onChangeDay={applyDay}
+          />
+        </Panel>
+        <Panel md={6} title="開発工数の確率分布">
+          <DistribitionViewer xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
+        </Panel>
+        <Panel title="開発工数の妥当性">
+          <PercentViewer score={manDayPercentile} />
+        </Panel>
+        <Panel title="開発シミュレーション">
+          <section>
+            <Typography variant="h6">開発スケジュール</Typography>
+            <form>
+              <ul>
+                <li>
+                  <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
+                  <input id="startDate" type="date" value={startDateStr} onChange={(e) => { applyStartDate(e.target.value) }}/>
+                </li>
+                <li>
+                  <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
+                  <input id="endDate" type="date" value={endDateStr} onChange={(e) => { applyEndDate(e.target.value) }}/>
+                </li>
+              </ul>
+            </form>
+          </section>
+          <section>
+            <Typography variant="h6">開発コスト</Typography>
             <ul>
               <li>
-                <label htmlFor="SLOC" title="ソースコードの行数">開発規模(SLOC)</label>
+                <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
                 <input
-                  id="SLOC"
+                  id="manCost"
                   type="number"
-                  value={lineCount?.toString()}
-                  step={100}
-                  onChange={(e) => { if (!isNaN(e.target.valueAsNumber) && e.target.valueAsNumber >= 0) { applyLineCount(e.target.valueAsNumber) } }} />
-              </li>
-            </ul>
-          </form>
-        </section>
-        <WorkloadPanel
-          man={man}
-          day={workloadTime == null ? null : workloadTime.day}
-          manDay={workload == null ? null: workload.manDay}
-          onChangeMan={applyMan}
-          onChangeDay={applyDay}
-        />
-      </Panel>
-      <Panel md={6} title="開発工数の確率分布">
-        <DistribitionViewer xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
-      </Panel>
-      <Panel title="開発工数の妥当性">
-        <PercentViewer score={manDayPercentile} />
-      </Panel>
-      <Panel title="開発シミュレーション">
-        <section>
-          <h1>開発スケジュール</h1>
-          <form>
-            <ul>
-              <li>
-                <label htmlFor="startDate" title="ソフトウェア開発の開始日">開始日</label>
-                <input id="startDate" type="date" value={startDateStr} onChange={(e) => { applyStartDate(e.target.value) }}/>
+                  min={0}
+                  value={manMonthCost}
+                  step={500}
+                  onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
               </li>
               <li>
-                <label htmlFor="endDate" title="ソフトウェアのリリース日">締切日</label>
-                <input id="endDate" type="date" value={endDateStr} onChange={(e) => { applyEndDate(e.target.value) }}/>
+                <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
+                <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
+              </li>
+              <li>
+                <label htmlFor="breakEvenProfit" title="推定損益分岐利益 × 締め切り前完了確率 = 開発人件費">推定損益分岐利益</label>
+                <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
               </li>
             </ul>
-          </form>
-        </section>
-        <section>
-          <h1>開発コスト</h1>
-          <ul>
-            <li>
-              <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
-              <input
-                id="manCost"
-                type="number"
-                min={0}
-                value={manMonthCost}
-                step={500}
-                onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
-            </li>
-            <li>
-              <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
-              <input id="totalCost" value={toFixedLocaleString(totalCost)} disabled/>
-            </li>
-            <li>
-              <label htmlFor="breakEvenProfit" title="推定損益分岐利益 × 締め切り前完了確率 = 開発人件費">推定損益分岐利益</label>
-              <input id="breakEvenProfit" value={toFixedLocaleString(breakEvenProfit)} disabled/>
-            </li>
-          </ul>
-        </section>
-      </Panel>
+          </section>
+        </Panel>
 
-      <Panel md={6} title="工期の確率分布">
-        <DistribitionViewer xaxisTitle="工期(日)" yUpperLimit={0.015} statics={dayStatics} />
-      </Panel>
-      <Panel title="締切前完了確率" >
-        <PercentViewer score={completeProbability} />
-      </Panel>
-    </Grid>
+        <Panel md={6} title="工期の確率分布">
+          <DistribitionViewer xaxisTitle="工期(日)" yUpperLimit={0.015} statics={dayStatics} />
+        </Panel>
+        <Panel title="締切前完了確率" >
+          <PercentViewer score={completeProbability} />
+        </Panel>
+      </Grid>
+    </Container>
   )
 }
