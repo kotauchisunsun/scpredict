@@ -1,3 +1,5 @@
+import {Typography} from "@mui/material"
+
 type WorkloadPanelProps = {
     man: number | null;
     day: number | null;
@@ -9,7 +11,7 @@ type WorkloadPanelProps = {
 export const WorkloadPanel = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadPanelProps) => {
   return (
     <section>
-      <h1>想定の開発工数</h1>
+      <Typography variant="h6">想定の開発工数</Typography>
       <form>
         <ul>
           <li>
