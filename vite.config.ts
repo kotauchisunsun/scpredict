@@ -9,7 +9,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          tfjs: ['@tensorflow/tfjs']
+          tfjs: ['@tensorflow/tfjs'],
+          plotly: ['react-plotly.js']
         }
       }
     },
