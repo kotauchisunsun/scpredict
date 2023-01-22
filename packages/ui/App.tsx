@@ -190,9 +190,10 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
       <AppBar position="static">
         <Container maxWidth={false}>
           <Toolbar disableGutters>
-            <Typography variant="h3" noWrap sx={{flexGrow:1}}>工数・工期予測</Typography>
+            <Typography variant="h4" component="h1" noWrap sx={{flexGrow:1}}>工数・工期予測</Typography>
             <IconButton
               size="large"
+              aria-label="Github Link"
               onClick={()=>{ window.open("https://github.com/kotauchisunsun/scpredict", "_blank", "noreferrer noopener")}}
             >
               <GitHubIcon />
@@ -203,7 +204,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
       <Grid container spacing={1} p={3}>
         <Panel title="開発規模と開発工数">
           <section>
-            <Typography variant="h6">開発規模から開発工数の予測</Typography>
+            <Typography variant="h6" component="h1">開発規模から開発工数の予測</Typography>
             <form onSubmit={(e) => e.preventDefault()}>
               <ul>
                 <li>
@@ -234,7 +235,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
         </Panel>
         <Panel title="開発シミュレーション">
           <section>
-            <Typography variant="h6">開発スケジュール</Typography>
+            <Typography variant="h6" component="h1">開発スケジュール</Typography>
             <form>
               <ul>
                 <li>
@@ -249,13 +250,13 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
             </form>
           </section>
           <section>
-            <Typography variant="h6">開発コスト</Typography>
+            <Typography variant="h6" component="h1">開発コスト</Typography>
             <form>
               <ul>
                 <li>
                   <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
                   <input
-                    id="manCost"
+                    id="manMonthCost"
                     type="number"
                     min={0}
                     value={manMonthCost}

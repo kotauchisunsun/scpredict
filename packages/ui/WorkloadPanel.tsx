@@ -11,7 +11,7 @@ type WorkloadPanelProps = {
 export const WorkloadPanel = ({ man, day, manDay, onChangeMan, onChangeDay}: WorkloadPanelProps) => {
   return (
     <section>
-      <Typography variant="h6">想定の開発工数</Typography>
+      <Typography variant="h6" component="h1">想定の開発工数</Typography>
       <form>
         <ul>
           <li>
