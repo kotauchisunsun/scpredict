@@ -14,6 +14,7 @@ import { WorkloadTime } from "../core/WorkloadTime"
 import { Workload } from "../core/Workload"
 import { toFixedLocaleString } from "./toFixedLocaleString"
 import { DistribitionViewer } from "./DistributionViewer"
+import {Grid} from "@mui/material"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -184,7 +185,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
   }
 
   return (
-    <article className="App">
+    <Grid container>
       <Panel title="開発規模と開発工数">
         <section>
           <h1>開発規模から開発工数の予測</h1>
@@ -210,8 +211,8 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
           onChangeDay={applyDay}
         />
       </Panel>
-      <Panel title="開発工数の確率分布">
-        <DistribitionViewer xaxisTitle="工数(人月)" yUpperLimit={0.1} statics={manDayStatics} />
+      <Panel md={6} title="開発工数の確率分布">
+        <DistribitionViewer xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
         <PercentViewer score={manDayPercentile} />
@@ -257,12 +258,12 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
         </section>
       </Panel>
 
-      <Panel title="工期の確率分布">
+      <Panel md={6} title="工期の確率分布">
         <DistribitionViewer xaxisTitle="工期(日)" yUpperLimit={0.015} statics={dayStatics} />
       </Panel>
       <Panel title="締切前完了確率" >
         <PercentViewer score={completeProbability} />
       </Panel>
-    </article>
+    </Grid>
   )
 }

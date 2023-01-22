@@ -17,6 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.5",
     "@tensorflow/tfjs": "^4.2.0",
     "@tensorflow/tfjs-node": "^4.2.0",
     "plotly.js": "^2.17.1",
