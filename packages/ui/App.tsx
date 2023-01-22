@@ -14,7 +14,8 @@ import { WorkloadTime } from "../core/WorkloadTime"
 import { Workload } from "../core/Workload"
 import { toFixedLocaleString } from "./toFixedLocaleString"
 import { DistribitionViewer } from "./DistributionViewer"
-import { Grid, Container, AppBar, Typography, Toolbar } from "@mui/material"
+import { Grid, Container, AppBar, Typography, Toolbar, IconButton } from "@mui/material"
+import GitHubIcon from "@mui/icons-material/GitHub"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -189,7 +190,13 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
       <AppBar position="static">
         <Container maxWidth={false}>
           <Toolbar disableGutters>
-            <Typography variant="h3" noWrap>工数・工期予測</Typography>
+            <Typography variant="h3" noWrap sx={{flexGrow:1}}>工数・工期予測</Typography>
+            <IconButton
+              size="large"
+              onClick={()=>{ window.open("https://github.com/kotauchisunsun/scpredict", "_blank")}}
+            >
+              <GitHubIcon />
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
