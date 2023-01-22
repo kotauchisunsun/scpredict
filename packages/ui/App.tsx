@@ -193,7 +193,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
             <Typography variant="h3" noWrap sx={{flexGrow:1}}>工数・工期予測</Typography>
             <IconButton
               size="large"
-              onClick={()=>{ window.open("https://github.com/kotauchisunsun/scpredict", "_blank")}}
+              onClick={()=>{ window.open("https://github.com/kotauchisunsun/scpredict", "_blank", "noreferrer noopener")}}
             >
               <GitHubIcon />
             </IconButton>
