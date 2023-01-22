@@ -66,6 +66,8 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
     ]}
     layout={
       {
+        showlegend: false,
+        height: 300,
         xaxis: {
           title: xaxisTitle,
           range: [0, statics.p95Upper * 1.1]
@@ -75,9 +77,27 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
         },
         margin: {
           t: 30
-        }
+        },
+        legend: {
+          xanchor: "right"
+        },
+        updatemenus: [
+          {
+            type: "buttons",
+            buttons: [{
+              label: "≡",
+              method: "relayout",
+              args: ["showlegend", false],
+              args2: ["showlegend", true]   // NEW attribute !
+            }]
+          }
+        ]
       }
     }
-    config={{ displaylogo: false }}
+    config={
+      {
+        displaylogo: false
+      }
+    }
   />
 }
