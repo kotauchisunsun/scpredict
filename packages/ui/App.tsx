@@ -211,7 +211,7 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
         />
       </Panel>
       <Panel title="開発工数の確率分布">
-        <DistribitionViewer xaxisTitle="工数(人月)" yUpperLimit={0.1} statics={manDayStatics} />
+        <DistribitionViewer xaxisTitle="工数(人日)" yUpperLimit={0.1} statics={manDayStatics} />
       </Panel>
       <Panel title="開発工数の妥当性">
         <PercentViewer score={manDayPercentile} />
