@@ -6,6 +6,8 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
     return <></>
   }
 
+  const width = window.innerWidth < 600 ? window.innerWidth * 0.9 : undefined
+
   const histogramColor = "#6cd4ff"
   const p50Color = "#8b80f9"
   const p95Color = "#27187E"
@@ -66,6 +68,7 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
     ]}
     layout={
       {
+        width: width,
         showlegend: false,
         height: 300,
         xaxis: {
