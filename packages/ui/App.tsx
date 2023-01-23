@@ -16,6 +16,7 @@ import { toFixedLocaleString } from "./toFixedLocaleString"
 import { DistribitionViewer } from "./DistributionViewer"
 import { Grid, Container, AppBar, Typography, Toolbar, IconButton } from "@mui/material"
 import GitHubIcon from "@mui/icons-material/GitHub"
+import { LazyInput } from "./LazyInput"
 
 const dumpDateStr = (date: Date): string => {
   const yyyy = date.getFullYear()
@@ -209,12 +210,12 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
               <ul>
                 <li>
                   <label htmlFor="SLOC" title="ソースコードの行数">開発規模(SLOC)</label>
-                  <input
+                  <LazyInput
                     id="SLOC"
-                    type="number"
-                    value={lineCount?.toString()}
+                    initialValue={lineCount}
                     step={100}
-                    onChange={(e) => { if (!isNaN(e.target.valueAsNumber) && e.target.valueAsNumber >= 0) { applyLineCount(e.target.valueAsNumber) } }} />
+                    onChange={(e) => { applyLineCount(e.target.valueAsNumber) }}
+                  />
                 </li>
               </ul>
             </form>
@@ -255,13 +256,11 @@ export const App = ({ startDate, predictConfig }: AppProps) => {
               <ul>
                 <li>
                   <label htmlFor="manMonthCost" title="情報通信業の平均月収 \373,500">人件費(円/人月)</label>
-                  <input
+                  <LazyInput
                     id="manMonthCost"
-                    type="number"
-                    min={0}
-                    value={manMonthCost}
+                    initialValue={manMonthCost}
                     step={500}
-                    onChange={(e) => { if (!(isNaN(e.target.valueAsNumber))) { setManMonthCost(e.target.valueAsNumber) } }} />
+                    onChange={(e) => { setManMonthCost(e.target.valueAsNumber) }} />
                 </li>
                 <li>
                   <label htmlFor="totalCost" title="人件費 × 工期">総開発人件費</label>
