@@ -1,7 +1,7 @@
 import Plot from "react-plotly.js"
 import { Statics } from "../core/Statics"
 
-export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTitle: string, yUpperLimit: number, statics: Statics | null}) => {
+export const DistribitionViewer = ({legend, xaxisTitle, yUpperLimit, statics}: { legend: string, xaxisTitle: string, yUpperLimit: number, statics: Statics | null}) => {
   if (statics == null) {
     return <></>
   }
@@ -19,7 +19,7 @@ export const DistribitionViewer = ({xaxisTitle, yUpperLimit, statics}: { xaxisTi
       {
         x: statics?.data.arraySync(),
         type: "histogram",
-        name: "開発工数の確率分布",
+        name: legend,
         histnorm: "probability",
         marker: { color: histogramColor },
       },

@@ -40,9 +40,32 @@ describe("App tsx", () => {
     expect(screen.getAllByText("54%")).toBeTruthy()
   })
 
-  it("show transition", () => {
+  it("show transition", async () => {
     render(<App predictConfig={config} startDate={new Date()} />)
     fireEvent.input(getSLOCInput(), { target: { value: "900" } })
+    await new Promise(resolve => setTimeout(resolve, 1100))
+
+    //開発規模から開発工数の予測
+    expect(getSLOCInput().value).toBe("900")
+
+    //想定の開発工数
+    expect(getManInput().value).toBe("3")
+    expect(getDayInput().value).toBe("98")
+    expect(getManDayInput().value).toBe("294")
+
+    //開発工数の妥当性
+    expect(screen.getAllByText("72%")).toBeTruthy()
+
+    //締め切り前完了確率
+    expect(screen.getAllByText("53%")).toBeTruthy()
+  })
+
+  it("show transition latest", async () => {
+    render(<App predictConfig={config} startDate={new Date()} />)
+    fireEvent.input(getSLOCInput(), { target: { value: "810" } })
+    fireEvent.input(getSLOCInput(), { target: { value: "820" } })
+    fireEvent.input(getSLOCInput(), { target: { value: "900" } })
+    await new Promise(resolve => setTimeout(resolve, 1100))
 
     //開発規模から開発工数の予測
     expect(getSLOCInput().value).toBe("900")
