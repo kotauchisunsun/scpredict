@@ -8214,10 +8214,10 @@ world-calendars@^1.0.3:
   dependencies:
     object-assign "^4.1.0"
 
-wrangler@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.8.0.tgz#1488fbb5337ca6cd86f02eaa78011a83ae1742f9"
-  integrity sha512-CAhjoeTnVFB65HPmOSquXbQ37lc2X77iOirX4tRMuRNKQng2NztHOfo++6BZdlV29E4IPD9boTRXck3R+O8mrg==
+wrangler@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.8.1.tgz#0178011c1c950536beb5901bfde0828760a2e5ef"
+  integrity sha512-O4wUr6/FUpk9KVstOUVYbiiZcWc1jKo7q0FfdwEjnMB3oN7Ofs6cIiX++Lzj1ldFSCOw2/aW3UYgixch6B2WCA==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
