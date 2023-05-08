@@ -69,8 +69,17 @@ jobs:
         run: yarn build
       
       - name: Publish Page
-        uses: cloudflare/wrangler-action@2.0.0
+        uses: buberdds/wrangler-action@2.0.0
+        id: publish
         with:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           apiToken: ${{ secrets.CF_API_TOKEN }}
           command: pages publish --project-name=scpredict packages/ui/dist
+          
+      - name: Preview Cloudflare pages
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview_pages
+          message: |
+            # Page Preview
+            ${{ steps.publish.outputs.url }}
