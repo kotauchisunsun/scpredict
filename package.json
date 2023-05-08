@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.10.8",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
     "@tensorflow/tfjs": "^4.5.0",
