@@ -50,7 +50,42 @@ jobs:
         with:
           api-key: ${{secrets.fossaApiKey}}
           run-tests: true
-          
+
+  build_storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+    
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install Library
+        run: yarn install --frozen-lockfile
+
+      - name: build Storybook
+        run: yarn build_storybook
+
+      - name: Publish Storybook Page
+        uses: buberdds/wrangler-action@2.0.0
+        id: publish
+        with:
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: pages publish --project-name=scpredict-storybook storybook_dist
+      
+      - name: Preview Storybook Pages
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: preview_storybook_pages
+          message: |
+            # Preview Storybook Page
+            ${{ steps.publish.outputs.url }}
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -78,10 +113,10 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           command: pages publish --project-name=scpredict packages/ui/dist
           
-      - name: Preview Cloudflare pages
+      - name: Preview Pages
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: preview_pages
           message: |
-            # Page Preview
+            # Preview Page
             ${{ steps.publish.outputs.url }}
