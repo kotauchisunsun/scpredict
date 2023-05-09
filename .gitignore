@@ -2,3 +2,4 @@ coverage
 node_modules
 personal
 packages/ui/dist
+storybook_dist

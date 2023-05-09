@@ -37,3 +37,4 @@ ignorePatterns:
     - coverage/*
     - vite.config.ts
     - packages/ui/dist
+    - storybook_dist
