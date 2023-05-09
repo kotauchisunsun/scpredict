@@ -5,6 +5,8 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+permissions:
+  pull-requests: write
 jobs:
   testing:
     name: Lint and Test
