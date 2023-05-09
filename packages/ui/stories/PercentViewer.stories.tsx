@@ -11,5 +11,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Sample: Story = {
-  render: () => <PercentViewer score={0.5} />,
+  args: {
+    score: 0.5,
+  }
 }
