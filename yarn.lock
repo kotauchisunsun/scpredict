@@ -2551,7 +2551,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.0.10", "@storybook/builder-vite@^7.0.10":
+"@storybook/builder-vite@7.0.10":
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.0.10.tgz#0abb27df19a9bb2e3393675118f8884ed5bcc2af"
   integrity sha512-tKY2QnHni10TE3+Sy2wfR7h4FuribR849VBpDI/LcwtRkCgoOBfMCdEnAKMWyU6qAlY+9KDSOQq9SDTu3WZGOg==
@@ -2566,6 +2566,32 @@
     "@storybook/preview" "7.0.10"
     "@storybook/preview-api" "7.0.10"
     "@storybook/types" "7.0.10"
+    browser-assert "^1.2.1"
+    es-module-lexer "^0.9.3"
+    express "^4.17.3"
+    fs-extra "^11.1.0"
+    glob "^8.1.0"
+    glob-promise "^6.0.2"
+    magic-string "^0.27.0"
+    remark-external-links "^8.0.0"
+    remark-slug "^6.0.0"
+    rollup "^2.25.0 || ^3.3.0"
+
+"@storybook/builder-vite@^7.0.12":
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.0.12.tgz#3a477b3ce4c34c88550618dba8a29d425fa99257"
+  integrity sha512-6FJNXis+dYs/KrhfRQgz8HcRw/Oq4FaEghCwsjngQDy4PcpQuxkDbvGJKlBaSr92vUL36FWSPq8u5+VGCHjh5Q==
+  dependencies:
+    "@storybook/channel-postmessage" "7.0.12"
+    "@storybook/channel-websocket" "7.0.12"
+    "@storybook/client-logger" "7.0.12"
+    "@storybook/core-common" "7.0.12"
+    "@storybook/csf-plugin" "7.0.12"
+    "@storybook/mdx2-csf" "^1.0.0"
+    "@storybook/node-logger" "7.0.12"
+    "@storybook/preview" "7.0.12"
+    "@storybook/preview-api" "7.0.12"
+    "@storybook/types" "7.0.12"
     browser-assert "^1.2.1"
     es-module-lexer "^0.9.3"
     express "^4.17.3"
@@ -2608,6 +2634,16 @@
   dependencies:
     "@storybook/channels" "7.0.10"
     "@storybook/client-logger" "7.0.10"
+    "@storybook/global" "^5.0.0"
+    telejson "^7.0.3"
+
+"@storybook/channel-websocket@7.0.12":
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@storybook/channel-websocket/-/channel-websocket-7.0.12.tgz#d0571e117c2baf9590e7c8c65299afec56351e3f"
+  integrity sha512-UV6b9gX2mQLtXlKaFKCHcy+6MaK2od6BYqSJfainnBjDsMIXyhcf7fJaj0XQkJrbNnRBwGhw+6s8JxL98xp7Ew==
+  dependencies:
+    "@storybook/channels" "7.0.12"
+    "@storybook/client-logger" "7.0.12"
     "@storybook/global" "^5.0.0"
     telejson "^7.0.3"
 
@@ -3027,6 +3063,11 @@
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.0.10.tgz#5f153535a1290c9092cfb5998d3c60566be2fd95"
   integrity sha512-IQX8v7OpKeo2Oqeyxo6/uSRys+dJ7zms12jViJWGzx9fg6IchV/iNtf4TBrF3Z2JBNKovk03kICAMHTpZuz9Qg==
+
+"@storybook/preview@7.0.12":
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.0.12.tgz#87005ce2785fbe2ae1bd890c073e68d1fb38ed72"
+  integrity sha512-za8El/nnkyAo/uqyqAg7PMuP6DSdPoEnDRyIk4LzY7sAGly6i4Uge377cdo1nUBQLS5S4kKIc4xf8TUegb3G1Q==
 
 "@storybook/react-dom-shim@7.0.10":
   version "7.0.10"
@@ -10345,17 +10386,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-"rollup@^2.25.0 || ^3.3.0":
+"rollup@^2.25.0 || ^3.3.0", rollup@^3.21.0:
   version "3.21.5"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.21.5.tgz#1fbae43dc1079497b04604707f1cf979e51bfe49"
   integrity sha512-a4NTKS4u9PusbUJcfF4IMxuqjFzjm6ifj76P54a7cKnvVzJaG12BLVR+hgU2YDGHzyMMQNxLAZWuALsn8q2oQg==
-  optionalDependencies:
-    fsevents "~2.3.2"
-
-rollup@^3.21.0:
-  version "3.21.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.21.1.tgz#d56f32ee041383b60909e3d3195b54b69912dbb0"
-  integrity sha512-GpUgqWCw56OSiBKf7lcAITstYiBV1/EKaKYPl9r8HgAxc6/qYAVw1PaHWnvHWFziRaf4HsVCDLq/IGtBi1K/Zw==
   optionalDependencies:
     fsevents "~2.3.2"
 
