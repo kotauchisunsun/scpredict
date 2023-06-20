@@ -8,19 +8,9 @@ jobs:
   recreate_comment:
     name: recreate Dependabot PR
     runs-on: ubuntu-latest
-
+    if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
-      - name: Check if PR created by Dependabot
-        id: dependabot-check
-        run: |
-          if [ "$(jq -r '.pull_request.user.login' $GITHUB_EVENT_PATH)" == "dependabot[bot]" ]; then
-            echo "::set-output name=dependabot::true"
-          else
-            echo "::set-output name=dependabot::false"
-          fi
-
       - name: Comment on PR sync
-        if: steps.dependabot-check.outputs.dependabot == 'true'
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.CREDENTIAL_FOR_UPDATE }}
