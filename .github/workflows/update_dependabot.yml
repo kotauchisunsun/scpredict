@@ -19,16 +19,8 @@ jobs:
 
       - name: Comment on PR sync
         if: steps.dependabot-check.outputs.dependabot == 'true'
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.CREDENTIAL_FOR_UPDATE }}
-          script: |
-            const comment = '@dependabot recreate';
-            const { owner, repo, number } = context.issue;
-
-            github.issues.createComment({
-              owner: owner,
-              repo: repo,
-              issue_number: number,
-              body: comment
-            });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          URL: ${{ github.event.pull_request.html_url }}
+          run:
+            gh pr comment -b '@dependabot recreate' "${URL}"
