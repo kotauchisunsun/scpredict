@@ -7,7 +7,6 @@ on:
 jobs:
   recreate_comment:
     runs-on: ubuntu-latest
-    if: 
     steps:
       - name: Check if PR created by Dependabot
         id: dependabot-check
