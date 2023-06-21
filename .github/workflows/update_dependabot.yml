@@ -20,7 +20,7 @@ jobs:
       - name: Comment on PR sync
         if: steps.dependabot-check.outputs.dependabot == 'true'
         env:
-          GH_TOKEN: ${{ secrets.CREDENTIAL_FOR_UPDATE }}
+          GH_TOKEN: '${{ secrets.CREDENTIAL_FOR_UPDATE }}'
           URL: ${{ github.event.pull_request.html_url }}
         run:
           gh pr comment -b '@dependabot recreate' "${URL}"
