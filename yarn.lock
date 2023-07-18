@@ -2756,13 +2756,14 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rollup/pluginutils@^4.2.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-4.2.1.tgz#e6c6c3aba0744edce3fb2074922d3776c0af2a6d"
-  integrity sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==
+"@rollup/pluginutils@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-5.0.2.tgz#012b8f53c71e4f6f9cb317e311df1404f56e7a33"
+  integrity sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==
   dependencies:
-    estree-walker "^2.0.1"
-    picomatch "^2.2.2"
+    "@types/estree" "^1.0.0"
+    estree-walker "^2.0.2"
+    picomatch "^2.3.1"
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
@@ -3013,33 +3014,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.0.27.tgz#d9dec8fdb634c0ed72e4778acf0efc131ec3ab5b"
-  integrity sha512-kIoEkkIJSKbJRq81R1jKZJ32NWbdJBcCh88J7y/C6tJFL6itKPucIiQEsptWlDZNOJHlxY2dkw3bVz1zaFWpOw==
-  dependencies:
-    "@storybook/channel-postmessage" "7.0.27"
-    "@storybook/channel-websocket" "7.0.27"
-    "@storybook/client-logger" "7.0.27"
-    "@storybook/core-common" "7.0.27"
-    "@storybook/csf-plugin" "7.0.27"
-    "@storybook/mdx2-csf" "^1.0.0"
-    "@storybook/node-logger" "7.0.27"
-    "@storybook/preview" "7.0.27"
-    "@storybook/preview-api" "7.0.27"
-    "@storybook/types" "7.0.27"
-    browser-assert "^1.2.1"
-    es-module-lexer "^0.9.3"
-    express "^4.17.3"
-    fs-extra "^11.1.0"
-    glob "^8.1.0"
-    glob-promise "^6.0.2"
-    magic-string "^0.27.0"
-    remark-external-links "^8.0.0"
-    remark-slug "^6.0.0"
-    rollup "^2.25.0 || ^3.3.0"
-
-"@storybook/builder-vite@^7.1.0":
+"@storybook/builder-vite@7.1.0", "@storybook/builder-vite@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.1.0.tgz#254b4964ac472e43bc97c610bf5f082747e66927"
   integrity sha512-4fYsapT5q6op63fBZ4mkZAzA8srObmQqUnydVW4M5v0UCoqKBdZtRMkibLJ2M9FoLJZxDnDO1HydaV7nPwN+zg==
@@ -3083,16 +3058,6 @@
   dependencies:
     "@storybook/channels" "7.1.0"
     "@storybook/client-logger" "7.1.0"
-
-"@storybook/channel-websocket@7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/channel-websocket/-/channel-websocket-7.0.27.tgz#e2967409c54014d3132f3f3f41999a24e0ac5b4f"
-  integrity sha512-5WZmd5cd54HYa1WMWN694o266HpvWvGj9XC17DD+DwVARnWRxBmFnZs+X2FE68rGzccjD2cAJXyDTFHrcS+U1g==
-  dependencies:
-    "@storybook/channels" "7.0.27"
-    "@storybook/client-logger" "7.0.27"
-    "@storybook/global" "^5.0.0"
-    telejson "^7.0.3"
 
 "@storybook/channels@7.0.27":
   version "7.0.27"
@@ -3204,14 +3169,6 @@
     memoizerific "^1.11.3"
     use-resize-observer "^9.1.0"
     util-deprecate "^1.0.2"
-
-"@storybook/core-client@7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-7.0.27.tgz#66cdd97a0c76f4662c97fbfa81c6a43c54ff39cd"
-  integrity sha512-5cyAdOLqMUJfGW2c31U4/Q5TF+8DQnuQ6jKeX3W8ZQVhDn/Kox4qYNxRR0aRUUHTzxRVojQfmDHXy8IxZqYBNA==
-  dependencies:
-    "@storybook/client-logger" "7.0.27"
-    "@storybook/preview-api" "7.0.27"
 
 "@storybook/core-client@7.1.0":
   version "7.1.0"
@@ -3536,11 +3493,6 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/preview@7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.0.27.tgz#3dab5e79e499eba05c2a96b2f1128056dcbd39d3"
-  integrity sha512-yHUlMX6wUlIlOYIzfUtqkuXOgRPJJLqGfeniMxLWjNpcePgZ6iSx0fF91ubKfPF1uUbA5vGSVX6KI+AF/RLM1Q==
-
 "@storybook/preview@7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.1.0.tgz#79b5a8f03944ede70162634afaec6ebdf520f5ad"
@@ -3556,48 +3508,21 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-7.1.0.tgz#1c59c3c9279816fa8644439d97982b3f130023fe"
   integrity sha512-KPHbvwVu8iA0G8FkCbxuRwDGJPquiONgtYJn6ChHyL/ZjC/9+sUaUWEThbsFEnqdRzXKLgwHqZjF1UieT+TW6Q==
 
-"@storybook/react-vite@^7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/react-vite/-/react-vite-7.0.27.tgz#5396ea173eb48083a1e124cc7f6d7cdeeadf9f1c"
-  integrity sha512-dqvN3jGqICYmBcDGtkEVVDWVbVVUj5OdLVaExdU8gfB9f/qYPMTtq95KN3p75uwiDe7KMOCNf5tY/ttRJRkQXA==
+"@storybook/react-vite@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@storybook/react-vite/-/react-vite-7.1.0.tgz#9f43137035cadac37980e8da084f16492968e107"
+  integrity sha512-lMgUDcBpW2BE4PqPt+FmOnv6ocIBkBxo//n3g+CFidrF40ERmxtFa7gZdEvnPjAS6Jms8162mIWb6uZuh2fAqw==
   dependencies:
     "@joshwooding/vite-plugin-react-docgen-typescript" "0.2.1"
-    "@rollup/pluginutils" "^4.2.0"
-    "@storybook/builder-vite" "7.0.27"
-    "@storybook/react" "7.0.27"
+    "@rollup/pluginutils" "^5.0.2"
+    "@storybook/builder-vite" "7.1.0"
+    "@storybook/react" "7.1.0"
     "@vitejs/plugin-react" "^3.0.1"
     ast-types "^0.14.2"
-    magic-string "^0.27.0"
+    magic-string "^0.30.0"
     react-docgen "6.0.0-alpha.3"
 
-"@storybook/react@7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.0.27.tgz#0b2849ea05efa9f914a41e4a986f5e961444e01c"
-  integrity sha512-NPD6J5okkxiBx8k8TWvn03qG6ThD2rp1+2nFGgo3cInCEmvDgoa3wjq/Gl/2QV4W8XrQ8GiItj0Lzca+CBrkOw==
-  dependencies:
-    "@storybook/client-logger" "7.0.27"
-    "@storybook/core-client" "7.0.27"
-    "@storybook/docs-tools" "7.0.27"
-    "@storybook/global" "^5.0.0"
-    "@storybook/preview-api" "7.0.27"
-    "@storybook/react-dom-shim" "7.0.27"
-    "@storybook/types" "7.0.27"
-    "@types/escodegen" "^0.0.6"
-    "@types/estree" "^0.0.51"
-    "@types/node" "^16.0.0"
-    acorn "^7.4.1"
-    acorn-jsx "^5.3.1"
-    acorn-walk "^7.2.0"
-    escodegen "^2.0.0"
-    html-tags "^3.1.0"
-    lodash "^4.17.21"
-    prop-types "^15.7.2"
-    react-element-to-jsx-string "^15.0.0"
-    ts-dedent "^2.0.0"
-    type-fest "^2.19.0"
-    util-deprecate "^1.0.2"
-
-"@storybook/react@^7.1.0":
+"@storybook/react@7.1.0", "@storybook/react@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.1.0.tgz#3d4d71beb5205874b59057e3078ef7eb3158315c"
   integrity sha512-yTxuc9RucWTfFxU2emoO0/KPwUkRvEUE6jUrnCDaYR6lsq9RhiZjs072t8sCyUM+9KPwQQrt96cNmKyYN7Yg5w==
@@ -3983,6 +3908,11 @@
   version "0.0.51"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.51.tgz#cfd70924a25a3fd32b218e5e420e6897e1ac4f40"
   integrity sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==
+
+"@types/estree@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.1.tgz#aa22750962f3bf0e79d753d3cc067f010c95f194"
+  integrity sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==
 
 "@types/express-serve-static-core@^4.17.33":
   version "4.17.34"
@@ -6681,7 +6611,7 @@ estree-walker@^0.6.1:
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
   integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
 
-estree-walker@^2.0.1:
+estree-walker@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
@@ -9973,7 +9903,7 @@ picocolors@^1.0.0:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
   integrity sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==
 
-picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.2.3, picomatch@^2.3.0, picomatch@^2.3.1:
+picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3, picomatch@^2.3.0, picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
