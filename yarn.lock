@@ -2783,7 +2783,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.1.0", "@storybook/builder-vite@^7.1.0":
+"@storybook/builder-vite@7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.1.0.tgz#254b4964ac472e43bc97c610bf5f082747e66927"
   integrity sha512-4fYsapT5q6op63fBZ4mkZAzA8srObmQqUnydVW4M5v0UCoqKBdZtRMkibLJ2M9FoLJZxDnDO1HydaV7nPwN+zg==
@@ -2797,6 +2797,31 @@
     "@storybook/preview" "7.1.0"
     "@storybook/preview-api" "7.1.0"
     "@storybook/types" "7.1.0"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^0.9.3"
+    express "^4.17.3"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    remark-external-links "^8.0.0"
+    remark-slug "^6.0.0"
+    rollup "^2.25.0 || ^3.3.0"
+
+"@storybook/builder-vite@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.1.1.tgz#40930d51573a26008cb5f9fdedf80fc8de21f0b7"
+  integrity sha512-OIQv8V7r6fqBqAXQT9mqgu1aqP+wlFGDRACyS2iym5y5B3e6fhCOUS/31pBp3vmgNRK6LAfEI0FXI71aOp82MQ==
+  dependencies:
+    "@storybook/channels" "7.1.1"
+    "@storybook/client-logger" "7.1.1"
+    "@storybook/core-common" "7.1.1"
+    "@storybook/csf-plugin" "7.1.1"
+    "@storybook/mdx2-csf" "^1.0.0"
+    "@storybook/node-logger" "7.1.1"
+    "@storybook/preview" "7.1.1"
+    "@storybook/preview-api" "7.1.1"
+    "@storybook/types" "7.1.1"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^0.9.3"
@@ -3253,6 +3278,11 @@
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.1.0.tgz#79b5a8f03944ede70162634afaec6ebdf520f5ad"
   integrity sha512-Jw5VhtxL45aw4DBGwFmGoRcqUxSaWc/OexvF8LnCZct8MIL2FKdzMwjQZfqD0GN52KqRo7yMU5V43bZcXKqP6w==
+
+"@storybook/preview@7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.1.1.tgz#56e39b20077e5caa8bba272e18f529dac49addc6"
+  integrity sha512-F3ikRKzwmT9MlptYXxYOQmaSwmJckPag0k9lM0LvI0xYplLbyWJ5rfs2gLKl++wX+ag2A+1K4gId5Xaz4SKnxQ==
 
 "@storybook/react-dom-shim@7.1.0":
   version "7.1.0"
