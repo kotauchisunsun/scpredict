@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.1.1",
-    "@storybook/addon-links": "^7.1.0",
+    "@storybook/addon-links": "^7.1.1",
     "@storybook/builder-vite": "^7.1.0",
     "@storybook/react": "^7.1.1",
     "@storybook/react-vite": "^7.1.0",
