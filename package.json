@@ -58,7 +58,7 @@
     "jest-environment-jsdom": "^29.6.2",
     "jest-transform-css": "^6.0.1",
     "jsdom-worker": "^0.3.0",
-    "node-canvas-webgl": "^0.2.7",
+    "node-canvas-webgl": "^0.3.0",
     "storybook": "^7.2.2",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
