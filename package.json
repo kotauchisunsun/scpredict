@@ -21,7 +21,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.3",
-    "@mui/material": "^5.14.5",
+    "@mui/material": "^5.14.6",
     "@tensorflow/tfjs": "^4.9.0",
     "@tensorflow/tfjs-node": "^4.10.0",
     "plotly.js": "^2.25.2",
