@@ -3261,6 +3261,14 @@
     "@storybook/client-logger" "7.4.0"
     "@storybook/preview-api" "7.4.0"
 
+"@storybook/core-client@7.4.1":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@storybook/core-client/-/core-client-7.4.1.tgz#e57b7821f0fae14a8935077445df313e0313a078"
+  integrity sha512-0pWcw1XDjS0fuAnU8eDAcxR9B7GrjJFOWB5/4f1fsWmXm4FvH0iQxJtMGuvFBvaDUvRjky0+9BXGRhEzRpMhyg==
+  dependencies:
+    "@storybook/client-logger" "7.4.1"
+    "@storybook/preview-api" "7.4.1"
+
 "@storybook/core-common@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-7.4.0.tgz#da71afd79a12cfb5565351f184f6797214a5da79"
@@ -3603,7 +3611,7 @@
     magic-string "^0.30.0"
     react-docgen "6.0.0-alpha.3"
 
-"@storybook/react@7.4.0", "@storybook/react@^7.3.1":
+"@storybook/react@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.4.0.tgz#18d29aa49f0b784b46613d26a243caf473177403"
   integrity sha512-QWsFw/twsNkcWI6brW06sugQQ5dV+fJm4IrEeI28cA4cBHK9G9HKOwCHoXDUWikzZx48XYMpNfs/WyIkuGmEqg==
@@ -3615,6 +3623,33 @@
     "@storybook/preview-api" "7.4.0"
     "@storybook/react-dom-shim" "7.4.0"
     "@storybook/types" "7.4.0"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^16.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^7.4.1":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-7.4.1.tgz#b92ac164b9bd6095978c7b6b4513e271062a4638"
+  integrity sha512-m5d/NAypnfgrzphOXEWnKryLKLFRRerlbAhFscauif8amyTcUCkR4xu4nf1b5o6LoIicUBg7mfczQvc5pEHDSQ==
+  dependencies:
+    "@storybook/client-logger" "7.4.1"
+    "@storybook/core-client" "7.4.1"
+    "@storybook/docs-tools" "7.4.1"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "7.4.1"
+    "@storybook/react-dom-shim" "7.4.1"
+    "@storybook/types" "7.4.1"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^16.0.0"
@@ -6524,19 +6559,7 @@ escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-escodegen@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/escodegen/-/escodegen-2.0.0.tgz#5e32b12833e8aa8fa35e1bf0befa89380484c7dd"
-  integrity sha512-mmHKys/C8BFUGI+MAWNcSYoORYLMdPzjrknd2Vc+bUsjN5bXcr8EhrNB+UTqfL1y3I9c4fw2ihgtMPQLBRiQxw==
-  dependencies:
-    esprima "^4.0.1"
-    estraverse "^5.2.0"
-    esutils "^2.0.2"
-    optionator "^0.8.1"
-  optionalDependencies:
-    source-map "~0.6.1"
-
-escodegen@^2.1.0:
+escodegen@^2.0.0, escodegen@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/escodegen/-/escodegen-2.1.0.tgz#ba93bbb7a43986d29d6041f99f5262da773e2e17"
   integrity sha512-2NlIDTwUWJN0mRPQOdtQBzbUHvdGY2P1VXSyU83Q3xKxM7WHX2Ql8dKq782Q9TgQUNOLEzEYu9bzLNj1q88I5w==
