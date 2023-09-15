@@ -3098,7 +3098,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.4.1", "@storybook/builder-vite@^7.4.1":
+"@storybook/builder-vite@7.4.1":
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.4.1.tgz#ffe625b31d2e3e607906decd5c7a2daddb930fc1"
   integrity sha512-aB7bfirdRLozm4jpBIVhXkzN2sU0J9nF5WTkzT9R0ReRGsHm3+4CDFAPMnHBISgNXkXMLVC4VuQp4w/a4Avjmg==
@@ -3112,6 +3112,31 @@
     "@storybook/preview" "7.4.1"
     "@storybook/preview-api" "7.4.1"
     "@storybook/types" "7.4.1"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^0.9.3"
+    express "^4.17.3"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    remark-external-links "^8.0.0"
+    remark-slug "^6.0.0"
+    rollup "^2.25.0 || ^3.3.0"
+
+"@storybook/builder-vite@^7.4.2":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.4.2.tgz#b8602bd653e20a5b66bad48ff1fce8400d53ee26"
+  integrity sha512-FAAq0lSCUoD+oP+aCIEuLdDr4DEgMn7RDuJrgRoFcDa3y4wWeMxsxTchCaz0Zfz7vwELwegL7KDQl2XT1uLBzQ==
+  dependencies:
+    "@storybook/channels" "7.4.2"
+    "@storybook/client-logger" "7.4.2"
+    "@storybook/core-common" "7.4.2"
+    "@storybook/csf-plugin" "7.4.2"
+    "@storybook/mdx2-csf" "^1.0.0"
+    "@storybook/node-logger" "7.4.2"
+    "@storybook/preview" "7.4.2"
+    "@storybook/preview-api" "7.4.2"
+    "@storybook/types" "7.4.2"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^0.9.3"
@@ -3380,6 +3405,14 @@
     "@storybook/csf-tools" "7.4.1"
     unplugin "^1.3.1"
 
+"@storybook/csf-plugin@7.4.2":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-7.4.2.tgz#13321a8aa29eb39d56990e07c5a873a68673cf10"
+  integrity sha512-b0yQ8oXEH0s3SGgjhOVrbjkc3C8IYGyTSnDtPwx/Dgmru/rC6LT7ZOdBegmGqBN1+6Ho0+AxFrmAmuuYK8p2rA==
+  dependencies:
+    "@storybook/csf-tools" "7.4.2"
+    unplugin "^1.3.1"
+
 "@storybook/csf-tools@7.4.1":
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/@storybook/csf-tools/-/csf-tools-7.4.1.tgz#84fa125155db9eb9318b47ffa30601e13322a75e"
@@ -3550,6 +3583,11 @@
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.4.1.tgz#0521bbd5aa35544c326517b740d073a8773de7eb"
   integrity sha512-KqHbS5jVKSvFESrwU3iLJE5ciIJicdV3ZducL9t+hNJOdchzV3ezEwMn6gApEin3dm3Ts7InN+W7nBc+MzaXmA==
+
+"@storybook/preview@7.4.2":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.4.2.tgz#8539e0379f195d12774832bd9c87166b0382fc1e"
+  integrity sha512-T7rAV6qQ7tBeSvgi0RuA5EU8tm1OMhU8PcCqosWGaLhMCR0VMzw1/WGKuR11g1XmzvaAm2xGgMp82nqi4G0i7A==
 
 "@storybook/react-dom-shim@7.4.1":
   version "7.4.1"
