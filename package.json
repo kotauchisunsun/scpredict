@@ -24,7 +24,7 @@
     "@mui/material": "^5.14.10",
     "@tensorflow/tfjs": "^4.9.0",
     "@tensorflow/tfjs-node": "^4.11.0",
-    "plotly.js": "^2.26.0",
+    "plotly.js": "^2.26.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-ga4": "^2.1.0",
