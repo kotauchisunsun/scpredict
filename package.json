@@ -46,7 +46,7 @@
     "@types/react-plotly.js": "^2.6.0",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
-    "@vitejs/plugin-react": "^4.0.4",
+    "@vitejs/plugin-react": "^4.1.0",
     "eslint": "^8.49.0",
     "eslint-plugin-jest": "^27.4.0",
     "eslint-plugin-react": "^7.33.2",
