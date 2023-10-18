@@ -34,7 +34,7 @@
   "devDependencies": {
     "@storybook/addon-essentials": "^7.4.6",
     "@storybook/addon-links": "^7.4.6",
-    "@storybook/builder-vite": "^7.4.2",
+    "@storybook/builder-vite": "^7.5.0",
     "@storybook/react": "^7.4.3",
     "@storybook/react-vite": "^7.4.6",
     "@testing-library/jest-dom": "^6.1.4",
