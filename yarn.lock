@@ -3065,7 +3065,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.5.3", "@storybook/builder-vite@^7.5.3":
+"@storybook/builder-vite@7.5.3":
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.5.3.tgz#4a0adce7451948c6496379f9ab3b786315bd3a0e"
   integrity sha512-c104V3O75OCVnfZj0Jr70V09g0KSbPGvQK2Zh31omXGvakG8XrhWolYxkmjOcForJmAqsXnKs/nw3F75Gp853g==
@@ -3078,6 +3078,28 @@
     "@storybook/preview" "7.5.3"
     "@storybook/preview-api" "7.5.3"
     "@storybook/types" "7.5.3"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^0.9.3"
+    express "^4.17.3"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    rollup "^2.25.0 || ^3.3.0"
+
+"@storybook/builder-vite@^7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.6.1.tgz#62d4513fa0e9340b70d3c6506903feccefe4ce8c"
+  integrity sha512-e1jFxr795+lxZlRQNuVZo3/UTs93i6Xj6a+ob5UO10f/QpFPo/n11M30HbuHBQzlOiFoqzRlhO9hYSwJUKiqyA==
+  dependencies:
+    "@storybook/channels" "7.6.1"
+    "@storybook/client-logger" "7.6.1"
+    "@storybook/core-common" "7.6.1"
+    "@storybook/csf-plugin" "7.6.1"
+    "@storybook/node-logger" "7.6.1"
+    "@storybook/preview" "7.6.1"
+    "@storybook/preview-api" "7.6.1"
+    "@storybook/types" "7.6.1"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^0.9.3"
@@ -3636,6 +3658,11 @@
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.5.3.tgz#9abe434ea9fb280a7d2141b72be2958f7eb9cc5b"
   integrity sha512-Hf90NlLaSrdMZXPOHDCMPjTywVrQKK0e5CtzqWx/ZQz91JDINxJD+sGj2wZU+wuBtQcTtlsXc9OewlJ+9ETwIw==
+
+"@storybook/preview@7.6.1":
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.6.1.tgz#0d953c4523bb4d7df9b9b9e0a3ddf43aa5f58b54"
+  integrity sha512-5qC/skcs0gQenTfCNa2LLp7X9++ZuLQwoweNmAtRJ8Gxn9ac6Yd3/pf9xjxAhlLDhb4Ojdrb9owrPAOf9b4woA==
 
 "@storybook/react-dom-shim@7.5.3":
   version "7.5.3"
