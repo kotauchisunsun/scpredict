@@ -12293,10 +12293,10 @@ world-calendars@^1.0.3:
   dependencies:
     object-assign "^4.1.0"
 
-wrangler@^3.21.0:
-  version "3.21.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.21.0.tgz#c30d4e032188db98fda0001806dbda4bef4055dd"
-  integrity sha512-DLoo4XfjeyuGRAVWZFHmU1jWnZIfyLGDm6Ika9oy/CLCPfJzVJvf2jI70EU5BlEHWDZXMSJKw7FDdgSqwhaQXg==
+wrangler@^3.22.1:
+  version "3.22.1"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.22.1.tgz#402c77db861a3d90d5755129bd45d6fd618199b8"
+  integrity sha512-fN7WOF6Ono/TV5V90PuJQNf0azS7B+5C/N/KRjqhlAIQBz+c0yLOGkF6kC/akxjr1yIAC9AzcPk9+OuTSq0C+g==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@cspotcode/source-map-support" "0.8.1"
