@@ -32,7 +32,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.9",
+    "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-links": "^7.6.9",
     "@storybook/builder-vite": "^7.6.6",
     "@storybook/react": "^7.6.7",
