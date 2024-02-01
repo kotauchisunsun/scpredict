@@ -3005,7 +3005,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.6.11", "@storybook/builder-vite@^7.6.6":
+"@storybook/builder-vite@7.6.11":
   version "7.6.11"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.6.11.tgz#dd23e712e42d355da363c8e9f3937607263edc08"
   integrity sha512-XSZdrzSNOT7DQC/H4EVZvxbuahUuQ7JrmrzKzHIOTKuJpaK14JuCZBMJUHzBueVXFef2k+kXPJkIctufXL6vzw==
@@ -3018,6 +3018,28 @@
     "@storybook/preview" "7.6.11"
     "@storybook/preview-api" "7.6.11"
     "@storybook/types" "7.6.11"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^0.9.3"
+    express "^4.17.3"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    rollup "^2.25.0 || ^3.3.0"
+
+"@storybook/builder-vite@^7.6.12":
+  version "7.6.12"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.6.12.tgz#a83e47215b61d474ec6d1aa8a9de508c4c0a86a8"
+  integrity sha512-VJIn+XYVVhdJHHMEtYDnEyQQU4fRupugSFpP9XLYTRYgXPN9PSVey4vI/IyuHcHYINPba39UY2+8PW+5NgShxQ==
+  dependencies:
+    "@storybook/channels" "7.6.12"
+    "@storybook/client-logger" "7.6.12"
+    "@storybook/core-common" "7.6.12"
+    "@storybook/csf-plugin" "7.6.12"
+    "@storybook/node-logger" "7.6.12"
+    "@storybook/preview" "7.6.12"
+    "@storybook/preview-api" "7.6.12"
+    "@storybook/types" "7.6.12"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^0.9.3"
@@ -3452,6 +3474,11 @@
   version "7.6.11"
   resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.6.11.tgz#c4228b8440b2c299bca4a1a1dd93377f9355d80c"
   integrity sha512-DrCH24K3ivm7YGSP6OQknJg7i7vdzZnxhByQ3aC1OWcYVhdjtATrKfnHGkY/aDpNi1hUeGCQb0TKDpbMLzI8qQ==
+
+"@storybook/preview@7.6.12":
+  version "7.6.12"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-7.6.12.tgz#a1cefa430b5bc0768e0f623efd779bdaa9b0f223"
+  integrity sha512-7vbeqQY3X+FCt/ccgCuBmj4rkbQebLHGEBAt8elcX0E2pr7SGW57lWhnasU3jeMaz7tNrkcs0gfl4hyVRWUHDg==
 
 "@storybook/react-dom-shim@7.6.11":
   version "7.6.11"
