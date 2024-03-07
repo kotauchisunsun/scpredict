@@ -29,7 +29,7 @@
     "react-dom": "^18.2.0",
     "react-ga4": "^2.1.0",
     "react-plotly.js": "^2.6.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.17",
@@ -62,7 +62,7 @@
     "storybook": "^7.6.17",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "vite": "^4.5.2",
     "wrangler": "^3.31.0"
   },
