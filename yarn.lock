@@ -2917,10 +2917,10 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/addon-links@^7.6.17":
-  version "7.6.17"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-7.6.17.tgz#5a678ff09c1b5056b67cb345c115cfcd343ffe86"
-  integrity sha512-iFUwKObRn0EKI0zMETsil2p9a/81rCuSMEWECsi+khkCAs1FUnD2cT6Ag5ydcNcBXsdtdfDJdtXQrkw+TSoStQ==
+"@storybook/addon-links@^8.0.4":
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.0.4.tgz#34c4a3818a52023b09c98fcfe4c00e9ac08a0d10"
+  integrity sha512-SzE+JPZ4mxjprZqbLHf8Hx7UA2fXfMajFjeY9c3JREKQrDoOF1e4r28nAoVsZYF+frWxQB51U4+hOqjlx06wEA==
   dependencies:
     "@storybook/csf" "^0.1.2"
     "@storybook/global" "^5.0.0"
