@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "postinstall": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,histogram --strict && mv dist/plotly-custom.min.js dist/plotly.js",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "yarn jest --coverage --verbose",
