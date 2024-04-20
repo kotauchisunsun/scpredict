@@ -15,12 +15,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
     
-      - name: Setup Node 16
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: 'package.json'
           cache: 'yarn'
-
+          
       - name: Install Library
         run: yarn install --frozen-lockfile
 
@@ -58,10 +58,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
     
-      - name: Setup Node 16
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: 'package.json'
           cache: 'yarn'
 
       - name: Install Library
@@ -93,10 +93,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
     
-      - name: Setup Node 16
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: 'package.json'
           cache: 'yarn'
 
       - name: Install Library
