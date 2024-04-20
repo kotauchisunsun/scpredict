@@ -20,7 +20,10 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'yarn'
-          
+
+      - name: Install Additional Library
+        run: sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev pkg-config
+
       - name: Install Library
         run: yarn install --frozen-lockfile
 
@@ -64,6 +67,9 @@ jobs:
           node-version-file: 'package.json'
           cache: 'yarn'
 
+      - name: Install Additional Library
+        run: sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev pkg-config
+
       - name: Install Library
         run: yarn install --frozen-lockfile
 
@@ -98,6 +104,9 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'yarn'
+
+      - name: Install Additional Library
+        run: sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev pkg-config
 
       - name: Install Library
         run: yarn install --frozen-lockfile
