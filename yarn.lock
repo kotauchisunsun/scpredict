@@ -3068,6 +3068,20 @@
     doctrine "^3.0.0"
     lodash "^4.17.21"
 
+"@storybook/docs-tools@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/docs-tools/-/docs-tools-8.1.2.tgz#1b25eba9cbadd0ef0a1409c87e12e2458ecf4b61"
+  integrity sha512-FWhs/ZN0Fc4Qke5zdA6l0UJhIP5kdrrRjEXe0IppP7UIvtRUgrIhiS4Kz/Re110cOkjO5/K0Hr6yQPLSCPnPKA==
+  dependencies:
+    "@storybook/core-common" "8.1.2"
+    "@storybook/core-events" "8.1.2"
+    "@storybook/preview-api" "8.1.2"
+    "@storybook/types" "8.1.2"
+    "@types/doctrine" "^0.0.3"
+    assert "^2.1.0"
+    doctrine "^3.0.0"
+    lodash "^4.17.21"
+
 "@storybook/global@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/global/-/global-5.0.0.tgz#b793d34b94f572c1d7d9e0f44fac4e0dbc9572ed"
@@ -3190,6 +3204,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.1.1.tgz#e83a885d551ddd683bec6d4bc654dc5a47d882cd"
   integrity sha512-X2WPGOxKZhReokqyBbYxhsCHe0qzyM2V8Vs4tQIua/HpNJ/4jqFoXmJvMnUtzwnNry4Gpuhn3nVPtD4QRZsP1w==
 
+"@storybook/react-dom-shim@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.1.2.tgz#654c0cab71940ba6613e3b96ca4980e24b956ce1"
+  integrity sha512-Djcq9MBYfefwGdk3k3jmZrLxSRM0y0RQQ0M5c8zMkM6Hbqo0MKd/UXnAKoQ8TadNnNUNaVpkanRv7KWlF0FFUQ==
+
 "@storybook/react-vite@^8.1.1":
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/@storybook/react-vite/-/react-vite-8.1.1.tgz#234e514d7131462d1c006795902a5192357a1d95"
@@ -3207,7 +3226,7 @@
     resolve "^1.22.8"
     tsconfig-paths "^4.2.0"
 
-"@storybook/react@8.1.1", "@storybook/react@^8.1.1":
+"@storybook/react@8.1.1":
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.1.tgz#f8474f98122a44879bb5995b44e70f24a739d743"
   integrity sha512-J4DIn9Lo2quYuaU/vLfQM1N4XcXIURWxAet1/y32K5Du0debNnKTPJnwBUT9b4bucBpldEWdN9uw3JvHQyb3qA==
@@ -3218,6 +3237,33 @@
     "@storybook/preview-api" "8.1.1"
     "@storybook/react-dom-shim" "8.1.1"
     "@storybook/types" "8.1.1"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    semver "^7.3.7"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.2.tgz#082255f0071f7ac803f0115ef4437bda73dd6cae"
+  integrity sha512-Gg/dm3GT0wsK+4TdNsbu6CLsPShfkTujlDEKRBxeGMsLsQOwIayZp67fYjSj3OE6EachMAQToNgtDweIMMXhEg==
+  dependencies:
+    "@storybook/client-logger" "8.1.2"
+    "@storybook/docs-tools" "8.1.2"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "8.1.2"
+    "@storybook/react-dom-shim" "8.1.2"
+    "@storybook/types" "8.1.2"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
