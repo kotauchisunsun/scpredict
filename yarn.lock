@@ -3304,7 +3304,7 @@
     resolve "^1.22.8"
     tsconfig-paths "^4.2.0"
 
-"@storybook/react@8.1.6", "@storybook/react@^8.1.2":
+"@storybook/react@8.1.6":
   version "8.1.6"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.6.tgz#84312e1373d7b4adda543d80463c298b09fc9fa0"
   integrity sha512-2CSc3MLeaY7QaYAQLwaXRboKkgQnWrSZAo/WTJcSHUr2YFxH5+iECB0Kci12GqaJklhhgmfTfVZ4Jo9ZJ6LQfg==
@@ -3315,6 +3315,33 @@
     "@storybook/preview-api" "8.1.6"
     "@storybook/react-dom-shim" "8.1.6"
     "@storybook/types" "8.1.6"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    semver "^7.3.7"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^8.1.9":
+  version "8.1.9"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.9.tgz#5490423b59f846674591e2bf49180802717a7870"
+  integrity sha512-linHAtKslwcZaJDsVzH+tayX1cJtdPfh6bJlEaKxolO9xZ3vSiyK4D3u2DWLeiETx+9qyoS/qmWL/z7I8ijvfg==
+  dependencies:
+    "@storybook/client-logger" "8.1.9"
+    "@storybook/docs-tools" "8.1.9"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "8.1.9"
+    "@storybook/react-dom-shim" "8.1.9"
+    "@storybook/types" "8.1.9"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
