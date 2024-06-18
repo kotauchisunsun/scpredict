@@ -2782,7 +2782,7 @@
     process "^0.11.10"
     util "^0.12.4"
 
-"@storybook/builder-vite@8.1.9", "@storybook/builder-vite@^8.1.8":
+"@storybook/builder-vite@8.1.9":
   version "8.1.9"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.1.9.tgz#f50906f62389966c1a9c4f3067e3a693c84e4072"
   integrity sha512-OqjJne7x3l8yPMB3VTc9zbKYN5+9Yw/8cW9vK3N0rMObQa6be76JfJAgTFUGujp/GdVjYEiFI1Pu3b1wf5loWQ==
@@ -2796,6 +2796,29 @@
     "@storybook/preview" "8.1.9"
     "@storybook/preview-api" "8.1.9"
     "@storybook/types" "8.1.9"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^1.5.0"
+    express "^4.17.3"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    ts-dedent "^2.0.0"
+
+"@storybook/builder-vite@^8.1.10":
+  version "8.1.10"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.1.10.tgz#6ac2899cc97d16274b666492338e0fcf33703a51"
+  integrity sha512-8A/i5OEyRVKkTROLgxXEEJRAS8gmdonr4xA15TqAvjOtdYjwP6JoQ4cjNOqH7fPPGPdx/t49Z/7E+v7Ovv6cAw==
+  dependencies:
+    "@storybook/channels" "8.1.10"
+    "@storybook/client-logger" "8.1.10"
+    "@storybook/core-common" "8.1.10"
+    "@storybook/core-events" "8.1.10"
+    "@storybook/csf-plugin" "8.1.10"
+    "@storybook/node-logger" "8.1.10"
+    "@storybook/preview" "8.1.10"
+    "@storybook/preview-api" "8.1.10"
+    "@storybook/types" "8.1.10"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^1.5.0"
@@ -3057,6 +3080,14 @@
     watchpack "^2.2.0"
     ws "^8.2.3"
 
+"@storybook/csf-plugin@8.1.10":
+  version "8.1.10"
+  resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-8.1.10.tgz#4437b05d0ae78066f599cfd54abb874b82562c44"
+  integrity sha512-EwW9Olw85nKamUH/2YrkD+bxDvDP4TJ2MqS1qR3UU+lBP/HMQA2zFAgiW1TUmmdHmhAeiDOXbDhijxMa30sppQ==
+  dependencies:
+    "@storybook/csf-tools" "8.1.10"
+    unplugin "^1.3.1"
+
 "@storybook/csf-plugin@8.1.9":
   version "8.1.9"
   resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-8.1.9.tgz#f535fe9dfd6608c0f4c1feebfd80002043d69ebe"
@@ -3227,6 +3258,11 @@
     tiny-invariant "^1.3.1"
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
+
+"@storybook/preview@8.1.10":
+  version "8.1.10"
+  resolved "https://registry.yarnpkg.com/@storybook/preview/-/preview-8.1.10.tgz#1730558fb5327741317f8a63b5218b0036168b2a"
+  integrity sha512-Ch7SJQ8/vm4o7ZPwPeL3nGOCKx1Aul7VcvOVkDs+K2lZusJjUROHVTBYlbs71DTTmCo2gS7WhSq+HOpD59BPDg==
 
 "@storybook/preview@8.1.9":
   version "8.1.9"
