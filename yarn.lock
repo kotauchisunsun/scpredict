@@ -8392,10 +8392,10 @@ pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-plotly.js@^2.33.0:
-  version "2.33.0"
-  resolved "https://registry.yarnpkg.com/plotly.js/-/plotly.js-2.33.0.tgz#9b7a0cbc37a3396995787fdc891c4ff52e877810"
-  integrity sha512-pzuf6hSUCaSYmEag2b2DngkHdYMn+U/QMSC/UJOLIS8yd2UwIG1iGUmOR7pqZIS87oKx/+cMoG8aknGytgJKig==
+plotly.js@^2.34.0:
+  version "2.34.0"
+  resolved "https://registry.yarnpkg.com/plotly.js/-/plotly.js-2.34.0.tgz#880d4dcede6b52baafacbc4d38dc182957306c37"
+  integrity sha512-dG2LC6wY6AUR1jsnriBi9xbigLPEEXXOHhLo97dRiZAWZVS6lZCmXXZ227U4rsoluXyfyqQezaKq7svolap8Dw==
   dependencies:
     "@plotly/d3" "3.8.2"
     "@plotly/d3-sankey" "0.7.2"
