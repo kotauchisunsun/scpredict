@@ -63,7 +63,7 @@
     "jest-transform-css": "^6.0.1",
     "jsdom-worker": "^0.3.0",
     "node-canvas-webgl": "^0.3.0",
-    "storybook": "^8.2.8",
+    "storybook": "^8.2.9",
     "ts-jest": "^29.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
