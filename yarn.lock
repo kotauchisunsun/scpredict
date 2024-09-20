@@ -1700,10 +1700,10 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/addon-links@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.3.0.tgz#a399e9fd66843bd0a9c3a7a1c338b3ed5728edf4"
-  integrity sha512-nUnoMPPuxM8yJ7LCrppsUrn3gwqt4E0si9fqIIb5IkB56vz48RxCO9MtO1qjwhWosfMdN6boHaOl1Qc6IxV3Lg==
+"@storybook/addon-links@^8.3.1":
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.3.1.tgz#48823e23334e934cd6b3ddd1564ae683e6885016"
+  integrity sha512-xhd1cXpHKn9mr87ImcEOV+YexDZcITzxFQoW2m5ocGkMyVFotK6NjOk/f9xsZAGIp4T7axsdEmwFNSovHgw91A==
   dependencies:
     "@storybook/csf" "^0.1.11"
     "@storybook/global" "^5.0.0"
