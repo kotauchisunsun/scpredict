@@ -1757,12 +1757,27 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/builder-vite@8.3.2", "@storybook/builder-vite@^8.3.2":
+"@storybook/builder-vite@8.3.2":
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.3.2.tgz#4b353fed094c18716b37a6a5d5a250bdb7b8db87"
   integrity sha512-mq6T2J8gDiIuO8+nLBzQkMRncDb+zLiBmRrudwSNum3cFLPLDV1Y4JSzsoG/SjlQz1feUEqTO9by6i7wxKh+Cw==
   dependencies:
     "@storybook/csf-plugin" "8.3.2"
+    "@types/find-cache-dir" "^3.2.1"
+    browser-assert "^1.2.1"
+    es-module-lexer "^1.5.0"
+    express "^4.19.2"
+    find-cache-dir "^3.0.0"
+    fs-extra "^11.1.0"
+    magic-string "^0.30.0"
+    ts-dedent "^2.0.0"
+
+"@storybook/builder-vite@^8.3.3":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.3.3.tgz#40bc458ac735c0c0dac29d9bded6f4dd05bb9104"
+  integrity sha512-3yTXCLaB6bzhoPH3PqtacKkcaC1uV4L+IHTf1Zypx1NO1pLZHyhYf0T7dIOxTh2JZfqu1Pm9hTvOmWfR12m+9w==
+  dependencies:
+    "@storybook/csf-plugin" "8.3.3"
     "@types/find-cache-dir" "^3.2.1"
     browser-assert "^1.2.1"
     es-module-lexer "^1.5.0"
