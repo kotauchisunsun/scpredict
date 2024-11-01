@@ -1802,7 +1802,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/builder-vite@8.3.6", "@storybook/builder-vite@^8.3.5":
+"@storybook/builder-vite@8.3.6":
   version "8.3.6"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.3.6.tgz#0d76ea94e094c22483297bceff5488a0ed6f4e4d"
   integrity sha512-AF4+oFe1mvIHrLvaYsv8B0YSlXQtSlKTKwrXnUbcAbeGRwMmFKA1t3VyAcXV0yB9MtZ8YJsA/uKRkgGEaN7wJQ==
@@ -1815,6 +1815,15 @@
     find-cache-dir "^3.0.0"
     fs-extra "^11.1.0"
     magic-string "^0.30.0"
+    ts-dedent "^2.0.0"
+
+"@storybook/builder-vite@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.4.0.tgz#e606fb7d760a775a98bd2ee1a59c788bf3b661ad"
+  integrity sha512-V1CjAumq1Xkj077MT1A7o00GOdewwQTE2LxhThUaB/qND+sApCaBbB3+jjfz147bu9IFn2esV3k5oLjiwqgUKw==
+  dependencies:
+    "@storybook/csf-plugin" "8.4.0"
+    browser-assert "^1.2.1"
     ts-dedent "^2.0.0"
 
 "@storybook/components@^8.3.6", "@storybook/components@^8.4.0":
@@ -1843,6 +1852,13 @@
   version "8.3.6"
   resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-8.3.6.tgz#8e6fd04f1dd4662f85f6c1e8fa56d4331f3be4c7"
   integrity sha512-TJyJPFejO6Gyr3+bXqE/+LomQbivvfHEbee/GwtlRj0XF4KQlqnvuEdEdcK25JbD0NXT8AbyncEUmjoxE7ojQw==
+  dependencies:
+    unplugin "^1.3.1"
+
+"@storybook/csf-plugin@8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@storybook/csf-plugin/-/csf-plugin-8.4.0.tgz#e4271760cf9461e4f06d5b815b17bb16ac8ed77f"
+  integrity sha512-l4vD1XboHh3nFOvcCIjoTED6bQZtRx+T/CUFfuZu3KEA7uJnXt/kUCXair9+Cgky9XvSEMvBPhoqa2dRx9ibBQ==
   dependencies:
     unplugin "^1.3.1"
 
