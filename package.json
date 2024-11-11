@@ -68,7 +68,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
-    "wrangler": "^3.85.0"
+    "wrangler": "^3.86.0"
   },
   "resolutions": {
     "plotly.js/d3-interpolate/d3-color": "3.1.0",
