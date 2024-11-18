@@ -1794,10 +1794,10 @@
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-8.4.3.tgz#830f91317da80ffe6b9ab7321a90b3afe2602585"
   integrity sha512-5+krpYrKC0aLUlkfhKLR78Yrai0S9AP7SR3jXMpyuWIny0fIKn+Ak2IQ721A6RGW+zP02GR6/wLHI+A7CDpcAg==
 
-"@storybook/core@8.4.3":
-  version "8.4.3"
-  resolved "https://registry.yarnpkg.com/@storybook/core/-/core-8.4.3.tgz#218b68087c955d6ee6eaf1d454855e87da45087a"
-  integrity sha512-Ly4sR2gU2Xxu+O0qR4RJpq+Bs45Kv0JPlzdkoTDKQD8B2ozRAdvQLgBHjnBbUYw9jUPzC96uusqTJIBxIdBi7w==
+"@storybook/core@8.4.4":
+  version "8.4.4"
+  resolved "https://registry.yarnpkg.com/@storybook/core/-/core-8.4.4.tgz#9da9d630869d3b888145d5dfd22127a93f207417"
+  integrity sha512-WjTmJpsHsFCd7tQ/8jFpDWjhntauXcWYYTcEZk56Pq4miyNrrXhV0S80Gxv3Uvzk0jocgtT2AKf8rQuH2UkQEg==
   dependencies:
     "@storybook/csf" "^0.1.11"
     better-opn "^3.0.2"
@@ -8277,12 +8277,12 @@ stoppable@^1.1.0:
   resolved "https://registry.yarnpkg.com/stoppable/-/stoppable-1.1.0.tgz#32da568e83ea488b08e4d7ea2c3bcc9d75015d5b"
   integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
 
-storybook@^8.4.3:
-  version "8.4.3"
-  resolved "https://registry.yarnpkg.com/storybook/-/storybook-8.4.3.tgz#2e281f54aa54f082aee7ed9c00c7b6504f247791"
-  integrity sha512-n+6ME+APinsx0zjNTmx3SntJ4iCgoTK7TsxUC8+op/rUAA8hNbD+/NT7Qx/F5peHNchVeVFGtebPDAHU9g1M/Q==
+storybook@^8.4.4:
+  version "8.4.4"
+  resolved "https://registry.yarnpkg.com/storybook/-/storybook-8.4.4.tgz#33fff732a79219866871e4f722ebcd82109b254a"
+  integrity sha512-xBOq3q/MuUUg3zM0imMMaK5ziKq3TO388jsnaiemJ4Uf0ZGwcHjM8HDBCDt0s5/CfsOQ49zo1ouZ3aNlu0qsUg==
   dependencies:
-    "@storybook/core" "8.4.3"
+    "@storybook/core" "8.4.4"
 
 stream-parser@~0.3.1:
   version "0.3.1"
