@@ -1760,12 +1760,21 @@
     "@storybook/icons" "^1.2.12"
     ts-dedent "^2.0.0"
 
-"@storybook/builder-vite@8.4.6", "@storybook/builder-vite@^8.4.6":
+"@storybook/builder-vite@8.4.6":
   version "8.4.6"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.4.6.tgz#23ef94d307a7292407852b8e15f1d299b675908a"
   integrity sha512-PyJsaEPyuRFFEplpNUi+nbuJd7d1DC2dAZjpsaHTXyqg5iPIbkIgsbCJLUDeIXnUDqM/utjmMpN0sQKJuhIc6w==
   dependencies:
     "@storybook/csf-plugin" "8.4.6"
+    browser-assert "^1.2.1"
+    ts-dedent "^2.0.0"
+
+"@storybook/builder-vite@^8.4.7":
+  version "8.4.7"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-8.4.7.tgz#3d6d542fa1f46fce5ee7a159dc8491cb4421254d"
+  integrity sha512-LovyXG5VM0w7CovI/k56ZZyWCveQFVDl0m7WwetpmMh2mmFJ+uPQ35BBsgTvTfc8RHi+9Q3F58qP1MQSByXi9g==
+  dependencies:
+    "@storybook/csf-plugin" "8.4.7"
     browser-assert "^1.2.1"
     ts-dedent "^2.0.0"
 
